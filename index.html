@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
+    <link href="styles/main.css" rel="stylesheet" />
+
+    <script src="cordova.js"></script>
+    <script src="kendo/js/jquery.min.js"></script>
+    <script src="kendo/js/kendo.mobile.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
+
+    <!--<script src="scripts/login.js"></script>-->
+    <script src="scripts/app.js"></script>
+
+</head>
+<body>
+    
+    
+    
+    <div id="tabstrip-vaccines" data-role="view" data-layout="Layout1">
+        <h1>Upcoming vaccines</h1>
+        <p>Hello, user. In this tab you will find which are the next vaccines that you need to take.</p>
+        <ul data-id="vaccinelist" data-role="listview" data-style="inset">
+            <button href="#add-vaccine-view">bubi</button>
+            <li data-icon="add" href="#add-vaccine-view">Add vaccine...</li>
+            
+        </ul>
+        
+        
+    </div>
+    <div id="tabstrip-prescriptions" data-role="view" data-layout="Layout1">
+        <h1>Prescriptions</h1>
+        <p>Hello, user. In this tab you will find the notes or prescriptions given to you by your doctor.</p>
+        <ul data-id="prescriptionlist" data-role="listview" data-style="inset">
+            <li data-icon="add">Add prescription...</li>
+        </ul>
+    </div>
+    <div id="add-vaccine-view" data-role="view" data-layout="Layout2">
+        <h1>New vaccine</h1>
+        <p>Add a new vaccine to your schedule by introducing the following data.</p>
+        <ul data-id="vaccine-entries" data-role="listview" data-style="inset">
+            <li data-icon="contacts">foo</li>
+        </ul>
+        
+    </div>
+    
+    
+    <!-- LAYOUT -->
+    <!-- Elements contained in the layout are shared between views -->
+        
+    <div data-id="Layout1" data-role="layout">
+    <div data-role="header"></div>        
+        <div data-role="footer">
+            <div data-role="tabstrip">
+                <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Upcoming vaccines</a>
+                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
+            </div>
+        </div>
+    </div>
+    <div data-id="Layout2" data-role="layout">
+        
+    </div>
+    
+</body>
+</html>
