@@ -1,11 +1,30 @@
-/* WRAPPER USED TO CENTER BUTTONS ON THE SCREEN */
-.wrapper-center{
-    text-align: center;
+@font-face{
+    font-family: 'VacAppFont';
+    src: url('quicksand.eot');
+    src: url('quicksand.ttf') format('woff'), url('quicksand.woff') format('truetype');
 }
 
 /* NO UNDERLINED LINKS */
 a{
     text-decoration: none;
+}
+
+/* WRAPPER USED TO CENTER THE ELEMENTS ON THE SCREEN */
+.wrapper-center{
+    text-align: center;
+}
+
+/* STYLE OF THE HEADER FOR THE LAYOUTS */
+.header{
+    background-color:rgb(88,220,145);
+    font-family:VacAppFont;
+    font-size:180%;
+    color:rgb(255,255,255);
+    height:10%;
+}
+
+.footer-text{
+    padding-top:2.5%;
 }
 
 /* VIEW TO ADD NEW PRESCRIPTIONS */

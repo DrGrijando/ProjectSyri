@@ -69,8 +69,10 @@
     <!-- LAYOUT -->
     <!-- Elements contained in the layout are shared between views -->
         
-    <div data-id="Layout1" data-role="layout">    		
-        <div data-role="header"></div>
+    <div data-id="Layout1" data-role="layout" height="100%">    		
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
         <div data-role="footer">
             <div data-role="tabstrip">
                 <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Upcoming vaccines</a>
@@ -79,7 +81,9 @@
         </div>
     </div>
     <div data-id="Layout2" data-role="layout">
-        <div data-role="header"></div>
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
         <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="add" onclick="addVaccine();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
