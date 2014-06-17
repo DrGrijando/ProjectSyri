@@ -9,11 +9,9 @@
     <script src="cordova.js"></script>
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=true"></script>
-
-    <!--<script src="scripts/login.js"></script>-->
+    
     <script src="scripts/app.js"></script>
-    <script src="scripts/functions.js"></script>
+    <script type="text/javascript" src="scripts/functions.js"></script>
     
 </head>
 <body>
@@ -22,8 +20,8 @@
     <div id="tabstrip-vaccines" data-role="view" data-layout="Layout1">
         <h1>Upcoming vaccines</h1>
         <p>Hello, user. In this tab you will find which are the next vaccines that you need to take.</p>
-        <ul data-id="vaccinelist" data-role="listview" data-style="inset">
-            <li data-icon="add" data-id="add-vaccine-listitem">
+        <ul id="vaccine-list" data-role="listview" data-style="inset">
+            <li data-icon="add" id="add-vaccine-listitem">
                 <a href="#add-vaccine-view" data-transition="slide">Add vaccine...</a>
             </li>
         </ul>       
@@ -33,8 +31,8 @@
     <div id="tabstrip-prescriptions" data-role="view" data-layout="Layout1">
         <h1>Prescriptions</h1>
         <p>Hello, user. In this tab you will find the notes or prescriptions given to you by your doctor.</p>
-        <ul data-id="prescriptionlist" data-role="listview" data-style="inset">
-            <li data-icon="add" data-id="add-prescription-listitem">
+        <ul id="prescription-list" data-role="listview" data-style="inset">
+            <li data-icon="add" id="add-prescription-listitem">
                 <a href="#add-prescription-view" data-transition="slide">Add prescription...</a>
             </li>
         </ul>
@@ -44,12 +42,12 @@
     <div id="add-vaccine-view" data-role="view" data-layout="Layout2">
         <h1>New vaccine</h1>
         <p>Add a new vaccine to your schedule by introducing the following data.</p>
-        <ul data-id="vaccine-entries" data-role="listview" data-style="inset">
+        <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input type="text" value="Vaccine for..." />
+                <input id="new-vaccine-title" type="text" value="Vaccine for..." />
             </li>
             <li data-icon="recents">
-                <input type="date" value="Enter the date..." />
+                <input id="new-vaccine-date" type="date" value="Enter the date..." />
             </li>
         </ul>
     </div>
@@ -58,7 +56,7 @@
     <div id="add-prescription-view" data-role="view" data-layout="Layout2">
         <h1>New prescription</h1>
         <p>Add a new prescription for a recent vaccine or medication.</p>
-        <ul data-id="prescription-entries" data-role="listview" data-style="inset">
+        <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
                 <input type="text" value="Title" />
             </li>
@@ -83,10 +81,10 @@
     <div data-id="Layout2" data-role="layout">
         <div data-role="header"></div>
         <div class="wrapper-center" data-role="footer">
-            <a data-role="button" data-icon="add" href="">Save</a>
+            <a data-role="button" data-icon="add" onclick="addVaccine();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
-            <a data-role="button" data-icon="reply" href="#" onclick="history.go(-1)" data-transition="slide-right">Cancel</a>
+            <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
     </div>
     
