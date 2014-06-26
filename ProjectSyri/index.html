@@ -53,7 +53,7 @@
     </div>
     
     <!-- VIEW TO ADD NEW PRESCRIPTIONS -->
-    <div id="add-prescription-view" data-role="view" data-layout="Layout2">
+    <div id="add-prescription-view" data-role="view" data-layout="Layout3">
         <h1>New prescription</h1>
         <p>Add a new prescription for a recent vaccine or medication.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
@@ -91,6 +91,16 @@
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
     </div>
-    
+    <div data-id="Layout3" data-role="layout">
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
+        <div class="wrapper-center" data-role="footer">
+            <a data-role="button" data-icon="add" onclick="addPrescription();">Save</a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
+        </div>
+    </div>
 </body>
 </html>
