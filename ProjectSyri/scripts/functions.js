@@ -1,6 +1,6 @@
 var isVaccineTabSelected = true;
 
-/* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (UNIFIED) */
+/* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (UNIFIED) (NOT USED AT THIS MOMENT) */
 
 function activateVaccines(){
     isVaccineTabSelected = true;
@@ -39,19 +39,39 @@ function addElement(){
 
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (SEPARATED) */
 
-function addVaccine(){
-    var newItem = document.createElement("LI"); // The element type to create must be on capital letters      
-    var newTextNode = document.createTextNode(document.getElementById("new-vaccine-title").value);
-    newItem.appendChild(newTextNode);	// Add the TextNode to the ListItem
-    document.getElementById("vaccine-list").appendChild(newItem);	// Add the ListItem to the specified List
+function addNewVaccine(){
+    var newItem = document.createElement("div");
+    newItem.id = 'newdiv';
+    newItem.className='divider';    
+    
+    var info = document.createElement("div");
+    info.innerHTML=document.getElementById("new-vaccine-title").value;
+    newItem.appendChild(info);	// Add the TextNode to the ListItem
+    
+    info = document.createElement("div");
+    var date = new Date();
+    date = document.getElementById("new-vaccine-date").value;
+    info.innerHTML=date.toString();
+    newItem.appendChild(info);	// Add the TextNode to the ListItem
+    
+    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List   
     goBack();
 }
 
-function addPrescription(){
-    var newItem = document.createElement("LI"); // The element type to create must be on capital letters    
-    var newTextNode = document.createTextNode(document.getElementById("new-prescription-title").value);
-    newItem.appendChild(newTextNode);	// Add the TextNode to the ListItem
-    document.getElementById("prescription-list").appendChild(newItem);	// Add the ListItem to the specified List   
+function addNewPrescription(){
+    var newItem = document.createElement("div");
+    newItem.id = 'newdiv';
+    newItem.className='divider';
+        
+    var info = document.createElement("div");
+    info.innerHTML=document.getElementById("new-prescription-title").value;
+    newItem.appendChild(info);	// Add the TextNode to the ListItem
+    
+    info = document.createElement("div");
+    info.innerHTML=document.getElementById("new-prescription-text").value;
+    newItem.appendChild(info);	// Add the TextNode to the ListItem
+    
+    document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
     goBack();
 }
 
