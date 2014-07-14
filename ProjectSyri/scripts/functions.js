@@ -40,35 +40,46 @@ function addElement(){
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (SEPARATED) */
 
 function addNewVaccine(){
-    var newItem = document.createElement("div");
-    newItem.id = 'newdiv';
-    newItem.className='divider';    
-    
-    var info = document.createElement("div");
-    info.innerHTML=document.getElementById("new-vaccine-title").value;
-    newItem.appendChild(info);	// Add the TextNode to the ListItem
-    
-    info = document.createElement("div");
-    var date = new Date();
-    date = document.getElementById("new-vaccine-date").value;
-    info.innerHTML=date.toString();
-    newItem.appendChild(info);	// Add the TextNode to the ListItem
-    
-    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List   
-    goBack();
+    var title= document.getElementById("new-vaccine-title").value;
+    var date = document.getElementById("new-vaccine-date").value;
+    if(title=="" || date=="")
+    {
+        alert("Enter all the information before saving the data.");
+    }
+    else
+    {
+        var newItem = document.createElement("div");
+        newItem.id = 'newdiv';
+        newItem.className='vaccine-entry';    
+        
+        var info = document.createElement("div");
+        info.innerHTML=title;
+        info.className='vaccine-title';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=date;
+        info.className='vaccine-date';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
+        goBack();
+    }    
 }
 
 function addNewPrescription(){
     var newItem = document.createElement("div");
     newItem.id = 'newdiv';
-    newItem.className='divider';
+    newItem.className='prescription-entry';
         
     var info = document.createElement("div");
     info.innerHTML=document.getElementById("new-prescription-title").value;
+    info.className='prescription-title';
     newItem.appendChild(info);	// Add the TextNode to the ListItem
     
     info = document.createElement("div");
     info.innerHTML=document.getElementById("new-prescription-text").value;
+    info.className='prescription-text';
     newItem.appendChild(info);	// Add the TextNode to the ListItem
     
     document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   

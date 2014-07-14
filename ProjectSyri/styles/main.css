@@ -23,13 +23,50 @@ a{
     height:10%;
 }
 
-.footer-text{
-    padding-top:2.5%;
+/* VACCINE ENTRIES */
+.vaccine-entry{
+    background-color:rgb(77,220,145);
+    border-style:outset;
+    border-color:rgb(77,220,145);
 }
 
-/* VIEW TO ADD NEW PRESCRIPTIONS */
+.vaccine-title{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);
+    padding-top:10px;
+    padding-left:15px;
+}
+
+.vaccine-date{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);    
+    padding-bottom:10px;
+    padding-left:15px;
+}
+
+/* PRESCRIPTION ENTRIES */
+.prescription-entry{
+    background-color:rgb(77,220,145);
+    border-style:outset;
+    border-color:rgb(77,220,145);
+}
+
+.prescription-title{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);
+    padding-top:10px;
+    padding-left:15px;
+}
+
 .prescription-text{
-    height: 40px;
+    font-family:VacAppFont;
+    color:rgb(0,0,0);
+    padding-bottom:10px;
+    padding-left:15px;
+}
+
+.footer-text{
+    padding-top:2.5%;
 }
 
 /* IMAGES */
