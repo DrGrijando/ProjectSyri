@@ -38,6 +38,13 @@
         </ul>
     </div>
     
+    <!-- HISTORY TAB -->
+    <div id="tabstrip-history" data-role="view" data-layout="Layout1">
+        <h1>History</h1>
+        <p>Hello, user. In this tab you will find the record for past vaccinations, prescriptions and more.</p>
+    </div>
+    
+    
     <!-- VIEW TO ADD NEW VACCINES -->
     <div id="add-vaccine-view" data-role="view" data-layout="Layout2">
         <h1>New vaccine</h1>
@@ -59,24 +66,32 @@
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
                 <input id="new-prescription-title" type="text" value="Title" />
-            </li>
+            </li>            
+            <li data-icon="recents">
+                <input id="new-prescription-date" type="date" value="Enter the date..." />
+            </li>            
             <li data-icon="bookmarks">
                 <input id="new-prescription-text" type="text" value="Enter the text..." />
             </li>
         </ul>
     </div>
     
+    <!-- OPTIONS VIEW -->
+    <div id="options" data-role="view" data-layout="Layout3"></div>
+    
     <!-- LAYOUT -->
     <!-- Elements contained in the layout are shared between views -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">
+            <a href="" dara-icon="settings"></a>
             <div class="footer-text">VacApp</div>            
         </div>
         <div data-role="footer">
             <div data-role="tabstrip">
-                <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Upcoming vaccines</a>
-                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
+                <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
+                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide:right">Prescriptions</a>
+                <a data-icon="organize" href="#tabstrip-history" data-transition="slide">History</a>
             </div>            
         </div>
     </div>
@@ -102,5 +117,6 @@
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
     </div>
+    
 </body>
 </html>

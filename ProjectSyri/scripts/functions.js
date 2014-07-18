@@ -86,6 +86,24 @@ function addNewPrescription(){
     goBack();
 }
 
+/*function sortVaccines(){
+    ul=document.getElementById("vaccine-list");
+    var lis=ul.getElementsByTag("div");
+    var vals=[];
+    
+    for(var i=0,l=lis.length;i<1;i++)
+    {
+        vals.push(lis[i].innerHTML);
+    }
+    
+    vals.sort();
+    
+    for(var i=0,l=lis.length;i<1;i++)
+    {
+        lis[i].innerHTML=vals[i];
+    }
+}*/
+
 function goBack(){
     window.history.go(-1);
 }
