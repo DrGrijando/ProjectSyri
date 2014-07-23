@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    	
     <title></title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
@@ -15,6 +16,19 @@
     
 </head>
 <body>
+    
+    <!-- LOGIN SCREEN -->
+    <div id="login" data-role="view" data-layout="Layout4">
+        <ul id="login-fields" data-role="listview" data-style="inset">
+            <li data-icon="compose">
+                <input id="user-field" type="text" placeholder="User" />
+            </li>            
+            <li data-icon="recents">
+                <input id="password-field" type="password" placeholder="Password" />
+            </li>
+            <a data-role="button" class="wrapper-center" href="#tabstrip-vaccines">Sign in</a>            
+        </ul>
+    </div>
     
     <!-- VACCINES TAB -->    
     <div id="tabstrip-vaccines" data-role="view" data-layout="Layout1">
@@ -51,10 +65,10 @@
         <p>Add a new vaccine to your schedule by introducing the following data.</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input id="new-vaccine-title" type="text" value="Vaccine for..." />
+                <input id="new-vaccine-title" type="text" placeholder="Vaccine for..." />
             </li>
             <li data-icon="recents">
-                <input id="new-vaccine-date" type="date" value="Enter the date..." />
+                <input id="new-vaccine-date" type="date" placeholder="Enter the date..." />
             </li>
         </ul>
     </div>
@@ -65,13 +79,13 @@
         <p>Add a new prescription for a recent vaccine or medication.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input id="new-prescription-title" type="text" value="Title" />
+                <input id="new-prescription-title" type="text" placeholder="Title" />
             </li>            
             <li data-icon="recents">
-                <input id="new-prescription-date" type="date" value="Enter the date..." />
+                <input id="new-prescription-date" type="date" placeholder="Enter the date..." />
             </li>            
             <li data-icon="bookmarks">
-                <input id="new-prescription-text" type="text" value="Enter the text..." />
+                <input id="new-prescription-text" type="text" placeholder="Enter the text..." />
             </li>
         </ul>
     </div>
@@ -79,7 +93,7 @@
     <!-- OPTIONS VIEW -->
     <div id="options" data-role="view" data-layout="Layout3"></div>
     
-    <!-- LAYOUT -->
+    <!-- LAYOUTS -->
     <!-- Elements contained in the layout are shared between views -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
@@ -95,6 +109,7 @@
             </div>            
         </div>
     </div>
+    
     <div data-id="Layout2" data-role="layout">
         <div class="wrapper-center header" data-role="header">
             <div class="footer-text">VacApp</div>            
@@ -106,6 +121,7 @@
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
     </div>
+    
     <div data-id="Layout3" data-role="layout">
         <div class="wrapper-center header" data-role="header">
             <div class="footer-text">VacApp</div>            
@@ -116,6 +132,13 @@
                  views, because in any case we will go back to the tab we were in -->
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
+    </div>
+    
+    <div data-id="Layout4" data-role="layout">
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
+        <div class="wrapper-center" data-role="footer"></div>
     </div>
     
 </body>
