@@ -15,18 +15,20 @@
     <script type="text/javascript" src="scripts/functions.js"></script>
     
 </head>
-<body>
+<body onload="loadData();">
     
     <!-- LOGIN SCREEN -->
     <div id="login" data-role="view" data-layout="Layout4">
         <ul id="login-fields" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input id="user-field" type="text" placeholder="User" />
+                <input id="login-user-input" type="text" placeholder="User" />
             </li>            
             <li data-icon="recents">
-                <input id="password-field" type="password" placeholder="Password" />
+                <input id="login-password-input" type="password" placeholder="Password" />
             </li>
-            <a data-role="button" class="wrapper-center" href="#tabstrip-vaccines">Sign in</a>            
+            <div class="wrapper-center">
+                <a data-role="button" onclick="saveLoginData();">Sign in</a>            
+            </div>
         </ul>
     </div>
     
@@ -58,6 +60,40 @@
         <p>Hello, user. In this tab you will find the record for past vaccinations, prescriptions and more.</p>
     </div>
     
+    <!-- OPTIONS SCREEN -->
+    <div id="options" data-role="view" data-layout="Layout4">
+        <ul id="option-list" data-role="listview" data-style="inset">
+            <li>
+                <label>
+                    <input type="text" id="options-user-input"/>aaaida user
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="password" id="options-password-input"/>aaaida password
+                </label>
+            </li>
+            <li>
+                <label>
+                    <input type="checkbox" id="checkbox2"/>Option 2
+                </label>
+            </li>
+            <li>
+                <label>
+                    <div>Language</div>
+                    <select>
+                        <option value="esp">Spanish</option>
+                        <option value="cat">Catalan</option>
+                        <option value="eng">English</option>
+                    </select>
+                </label>                
+            </li><br>
+            <div class="wrapper-center">
+                <a data-role="button" onClick="goBack();">Save</a>
+                <a data-role="button" onClick="goBack();">Cancel</a>
+            </div>
+        </ul>
+    </div>    
     
     <!-- VIEW TO ADD NEW VACCINES -->
     <div id="add-vaccine-view" data-role="view" data-layout="Layout2">
@@ -90,15 +126,12 @@
         </ul>
     </div>
     
-    <!-- OPTIONS VIEW -->
-    <div id="options" data-role="view" data-layout="Layout3"></div>
-    
     <!-- LAYOUTS -->
     <!-- Elements contained in the layout are shared between views -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">
-            <a href="" dara-icon="settings"></a>
+            <a data-role="button" href="#options" data-icon="settings" onclick="loadData();">settings</a>
             <div class="footer-text">VacApp</div>            
         </div>
         <div data-role="footer">

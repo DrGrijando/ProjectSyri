@@ -1,5 +1,6 @@
 var isVaccineTabSelected = true;
-
+var user;
+var password;
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (UNIFIED) (NOT USED AT THIS MOMENT) */
 
 function activateVaccines(){
@@ -104,7 +105,43 @@ function addNewPrescription(){
     }
 }*/
 
+function saveLoginData(){
+    user=document.getElementById("login-user-input").value;
+    password=document.getElementById("login-password-input").value;
+    
+    if((user=="")&&(password==""))
+    {
+        alert("Please, enter the required information before proceeding.");
+    }
+    else if(user=="")
+    {
+        alert("Please, enter your user email before proceeding.");
+    }
+    else if(password=="")
+    {
+        alert("Please, enter your password before proceeding.");
+    }
+    else
+    {
+        localStorage.setItem("user",document.getElementById("login-user-input").value);
+        localStorage.setItem("password",document.getElementById("login-password-input").value);    
+        document.location.href="#tabstrip-vaccines";
+    }
+}
+
+function loadData(){
+    user=localStorage.getItem("user");
+    password=localStorage.getItem("password");
+    
+    if((user!=null)&&(password!=null))
+    {
+        document.getElementById("login-user-input").value=user;
+        document.getElementById("options-user-input").value=user;
+        document.getElementById("login-password-input").value=password;
+        document.getElementById("options-password-input").value=password;
+    }
+}
+
 function goBack(){
     window.history.go(-1);
 }
-
