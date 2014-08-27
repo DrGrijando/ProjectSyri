@@ -58,6 +58,13 @@ a{
     padding-left:15px;
 }
 
+.prescription-date{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);    
+    padding-bottom:10px;
+    padding-left:15px;
+}
+
 .prescription-text{
     font-family:VacAppFont;
     color:rgb(0,0,0);

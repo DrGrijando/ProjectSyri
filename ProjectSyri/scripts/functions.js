@@ -1,44 +1,8 @@
 var isVaccineTabSelected = true;
 var user;
 var password;
-/* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (UNIFIED) (NOT USED AT THIS MOMENT) */
 
-function activateVaccines(){
-    isVaccineTabSelected = true;
-}
-
-function activatePrescriptions(){
-    isVaccineTabSelected = false;
-}
-
-function addElement(){
-    var auxString;
-    var newItem = document.createElement("LI"); // The element type to create must be on capital letters
-    
-    if(isVaccineTabSelected == true)
-    {
-        auxString = document.getElementById("new-vaccine-title").value;
-    }
-    else    
-    {
-        auxString = document.getElementById("new-prescription-title").value;
-    }    
-    
-    var newTextNode = document.createTextNode(auxString);
-    newItem.appendChild(newTextNode);	// Add the TextNode to the ListItem
-    
-    if(isVaccineTabSelected == true)
-    {
-        document.getElementById("vaccine-list").appendChild(newItem);	// Add the ListItem to the specified List
-    }
-    else    
-    {
-        document.getElementById("prescription-list").appendChild(newItem);	// Add the ListItem to the specified List   
-    }
-    goBack();
-}
-
-/* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION (SEPARATED) */
+/* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION */
 
 function addNewVaccine(){
     var title= document.getElementById("new-vaccine-title").value;
@@ -63,28 +27,62 @@ function addNewVaccine(){
         info.className='vaccine-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
-        document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
+        document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
+        
+        // Store the new vaccine in the localStorage
+        var vaccineToStore={"title":title,"date":date}
+        count=localStorage.getItem("vaccineCount");
+        
+        localStorage.setItem("vaccine"+count,JSON.stringify(vaccineToStore));        
+        count++;
+        localStorage.setItem("vaccineCount",count);
+        
         goBack();
     }    
 }
 
 function addNewPrescription(){
-    var newItem = document.createElement("div");
-    newItem.id = 'newdiv';
-    newItem.className='prescription-entry';
+    var title= document.getElementById("new-prescription-title").value;
+    var date = document.getElementById("new-prescription-date").value;
+    var text = document.getElementById("new-prescription-text").value;
+    
+    if(title=="" || date=="" || text=="")
+    {
+        alert("Enter all the information before saving the data.");
+    }
+    else
+    {
+        var newItem = document.createElement("div");
+        newItem.id = 'newdiv';
+        newItem.className='prescription-entry';
         
-    var info = document.createElement("div");
-    info.innerHTML=document.getElementById("new-prescription-title").value;
-    info.className='prescription-title';
-    newItem.appendChild(info);	// Add the TextNode to the ListItem
-    
-    info = document.createElement("div");
-    info.innerHTML=document.getElementById("new-prescription-text").value;
-    info.className='prescription-text';
-    newItem.appendChild(info);	// Add the TextNode to the ListItem
-    
-    document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
-    goBack();
+        var info = document.createElement("div");
+        info.innerHTML=title;
+        info.className='prescription-title';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=date;
+        info.className='prescription-date';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem   
+        
+        info = document.createElement("div");
+        info.innerHTML=text;
+        info.className='prescription-text';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem   
+        
+        document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
+        
+        var prescriptionToStore={"title":title,"date":date,"text":text}
+        count=localStorage.getItem("prescriptionCount");
+        
+        // Store the new prescription in the localStorage
+        localStorage.setItem("prescription"+count,JSON.stringify(prescriptionToStore));        
+        count++;
+        localStorage.setItem("prescriptionCount",count);
+        
+        goBack();
+        }
 }
 
 /*function sortVaccines(){
@@ -123,15 +121,16 @@ function saveLoginData(){
     }
     else
     {
-        localStorage.setItem("user",document.getElementById("login-user-input").value);
-        localStorage.setItem("password",document.getElementById("login-password-input").value);    
+        window.localStorage.setItem("user",document.getElementById("login-user-input").value);
+        window.localStorage.setItem("password",document.getElementById("login-password-input").value);    
         document.location.href="#tabstrip-vaccines";
+        
     }
 }
 
 function loadData(){
-    user=localStorage.getItem("user");
-    password=localStorage.getItem("password");
+    user=window.localStorage.getItem("user");
+    password=window.localStorage.getItem("password");
     
     if((user!=null)&&(password!=null))
     {
@@ -140,6 +139,14 @@ function loadData(){
         document.getElementById("login-password-input").value=password;
         document.getElementById("options-password-input").value=password;
     }
+}
+
+function notificationsTest(){
+    window.plugin.notification.local.add({
+        id: 1,
+        title: "Cheer up, boys!",
+        message: "Notifications are running!"
+    });
 }
 
 function goBack(){
