@@ -19,17 +19,19 @@
     
     <!-- LOGIN SCREEN -->
     <div id="login" data-role="view" data-layout="Layout4">
-        <ul id="login-fields" data-role="listview" data-style="inset">
+        <ul id="login-fields" data-role="listview">
             <li data-icon="compose">
-                <input id="login-user-input" type="text" placeholder="User" />
+                <input id="login-user-input" type="text" placeholder="User" onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="recents">
-                <input id="login-password-input" type="password" placeholder="Password" />
+                <input id="login-password-input" type="password" placeholder="Password" onclick="resetInputBackground();"/>
             </li>
-        </ul><br>
-        
+        </ul>
+        <br>
+        <div id="login-error-text" class="login-error">Ok</div>
         <div class="wrapper-center">
-            <a data-role="button" onclick="saveLoginData();">Sign in</a>
+            <a data-role="button" onclick="login();">Sign in</a>
+            <a data-role="button" onclick="deleteLoginInfo();">Delete login</a>
             <a data-role="button" onclick="notificationsTest();">Test notifications</a>
         </div>
     </div>

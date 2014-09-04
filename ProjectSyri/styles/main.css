@@ -23,6 +23,16 @@ a{
     height:10%;
 }
 
+input:focus{
+    background-color:rgb(255,255,255) !important;
+    -webkit-transition: background-color 500ms linear;
+}
+
+.login-error{    
+    text-align: center;
+    color:rgb(255,255,255);
+}
+
 /* VACCINE ENTRIES */
 .vaccine-entry{
     background-color:rgb(77,220,145);

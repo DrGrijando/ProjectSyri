@@ -82,7 +82,7 @@ function addNewPrescription(){
         localStorage.setItem("prescriptionCount",count);
         
         goBack();
-        }
+    }
 }
 
 /*function sortVaccines(){
@@ -103,28 +103,71 @@ function addNewPrescription(){
     }
 }*/
 
-function saveLoginData(){
-    user=document.getElementById("login-user-input").value;
-    password=document.getElementById("login-password-input").value;
+function login(){
+    user=localStorage.getItem("loginUser");
+    password=localStorage.getItem("loginPassword");
     
-    if((user=="")&&(password==""))
+    if((user==null)||(password==null))
     {
-        alert("Please, enter the required information before proceeding.");
-    }
-    else if(user=="")
-    {
-        alert("Please, enter your user email before proceeding.");
-    }
-    else if(password=="")
-    {
-        alert("Please, enter your password before proceeding.");
+        user=document.getElementById("login-user-input").value;
+        password=document.getElementById("login-password-input").value;
+        
+        if((user=="")&&(password==""))
+        {
+            document.getElementById("login-user-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-password-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Information missing.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";
+        }
+        else if(user=="")
+        {
+            document.getElementById("login-user-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Please, enter your user email before proceeding.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
+        }
+        else if(password=="")
+        {
+            document.getElementById("login-password-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Please, enter your password before proceeding.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
+        }
+        else
+        {
+            window.localStorage.setItem("loginUser",document.getElementById("login-user-input").value);
+            window.localStorage.setItem("loginPassword",document.getElementById("login-password-input").value);    
+            document.location.href="#tabstrip-vaccines";
+        }
     }
     else
     {
-        window.localStorage.setItem("user",document.getElementById("login-user-input").value);
-        window.localStorage.setItem("password",document.getElementById("login-password-input").value);    
-        document.location.href="#tabstrip-vaccines";
-        
+        if((user==document.getElementById("login-user-input").value)&&(password==document.getElementById("login-password-input").value))
+        {
+            document.location.href="#tabstrip-vaccines";
+        }
+        else if((document.getElementById("login-user-input").value=="")&&(document.getElementById("login-password-input").value==""))
+        {
+            document.getElementById("login-user-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-password-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Information missing.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";
+        }
+        else if(document.getElementById("login-user-input").value=="")
+        {
+            document.getElementById("login-user-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Please, enter your user email before proceeding.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
+        }
+        else if(document.getElementById("login-password-input").value=="")
+        {
+            document.getElementById("login-password-input").style.cssText="background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+            document.getElementById("login-error-text").innerHTML="Please, enter your password before proceeding.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
+        }
+        else
+        {
+            document.getElementById("login-error-text").innerHTML="Wrong user name and/or password. Please, try again.";
+            document.getElementById("login-error-text").style.cssText="text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
+        }
     }
 }
 
@@ -147,6 +190,16 @@ function notificationsTest(){
         title: "Cheer up, boys!",
         message: "Notifications are running!"
     });
+}
+
+function resetInputBackground(){
+    document.getElementById(window.event.srcElement.id).style.cssText="background-color:rgb(255,255,255) !important;-webkit-transition: background-color 500ms linear;";
+}
+
+function deleteLoginInfo(){
+    localStorage.removeItem("loginUser");
+    localStorage.removeItem("loginPassword");
+    alert("User and password deleted.");
 }
 
 function goBack(){
