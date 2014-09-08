@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head>
-    	
+<head>    	
     <title></title>
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
@@ -42,7 +41,7 @@
         <p>Hello, user. In this tab you will find which are the next vaccines that you need to take.</p>
         <ul id="vaccine-list" data-role="listview" data-style="inset">
             <li data-icon="add" id="add-vaccine-listitem">
-                <a href="#add-vaccine-view" data-transition="slide">Add vaccine...</a>
+                <a id="add-vaccine-button" href="#add-vaccine-view" data-transition="slide" onclick="defaultData();">Add vaccine...</a>
             </li>
         </ul>       
     </div>
@@ -53,7 +52,7 @@
         <p>Hello, user. In this tab you will find the notes or prescriptions given to you by your doctor.</p>
         <ul id="prescription-list" data-role="listview" data-style="inset">
             <li data-icon="add" id="add-prescription-listitem">
-                <a href="#add-prescription-view" data-transition="slide">Add prescription...</a>
+                <a id="add-prescription-button" href="#add-prescription-view" data-transition="slide" onclick="defaultData();">Add prescription...</a>
             </li>
         </ul>
     </div>
@@ -123,15 +122,74 @@
             </li>            
             <li data-icon="recents">
                 <input id="new-prescription-date" type="date" placeholder="Enter the date..." />
-            </li>            
+            </li>
+            <li data-icon="recents">
+                <input id="new-prescription-final-date" type="date" placeholder="Enter when the treatment ends..." />
+            </li>
+            
+            
+            
             <li data-icon="bookmarks">
-                <input id="new-prescription-text" type="text" placeholder="Enter the text..." />
+                <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
+            </li>
+        </ul>
+        
+        <div id="new-prescription-dose-block">
+            <input id="new-prescription-dose-takes" class="new-prescription-dose-input" type="text"/>
+            <select id="new-prescription-dose-takes-measure">
+                <option value="pills">pills</option>
+                <option value="ml">ml</option>
+            </select>
+            <input id="new-prescription-dose-frequency" class="new-prescription-dose-input" type="text"/>
+            <select id="new-prescription-dose-frequency-measure">
+                <option value="hours">hours</option>
+                <option value="days">day(s)</option>
+            </select>
+        </div>
+        
+    </div>
+    
+    <!-- VIEW TO SEE DETAILED VACCINES -->
+    <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5" data-transition="slide:down">
+        <h1>Vaccine</h1>
+        <p>See all the information of your vaccines just touching them</p>
+        <ul id="vaccine-entries" data-role="listview" data-style="inset">
+            <li data-icon="compose">
+                <span id="detailed-vaccine-title"></span>
+            </li>
+            <li data-icon="recents">
+                <span id="detailed-vaccine-date" type="date"></span>
             </li>
         </ul>
     </div>
     
+    <!-- VIEW TO SEE DETAILED PRESCRIPTIONS -->
+    <div id="detailed-prescription-view" data-role="view" data-layout="Layout6" data-transition="slide:down">
+        <h1>Prescription</h1>
+        <p>See all the information of your prescriptions just touching them.</p>
+        <ul id="prescription-entries" data-role="listview" data-style="inset">
+            <li data-icon="compose">
+                <span id="detailed-prescription-title"></span>
+            </li>            
+            <li data-icon="recents">
+                <span id="detailed-prescription-date"></span>
+            </li>
+            <li data-icon="recents">
+                <span id="detailed-prescription-final-date"></span>
+            </li>
+            <li data-icon="info">
+                <span id="detailed-dose-info"></span>
+            </li>
+            <li data-icon="bookmarks">
+                <textarea id="detailed-prescription-text" readonly></textarea>
+            </li>
+        </ul>        
+    </div>
+        
     <!-- LAYOUTS -->
     <!-- Elements contained in the layout are shared between views -->
+    <!-- Layout 1: tab layout --> <!-- Layout 2: add vaccines --> <!-- Layout 3: add prescriptions -->
+    <!-- Layout 4: without buttons --> <!-- Layout 5: detailed vaccines --> <!-- Layout 6: detailed prescriptions -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">
@@ -141,8 +199,8 @@
         <div data-role="footer">
             <div data-role="tabstrip">
                 <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
-                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide:right">Prescriptions</a>
-                <a data-icon="organize" href="#tabstrip-history" data-transition="slide">History</a>
+                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
+                <a data-icon="organize" href="#tabstrip-history" data-transition="slide:left">History</a>
             </div>            
         </div>
     </div>
@@ -176,6 +234,31 @@
             <div class="footer-text">VacApp</div>            
         </div>
         <div class="wrapper-center" data-role="footer"></div>
+    </div>
+    
+    <div data-id="Layout5" data-role="layout">
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
+        <div class="wrapper-center" data-role="footer">
+            <a data-role="button" data-icon="fastforward" onclick="moveToHistory();">Move to history</a>
+            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+        </div>
+    </div>
+    
+    <div data-id="Layout6" data-role="layout">
+        <div class="wrapper-center header" data-role="header">
+            <div class="footer-text">VacApp</div>            
+        </div>
+        <div class="wrapper-center" data-role="footer">
+            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+        </div>
     </div>
     
 </body>

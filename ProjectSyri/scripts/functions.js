@@ -27,6 +27,8 @@ function addNewVaccine(){
         info.className='vaccine-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
+        newItem.onclick=viewDetailedVaccine;
+        
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Store the new vaccine in the localStorage
@@ -44,7 +46,13 @@ function addNewVaccine(){
 function addNewPrescription(){
     var title= document.getElementById("new-prescription-title").value;
     var date = document.getElementById("new-prescription-date").value;
+    var finalDate = document.getElementById("new-prescription-final-date").value;
+    var doseTakes=document.getElementById("new-prescription-dose-takes").value;
+    var doseTakesMeasure=document.getElementById("new-prescription-dose-takes-measure").value;
+    var doseFrequency=document.getElementById("new-prescription-dose-frequency").value;
+    var doseFrequencyMeasure=document.getElementById("new-prescription-dose-frequency-measure").value;
     var text = document.getElementById("new-prescription-text").value;
+    
     
     if(title=="" || date=="" || text=="")
     {
@@ -65,15 +73,19 @@ function addNewPrescription(){
         info.innerHTML=date;
         info.className='prescription-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem   
-        
+                
         info = document.createElement("div");
         info.innerHTML=text;
         info.className='prescription-text';
         newItem.appendChild(info);	// Add the TextNode to the ListItem   
         
+        newItem.onclick=viewDetailedPrescription;
+        
         document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
         
-        var prescriptionToStore={"title":title,"date":date,"text":text}
+        var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
+            "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text}
         count=localStorage.getItem("prescriptionCount");
         
         // Store the new prescription in the localStorage
@@ -196,10 +208,39 @@ function resetInputBackground(){
     document.getElementById(window.event.srcElement.id).style.cssText="background-color:rgb(255,255,255) !important;-webkit-transition: background-color 500ms linear;";
 }
 
+function defaultData(){
+    var obj = document.getElementById(window.event.srcElement.id);
+    var date=new Date();
+    
+    if(obj.id=="add-vaccine-button")
+    {
+        document.getElementById("new-vaccine-title").value="";
+        document.getElementById("new-vaccine-date").value=date.toISOString().split("T")[0];
+    }
+    else if(obj.id=="add-prescription-button")
+    {
+        document.getElementById("new-prescription-title").value="";
+        document.getElementById("new-prescription-date").value=date.toISOString().split("T")[0];
+        document.getElementById("new-prescription-text").value="";
+    }
+}
+
 function deleteLoginInfo(){
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginPassword");
     alert("User and password deleted.");
+}
+
+function viewDetailedVaccine(){
+    document.location.href="#detailed-vaccine-view";    
+}
+
+function viewDetailedPrescription(){
+    document.location.href="#detailed-prescription-view";
+}
+
+function deleteElement(){
+    
 }
 
 function goBack(){

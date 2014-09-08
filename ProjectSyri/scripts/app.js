@@ -40,6 +40,8 @@
                     info.className='vaccine-date';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
+                    newItem.onclick=viewDetailedVaccine;
+                    
                     document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List                
                 }
             }
@@ -75,6 +77,8 @@
                     info.innerHTML=obj.text;
                     info.className='prescription-text';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedPrescription;
                     
                     document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List
                 }
