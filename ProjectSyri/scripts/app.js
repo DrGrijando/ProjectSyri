@@ -24,6 +24,7 @@
             {
                 if((localStorage.key(i).indexOf("vaccine") > -1)&&(localStorage.key(i)!="vaccineCount"))
                 {
+                    var ebj=localStorage.getItem(localStorage.key(i));
                     var obj=JSON.parse(localStorage.getItem(localStorage.key(i)));
                     
                     var newItem = document.createElement("div");

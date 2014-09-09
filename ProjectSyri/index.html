@@ -192,9 +192,9 @@
     <!-- Layout 4: without buttons --> <!-- Layout 5: detailed vaccines --> <!-- Layout 6: detailed prescriptions -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
-        <div class="wrapper-center header" data-role="header">
-            <a data-role="button" href="#options" data-icon="settings" onclick="loadData();">settings</a>
-            <div class="footer-text">VacApp</div>            
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
+            <snap class="footer-text app-name">VacApp</snap>            
         </div>
         <div data-role="footer">
             <div data-role="tabstrip">
@@ -206,8 +206,9 @@
     </div>
     
     <div data-id="Layout2" data-role="layout">
-        <div class="wrapper-center header" data-role="header">
-            <div class="footer-text">VacApp</div>            
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
+            <snap class="footer-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="add" onclick="addNewVaccine();">Save</a>
@@ -218,8 +219,9 @@
     </div>
     
     <div data-id="Layout3" data-role="layout">
-        <div class="wrapper-center header" data-role="header">
-            <div class="footer-text">VacApp</div>            
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
+            <snap class="footer-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="add" onclick="addNewPrescription();">Save</a>
@@ -229,7 +231,7 @@
         </div>
     </div>
     
-    <div data-id="Layout4" data-role="layout">
+    <div data-id="Layout4" data-role="layout">        
         <div class="wrapper-center header" data-role="header">
             <div class="footer-text">VacApp</div>            
         </div>
@@ -237,8 +239,9 @@
     </div>
     
     <div data-id="Layout5" data-role="layout">
-        <div class="wrapper-center header" data-role="header">
-            <div class="footer-text">VacApp</div>            
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
+            <snap class="footer-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="fastforward" onclick="moveToHistory();">Move to history</a>
@@ -250,8 +253,9 @@
     </div>
     
     <div data-id="Layout6" data-role="layout">
-        <div class="wrapper-center header" data-role="header">
-            <div class="footer-text">VacApp</div>            
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
+            <snap class="footer-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
