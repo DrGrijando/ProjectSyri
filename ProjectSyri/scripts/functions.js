@@ -14,7 +14,8 @@ function addNewVaccine(){
     else
     {
         var newItem = document.createElement("div");
-        newItem.id = 'newdiv';
+        var id=title.concat(date).replace(/-| /g,'');
+        newItem.id = id;
         newItem.className='vaccine-entry';    
         
         var info = document.createElement("div");
@@ -32,13 +33,17 @@ function addNewVaccine(){
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Store the new vaccine in the localStorage
-        var vaccineToStore={"title":title,"date":date}
-        count=localStorage.getItem("vaccineCount");
+        var vaccineToStore={"title":title,"date":date,"id":id}
+        var str=localStorage.getItem("vaccines")+"+"+JSON.stringify(vaccineToStore);
+        localStorage.setItem("vaccines",str);
+        
+        vaccines=localStorage.getItem("vaccines").split("+"); // Load vaccines in the local array
+        /*count=localStorage.getItem("vaccineCount");
         
         localStorage.setItem("vaccine"+count,JSON.stringify(vaccineToStore));        
         count++;
         localStorage.setItem("vaccineCount",count);
-        
+        */
         goBack();
     }    
 }
@@ -54,14 +59,15 @@ function addNewPrescription(){
     var text = document.getElementById("new-prescription-text").value;
     
     
-    if(title=="" || date=="" || text=="")
+    if(title=="" || date=="" || finalDate=="" || doseTakes=="" || doseTakesMeasure=="" ||doseFrequency==""||doseFrequencyMeasure=="" ||text=="")
     {
         alert("Enter all the information before saving the data.");
     }
     else
     {
         var newItem = document.createElement("div");
-        newItem.id = 'newdiv';
+        var id=title.concat(date).replace(/-| /g,'');
+        newItem.id = id;
         newItem.className='prescription-entry';
         
         var info = document.createElement("div");
@@ -83,16 +89,20 @@ function addNewPrescription(){
         
         document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
         
+        // Store the new prescription in the localStorage
         var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
-            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text}
-        count=localStorage.getItem("prescriptionCount");
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id}
+        str=localStorage.getItem("prescriptions")+"+"+JSON.stringify(prescriptionToStore);
+        localStorage.setItem("prescriptions",str);
         
-        // Store the new prescription in the localStorage
+        prescriptions=localStorage.getItem("prescriptions").split("+"); // Load prescriptions in the local array
+        /*count=localStorage.getItem("prescriptionCount");
+                
         localStorage.setItem("prescription"+count,JSON.stringify(prescriptionToStore));        
         count++;
         localStorage.setItem("prescriptionCount",count);
-        
+        */
         goBack();
     }
 }
@@ -232,16 +242,68 @@ function deleteLoginInfo(){
 }
 
 function viewDetailedVaccine(){
+    for(var i=1;i<vaccines.length;i++)
+    {
+        var v=JSON.parse(vaccines[i]);
+        
+        if(v.id==window.event.srcElement.parentElement.id)
+        {
+            document.getElementById("detailed-vaccine-title").innerHTML=v.title;
+            document.getElementById("detailed-vaccine-date").innerHTML=v.date;
+            break;
+        }
+    } 
     document.location.href="#detailed-vaccine-view";    
 }
 
 function viewDetailedPrescription(){
+    for(var i=1;i<vaccines.length;i++)
+    {
+        var p=JSON.parse(prescriptions[i]);
+        
+        if(p.id==window.event.srcElement.parentElement.id)
+        {
+            document.getElementById("detailed-prescription-title").innerHTML=p.title;
+            document.getElementById("detailed-prescription-date").innerHTML=p.date;
+            document.getElementById("detailed-prescription-final-date").innerHTML=p.finalDate;
+            document.getElementById("detailed-prescription-dose").innerHTML=p.doseTakes+" "
+            +p.doseTakesMeasure+"/"+p.doseFrequency+" "+p.doseFrequencyMeasure;
+            document.getElementById("detailed-prescription-text").innerHTML=p.text;
+            break;
+        }
+    } 
     document.location.href="#detailed-prescription-view";
 }
+
+
+
 
 function deleteElement(){
     
 }
+
+
+
+
+
+
+
+
+function test(){
+    var v1={"title":"caca","date":"2014-09-09"}
+    localStorage.setItem("vaccines",JSON.stringify(v1));
+    v1={"title":"pipi","date":"2015-11-25"}
+    var str=localStorage.getItem("vaccines")+"+"+JSON.stringify(v1);
+    localStorage.setItem("vaccines",str);
+    var vector=localStorage.getItem("vaccines").split("+");
+}
+
+
+
+
+
+
+
 
 function goBack(){
     window.history.go(-1);

@@ -31,6 +31,17 @@ input:focus{
     position:relative;
 }
 
+.footer{
+    background-color:rgb(255,255,255) !important;
+    height:10%;
+    padding-top:1.9%;
+}
+
+[data-role="button"]{
+    background-color:rgb(88,220,145)!important;
+    color:rgb(255,255,255)!important;
+}
+
 #settings-button{
     text-align:left;
     font-size:100%;
@@ -121,7 +132,7 @@ input:focus{
     text-align:right !important;
 }
 
-.footer-text{
+.header-text{
     padding-top:2.5%;
 }
 

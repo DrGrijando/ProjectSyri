@@ -11,6 +11,10 @@
     <script src="kendo/js/jquery.min.js"></script>
     <script src="kendo/js/kendo.mobile.min.js"></script>
     
+    <script>
+        var vaccines=[];
+        var prescriptions=[];
+    </script>
     <script src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/functions.js"></script>    
 </head>
@@ -31,7 +35,7 @@
         <div class="wrapper-center">
             <a data-role="button" onclick="login();">Sign in</a>
             <a data-role="button" onclick="deleteLoginInfo();">Delete login</a>
-            <a data-role="button" onclick="notificationsTest();">Test notifications</a>
+            <a data-role="button" onclick="test();">Test function test();</a>
         </div>
     </div>
     
@@ -142,15 +146,15 @@
             </select>
             <input id="new-prescription-dose-frequency" class="new-prescription-dose-input" type="text"/>
             <select id="new-prescription-dose-frequency-measure">
-                <option value="hours">hours</option>
-                <option value="days">day(s)</option>
+                <option value="hour(s)">hour(s)</option>
+                <option value="day(s)">day(s)</option>
             </select>
         </div>
         
     </div>
     
     <!-- VIEW TO SEE DETAILED VACCINES -->
-    <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5" data-transition="slide:down">
+    <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
         <h1>Vaccine</h1>
         <p>See all the information of your vaccines just touching them</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
@@ -164,7 +168,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED PRESCRIPTIONS -->
-    <div id="detailed-prescription-view" data-role="view" data-layout="Layout6" data-transition="slide:down">
+    <div id="detailed-prescription-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
         <h1>Prescription</h1>
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
@@ -178,7 +182,7 @@
                 <span id="detailed-prescription-final-date"></span>
             </li>
             <li data-icon="info">
-                <span id="detailed-dose-info"></span>
+                <span id="detailed-prescription-dose"></span>
             </li>
             <li data-icon="bookmarks">
                 <textarea id="detailed-prescription-text" readonly></textarea>
@@ -194,11 +198,11 @@
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
-            <snap class="footer-text app-name">VacApp</snap>            
+            <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div data-role="footer">
             <div data-role="tabstrip">
-                <a data-role="button" data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
+                <a data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
                 <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
                 <a data-icon="organize" href="#tabstrip-history" data-transition="slide:left">History</a>
             </div>            
@@ -208,9 +212,9 @@
     <div data-id="Layout2" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
-            <snap class="footer-text app-name">VacApp</snap>            
+            <snap class="header-text app-name">VacApp</snap>            
         </div>
-        <div class="wrapper-center" data-role="footer">
+        <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="add" onclick="addNewVaccine();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
@@ -221,9 +225,9 @@
     <div data-id="Layout3" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
-            <snap class="footer-text app-name">VacApp</snap>            
+            <snap class="header-text app-name">VacApp</snap>            
         </div>
-        <div class="wrapper-center" data-role="footer">
+        <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="add" onclick="addNewPrescription();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
@@ -233,31 +237,18 @@
     
     <div data-id="Layout4" data-role="layout">        
         <div class="wrapper-center header" data-role="header">
-            <div class="footer-text">VacApp</div>            
+            <div class="header-text">VacApp</div>            
         </div>
-        <div class="wrapper-center" data-role="footer"></div>
+        <div class="wrapper-center footer" data-role="footer"></div>
     </div>
     
     <div data-id="Layout5" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
-            <snap class="footer-text app-name">VacApp</snap>            
+            <snap class="header-text app-name">VacApp</snap>            
         </div>
-        <div class="wrapper-center" data-role="footer">
+        <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="fastforward" onclick="moveToHistory();">Move to history</a>
-            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
-            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
-                 views, because in any case we will go back to the tab we were in -->
-            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
-        </div>
-    </div>
-    
-    <div data-id="Layout6" data-role="layout">
-        <div class="wrapper-center header" data-role="header">                        
-            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="30" height="30"/></a>
-            <snap class="footer-text app-name">VacApp</snap>            
-        </div>
-        <div class="wrapper-center" data-role="footer">
             <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
