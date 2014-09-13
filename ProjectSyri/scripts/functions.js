@@ -194,8 +194,8 @@ function login(){
 }
 
 function loadData(){
-    user=window.localStorage.getItem("user");
-    password=window.localStorage.getItem("password");
+    user=window.localStorage.getItem("loginUser");
+    password=window.localStorage.getItem("loginPassword");
     
     if((user!=null)&&(password!=null))
     {
@@ -215,7 +215,7 @@ function notificationsTest(){
 }
 
 function resetInputBackground(){
-    document.getElementById(window.event.srcElement.id).style.cssText="background-color:rgb(255,255,255) !important;-webkit-transition: background-color 500ms linear;";
+    document.getElementById(window.event.srcElement.id).style.cssText="background-color:transparent !important;-webkit-transition: background-color 500ms linear;";
 }
 
 function defaultData(){

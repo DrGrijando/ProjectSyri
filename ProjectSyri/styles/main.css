@@ -10,10 +10,10 @@ a{
 }
 
 /* TRANSITION FOR INPUTS TO TURN WHITE AGAIN AFTER ERRORS ARE DETECTED */
-input:focus{
+/*input:focus{
     background-color:rgb(255,255,255) !important;
     -webkit-transition: background-color 500ms linear;
-}
+}*/
 
 /* WRAPPER USED TO CENTER THE ELEMENTS ON THE SCREEN */
 .wrapper-center{
@@ -46,10 +46,15 @@ input:focus{
     text-align:left;
     font-size:100%;
     position:absolute;
-    top:18%;
-    left:2.6%;
+    top:22%;
+    left:3%;
     z-index:10;
 }
+/*#settings-button:active{
+    content:url("images/settings.png");
+    width:25px;
+    height:25px;
+}*/
 
 .app-name{
     position:absolute;
@@ -65,9 +70,9 @@ input:focus{
 
 /* VACCINE ENTRIES */
 .vaccine-entry{
-    background-color:rgb(77,220,145);
+    background-color:rgb(88,220,145);
     border-style:outset;
-    border-color:rgb(77,220,145);
+    border-color:rgb(88,220,145);
 }
 
 .vaccine-title{
@@ -88,9 +93,9 @@ input:focus{
 
 /* PRESCRIPTION ENTRIES */
 .prescription-entry{
-    background-color:rgb(77,220,145);
+    background-color:rgb(134,190,231);
     border-style:outset;
-    border-color:rgb(77,220,145);
+    border-color:rgb(134,190,231);
 }
 
 .prescription-title{
