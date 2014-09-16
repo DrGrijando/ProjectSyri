@@ -137,6 +137,38 @@ a{
     text-align:right !important;
 }
 
+/* PHR ENTRIES */
+.phr-entry{
+    background-color:rgb(255,255,255);
+    border-style:outset;
+    border-color:rgb(255,255,255);
+}
+
+.phr-title{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);
+    padding-top:10px;
+    padding-left:15px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
+.phr-date{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);    
+    padding-bottom:10px;
+    padding-left:15px;
+}
+
+.phr-text{
+    font-family:VacAppFont;
+    color:rgb(0,0,0);
+    padding-bottom:10px;
+    padding-left:15px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+}
+
 .header-text{
     padding-top:2.5%;
 }

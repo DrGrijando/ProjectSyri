@@ -16,13 +16,13 @@
         
         if(localStorage.getItem("vaccines")==null)
         {
-            localStorage.setItem("vaccines","");
+            //localStorage.setItem("vaccines","");
         }
         else
         {
             vaccines=localStorage.getItem("vaccines").split("+");
             
-            for(var i=1;i<vaccines.length;i++)
+            for(var i=0;i<vaccines.length;i++)
             {
                 var obj=JSON.parse(vaccines[i]);
                 
@@ -44,47 +44,17 @@
                 
                 document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
             }
-            
-            
-            /*
-            for(var i=0; i<localStorage.length; i++)
-            {
-                if((localStorage.key(i).indexOf("vaccine") > -1)&&(localStorage.key(i)!="vaccineCount"))
-                {
-                    var ebj=localStorage.getItem(localStorage.key(i));
-                    var obj=JSON.parse(localStorage.getItem(localStorage.key(i)));
-                    
-                    var newItem = document.createElement("div");
-                    newItem.id = 'newdiv';            
-                    newItem.className='vaccine-entry';    
-                    
-                    var info = document.createElement("div");
-                    info.innerHTML=obj.title;
-                    info.className='vaccine-title';
-                    newItem.appendChild(info);	// Add the TextNode to the ListItem                      
-                    
-                    info = document.createElement("div");
-                    info.innerHTML=obj.date;
-                    info.className='vaccine-date';
-                    newItem.appendChild(info);	// Add the TextNode to the ListItem
-                    
-                    newItem.onclick=viewDetailedVaccine;
-                    
-                    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List                
-                }
-            }
-            */
         }
         
         if(localStorage.getItem("prescriptions")==null)
         {
-            localStorage.setItem("prescriptions","");
+            //localStorage.setItem("prescriptions","");
         }
         else
         {
             prescriptions=localStorage.getItem("prescriptions").split("+");
             
-            for(var j=1; j<prescriptions.length; j++)
+            for(var j=0; j<prescriptions.length; j++)
             {
                 obj=JSON.parse(prescriptions[j]);
                 
@@ -110,20 +80,45 @@
                 newItem.onclick=viewDetailedPrescription;
                 
                 document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List
+            }
+        }
+        
+        if(localStorage.getItem("record")==null)
+        {
+            //localStorage.setItem("record","");
+        }
+        else
+        {
+            record=localStorage.getItem("record").split("+");
+            
+            for(var k=0;k<record.length;k++)
+            {
+                var obj=JSON.parse(record[k]);
                 
-                
-                
-                
-                
-                /*
-                if((localStorage.key(j).indexOf("prescription") > -1)&&(localStorage.key(j)!="prescriptionCount"))
+                var newItem = document.createElement("div");
+                var info;
+                newItem.id = obj.id;
+                switch(obj.type)
                 {
+                    case "vaccine":
+                    newItem.className='vaccine-entry';
+                    info = document.createElement("div");
+                    info.innerHTML=obj.title;
+                    info.className='vaccine-title';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
+                    info = document.createElement("div");
+                    info.innerHTML=obj.date;
+                    info.className='vaccine-date'
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
-                    newItem = document.createElement("div");
-                    newItem.id = 'newdiv';
-                    newItem.className='prescription-entry';
+                    newItem.onclick=viewDetailedVaccine
                     
+                    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
+                    break;
+                    
+                    case "prescription":
+                    newItem.className='prescription-entry';  
                     info = document.createElement("div");
                     info.innerHTML=obj.title;
                     info.className='prescription-title';
@@ -142,9 +137,34 @@
                     newItem.onclick=viewDetailedPrescription;
                     
                     document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List
-                }*/
+                    break;
+                    
+                    case "phr":
+                    newItem.className='phr-entry';   
+                    info = document.createElement("div");
+                    info.innerHTML=obj.title;
+                    info.className='phr-title';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem                      
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=obj.date;
+                    info.className='phr-date'
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=obj.text;
+                    info.className='phr-text'
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedPHR
+                    
+                    document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
+                    
+                    break;                   
+                }
             }
         }
+        
         // window.plugin.notification.local is now available
 
         /*app.changeSkin = function (e) {

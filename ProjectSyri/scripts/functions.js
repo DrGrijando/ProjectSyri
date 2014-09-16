@@ -15,7 +15,7 @@ function addNewVaccine(){
     {
         var newItem = document.createElement("div");
         var id=title.concat(date).replace(/-| /g,'');
-        newItem.id = id;
+        newItem.id = id;        
         newItem.className='vaccine-entry';    
         
         var info = document.createElement("div");
@@ -33,8 +33,16 @@ function addNewVaccine(){
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Store the new vaccine in the localStorage
-        var vaccineToStore={"title":title,"date":date,"id":id}
-        var str=localStorage.getItem("vaccines")+"+"+JSON.stringify(vaccineToStore);
+        var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
+        var str;
+        if(localStorage.getItem("vaccines")==null)
+        {
+            str=JSON.stringify(vaccineToStore);
+        }
+        else
+        {
+            str=localStorage.getItem("vaccines")+"+"+JSON.stringify(vaccineToStore);
+        }
         localStorage.setItem("vaccines",str);
         
         vaccines=localStorage.getItem("vaccines").split("+"); // Load vaccines in the local array
@@ -92,8 +100,16 @@ function addNewPrescription(){
         // Store the new prescription in the localStorage
         var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
-            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id}
-        str=localStorage.getItem("prescriptions")+"+"+JSON.stringify(prescriptionToStore);
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"}
+        var str;        
+        if(localStorage.getItem("prescriptions")==null)
+        {
+            str=JSON.stringify(prescriptionToStore);
+        }
+        else
+        {
+            str=localStorage.getItem("prescriptions")+"+"+JSON.stringify(prescriptionToStore);
+        }
         localStorage.setItem("prescriptions",str);
         
         prescriptions=localStorage.getItem("prescriptions").split("+"); // Load prescriptions in the local array
@@ -105,6 +121,64 @@ function addNewPrescription(){
         */
         goBack();
     }
+}
+
+function addNewPHR(){
+    var title= document.getElementById("new-phr-title").value;
+    var date = document.getElementById("new-phr-date").value;
+    var text = document.getElementById("new-phr-text").value;
+    if(title=="" || date=="" || text=="")
+    {
+        alert("Enter all the information before saving the data.");
+    }
+    else
+    {
+        var newItem = document.createElement("div");
+        var id=title.concat(date).replace(/-| /g,'');
+        newItem.id = id;
+        newItem.className='phr-entry';    
+        
+        var info = document.createElement("div");
+        info.innerHTML=title;
+        info.className='phr-title';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=date;
+        info.className='phr-date';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=text;
+        info.className='phr-text';
+        newItem.appendChild(info);	// Add the TextNode to the ListItem
+        
+        newItem.onclick=viewDetailedPHR;
+        
+        document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List        
+        
+        // Store the new PHR in the localStorage
+        var phrToStore={"title":title,"date":date,"text":text,"id":id,"type":"phr"}
+        var str;        
+        if(localStorage.getItem("record")==null)
+        {
+            str=JSON.stringify(phrToStore);
+        }
+        else
+        {
+            str=localStorage.getItem("record")+"+"+JSON.stringify(phrToStore);
+        }
+        localStorage.setItem("record",str);
+        
+        record=localStorage.getItem("record").split("+"); // Load record in the local array
+        /*count=localStorage.getItem("vaccineCount");
+        
+        localStorage.setItem("vaccine"+count,JSON.stringify(vaccineToStore));        
+        count++;
+        localStorage.setItem("vaccineCount",count);
+        */
+        goBack();
+    }    
 }
 
 /*function sortVaccines(){
@@ -242,7 +316,7 @@ function deleteLoginInfo(){
 }
 
 function viewDetailedVaccine(){
-    for(var i=1;i<vaccines.length;i++)
+    for(var i=0;i<vaccines.length;i++)
     {
         var v=JSON.parse(vaccines[i]);
         
@@ -257,7 +331,7 @@ function viewDetailedVaccine(){
 }
 
 function viewDetailedPrescription(){
-    for(var i=1;i<vaccines.length;i++)
+    for(var i=0;i<vaccines.length;i++)
     {
         var p=JSON.parse(prescriptions[i]);
         
@@ -275,6 +349,21 @@ function viewDetailedPrescription(){
     document.location.href="#detailed-prescription-view";
 }
 
+function viewDetailedPHR(){
+    for(var i=0;i<record.length;i++)
+    {
+        var p=JSON.parse(record[i]);
+        
+        if(p.id==window.event.srcElement.parentElement.id)
+        {
+            document.getElementById("detailed-phr-title").innerHTML=p.title;
+            document.getElementById("detailed-phr-date").innerHTML=p.date;
+            document.getElementById("detailed-phr-text").innerHTML=p.text;
+            break;
+        }
+    } 
+    document.location.href="#detailed-phr-view";
+}
 
 
 
@@ -297,13 +386,6 @@ function test(){
     localStorage.setItem("vaccines",str);
     var vector=localStorage.getItem("vaccines").split("+");
 }
-
-
-
-
-
-
-
 
 function goBack(){
     window.history.go(-1);

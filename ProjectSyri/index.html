@@ -14,6 +14,7 @@
     <script>
         var vaccines=[];
         var prescriptions=[];
+        var record=[];
     </script>
     <script src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/functions.js"></script>    
@@ -61,10 +62,15 @@
         </ul>
     </div>
     
-    <!-- HISTORY TAB -->
-    <div id="tabstrip-history" data-role="view" data-layout="Layout1">
-        <h1>History</h1>
+    <!-- RECORD TAB -->
+    <div id="tabstrip-record" data-role="view" data-layout="Layout1">
+        <h1>Record</h1>
         <p>Hello, user. In this tab you will find the record for past vaccinations, prescriptions and more.</p>
+        <ul id="record-list" data-role="listview" data-style="inset">
+            <li data-icon="add" id="add-phr-listitem">
+                <a id="add-phr-button" href="#add-phr-view" data-transition="slide" onclick="defaultData();">Add PHR...</a>
+            </li>
+        </ul>
     </div>
     
     <!-- OPTIONS SCREEN -->
@@ -129,15 +135,11 @@
             </li>
             <li data-icon="recents">
                 <input id="new-prescription-final-date" type="date" placeholder="Enter when the treatment ends..." />
-            </li>
-            
-            
-            
+            </li>            
             <li data-icon="bookmarks">
                 <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
-        </ul>
-        
+        </ul>        
         <div id="new-prescription-dose-block">
             <input id="new-prescription-dose-takes" class="new-prescription-dose-input" type="text"/>
             <select id="new-prescription-dose-takes-measure">
@@ -152,6 +154,23 @@
         </div>
         
     </div>
+    
+    <!-- VIEW TO ADD PHRs -->
+    <div id="add-phr-view" data-role="view" data-layout="Layout6">
+        <h1>New PHR</h1>
+        <p>Add a new personal history record.</p>
+        <ul id="phr-entries" data-role="listview" data-style="inset">
+            <li data-icon="compose">
+                <input id="new-phr-title" type="text" placeholder="Title" />
+            </li>            
+            <li data-icon="recents">
+                <input id="new-phr-date" type="date" placeholder="Enter the date..." />
+            </li>            
+            <li data-icon="bookmarks">
+                <textarea id="new-phr-text" placeholder="Enter the text..."></textarea>
+            </li>
+        </ul>        
+    </div>    
     
     <!-- VIEW TO SEE DETAILED VACCINES -->
     <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
@@ -189,11 +208,28 @@
             </li>
         </ul>        
     </div>
+    
+    <!-- VIEW TO SEE DETAILED PHRs -->
+    <div id="detailed-phr-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
+        <h1>Personal history record</h1>
+        <p>See all the information of your PHRs just touching them.</p>
+        <ul id="phr-entries" data-role="listview" data-style="inset">
+            <li data-icon="compose">
+                <span id="detailed-phr-title"></span>
+            </li>            
+            <li data-icon="recents">
+                <span id="detailed-phr-date"></span>
+            </li>
+            <li data-icon="bookmarks">
+                <textarea id="detailed-phr-text" readonly></textarea>
+            </li>
+        </ul>        
+    </div>
         
     <!-- LAYOUTS -->
     <!-- Elements contained in the layout are shared between views -->
     <!-- Layout 1: tab layout --> <!-- Layout 2: add vaccines --> <!-- Layout 3: add prescriptions -->
-    <!-- Layout 4: without buttons --> <!-- Layout 5: detailed vaccines --> <!-- Layout 6: detailed prescriptions -->
+    <!-- Layout 4: without buttons --> <!-- Layout 5: detailed views --> <!-- Layout 6: add PHRs -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">                        
@@ -204,7 +240,7 @@
             <div data-role="tabstrip">
                 <a data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
                 <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
-                <a data-icon="organize" href="#tabstrip-history" data-transition="slide:left">History</a>
+                <a data-icon="organize" href="#tabstrip-record" data-transition="slide:left">Record</a>
             </div>            
         </div>
     </div>
@@ -248,11 +284,24 @@
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
-            <a data-role="button" data-icon="fastforward" onclick="moveToHistory();">Move to history</a>
+            <a data-role="button" data-icon="fastforward" onclick="moveToRecord();">Move to record</a>
             <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
             <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+        </div>
+    </div>
+    
+    <div data-id="Layout6" data-role="layout">
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="25" height="25"/></a>
+            <snap class="header-text app-name">VacApp</snap>            
+        </div>
+        <div class="wrapper-center footer" data-role="footer">
+            <a data-role="button" data-icon="add" onclick="addNewPHR();">Save</a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
         </div>
     </div>
     
