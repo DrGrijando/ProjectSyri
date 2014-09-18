@@ -1,6 +1,8 @@
 var isVaccineTabSelected = true;
 var user;
 var password;
+var currentElementID;
+var currentElementList;
 
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION */
 
@@ -33,7 +35,25 @@ function addNewVaccine(){
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Store the new vaccine in the localStorage
+        
         var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
+        vaccines.push(vaccineToStore);
+        
+        var str="";
+        for(var i=0;i<vaccines.length;i++)
+        {
+            if(i==(vaccines.length-1))
+            {
+                str=str+JSON.stringify(vaccines[i]);
+            }            
+            else
+            {
+                str=str+JSON.stringify(vaccines[i])+"+";
+            }            
+        }
+        localStorage.setItem("vaccines",str);
+        
+        /*var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
         var str;
         if(localStorage.getItem("vaccines")==null)
         {
@@ -46,12 +66,8 @@ function addNewVaccine(){
         localStorage.setItem("vaccines",str);
         
         vaccines=localStorage.getItem("vaccines").split("+"); // Load vaccines in the local array
-        /*count=localStorage.getItem("vaccineCount");
-        
-        localStorage.setItem("vaccine"+count,JSON.stringify(vaccineToStore));        
-        count++;
-        localStorage.setItem("vaccineCount",count);
         */
+        
         goBack();
     }    
 }
@@ -98,7 +114,28 @@ function addNewPrescription(){
         document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List   
         
         // Store the new prescription in the localStorage
+        
         var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
+            "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"}
+        prescriptions.push(prescriptionToStore);
+        
+        var str="";
+        for(var j=0;j<prescriptions.length;j++)
+        {
+            if(j==(prescriptions.length-1))
+            {
+                str=str+JSON.stringify(prescriptions[j]);
+            }
+            else
+            {
+                str=str+JSON.stringify(prescriptions[j])+"+";
+            }
+        }
+        localStorage.setItem("prescriptions",str);
+        
+        
+        /*var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
             "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"}
         var str;        
@@ -112,13 +149,8 @@ function addNewPrescription(){
         }
         localStorage.setItem("prescriptions",str);
         
-        prescriptions=localStorage.getItem("prescriptions").split("+"); // Load prescriptions in the local array
-        /*count=localStorage.getItem("prescriptionCount");
-                
-        localStorage.setItem("prescription"+count,JSON.stringify(prescriptionToStore));        
-        count++;
-        localStorage.setItem("prescriptionCount",count);
-        */
+        prescriptions=localStorage.getItem("prescriptions").split("+"); // Load prescriptions in the local array*/
+        
         goBack();
     }
 }
@@ -158,7 +190,26 @@ function addNewPHR(){
         document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Store the new PHR in the localStorage
+        
         var phrToStore={"title":title,"date":date,"text":text,"id":id,"type":"phr"}
+        record.push(phrToStore);
+        
+        var str="";        
+        for (var k=0;k<record.length;k++)
+        {
+            if(k==(record.length-1))
+            {
+                str=str+JSON.stringify(record[k]);
+            }
+            else
+            {
+                str=str+JSON.stringify(record[k])+"+";
+            }
+        }
+        localStorage.setItem("record",str);        
+        
+        
+        /*var phrToStore={"title":title,"date":date,"text":text,"id":id,"type":"phr"}
         var str;        
         if(localStorage.getItem("record")==null)
         {
@@ -171,12 +222,9 @@ function addNewPHR(){
         localStorage.setItem("record",str);
         
         record=localStorage.getItem("record").split("+"); // Load record in the local array
-        /*count=localStorage.getItem("vaccineCount");
-        
-        localStorage.setItem("vaccine"+count,JSON.stringify(vaccineToStore));        
-        count++;
-        localStorage.setItem("vaccineCount",count);
         */
+        
+        
         goBack();
     }    
 }
@@ -305,7 +353,18 @@ function defaultData(){
     {
         document.getElementById("new-prescription-title").value="";
         document.getElementById("new-prescription-date").value=date.toISOString().split("T")[0];
+        document.getElementById("new-prescription-final-date").value="";
         document.getElementById("new-prescription-text").value="";
+        document.getElementById("new-prescription-dose-takes").value="";
+        document.getElementById("new-prescription-dose-takes-measure").value="pill(s)";
+        document.getElementById("new-prescription-dose-frequency").value="";
+        document.getElementById("new-prescription-dose-frequency-measure").value="hour(s)";
+    }
+    else if(obj.id=="add-phr-button")
+    {
+        document.getElementById("new-phr-title").value="";
+        document.getElementById("new-phr-date").value=date.toISOString().split("T")[0];
+        document.getElementById("new-phr-text").value="";
     }
 }
 
@@ -318,31 +377,36 @@ function deleteLoginInfo(){
 function viewDetailedVaccine(){
     for(var i=0;i<vaccines.length;i++)
     {
-        var v=JSON.parse(vaccines[i]);
-        
-        if(v.id==window.event.srcElement.parentElement.id)
+        //var v=JSON.parse(vaccines[i]);
+        currentElementList=window.event.srcElement.parentElement.parentElement.id;
+                    
+        if(vaccines[i].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-vaccine-title").innerHTML=v.title;
-            document.getElementById("detailed-vaccine-date").innerHTML=v.date;
+            document.getElementById("detailed-vaccine-title").innerHTML=vaccines[i].title;
+            document.getElementById("detailed-vaccine-date").innerHTML=vaccines[i].date;
+            currentElementID=vaccines[i].id;
             break;
         }
-    } 
+    }     
     document.location.href="#detailed-vaccine-view";    
 }
 
 function viewDetailedPrescription(){
-    for(var i=0;i<vaccines.length;i++)
+    for(var j=0;j<prescriptions.length;j++)
     {
-        var p=JSON.parse(prescriptions[i]);
+        //var p=JSON.parse(prescriptions[j]);
+        currentElementList=window.event.srcElement.parentElement.parentElement.id;
         
-        if(p.id==window.event.srcElement.parentElement.id)
+        if(prescriptions[j].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-prescription-title").innerHTML=p.title;
-            document.getElementById("detailed-prescription-date").innerHTML=p.date;
-            document.getElementById("detailed-prescription-final-date").innerHTML=p.finalDate;
-            document.getElementById("detailed-prescription-dose").innerHTML=p.doseTakes+" "
-            +p.doseTakesMeasure+"/"+p.doseFrequency+" "+p.doseFrequencyMeasure;
-            document.getElementById("detailed-prescription-text").innerHTML=p.text;
+            document.getElementById("detailed-prescription-title").innerHTML=prescriptions[j].title;
+            document.getElementById("detailed-prescription-date").innerHTML=prescriptions[j].date;
+            document.getElementById("detailed-prescription-final-date").innerHTML=prescriptions[j].finalDate;
+            document.getElementById("detailed-prescription-dose").innerHTML=prescriptions[j].doseTakes+" "
+            +prescriptions[j].doseTakesMeasure+"/"+prescriptions[j].doseFrequency+" "+prescriptions[j].doseFrequencyMeasure;
+            document.getElementById("detailed-prescription-text").innerHTML=prescriptions[j].text;
+            currentElementID=prescriptions[j].id;
+            
             break;
         }
     } 
@@ -350,15 +414,17 @@ function viewDetailedPrescription(){
 }
 
 function viewDetailedPHR(){
-    for(var i=0;i<record.length;i++)
+    for(var k=0;k<record.length;k++)
     {
-        var p=JSON.parse(record[i]);
+        //var p=JSON.parse(record[k]);
+        currentElementList=window.event.srcElement.parentElement.parentElement.id;
         
-        if(p.id==window.event.srcElement.parentElement.id)
+        if(record[k].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-phr-title").innerHTML=p.title;
-            document.getElementById("detailed-phr-date").innerHTML=p.date;
-            document.getElementById("detailed-phr-text").innerHTML=p.text;
+            document.getElementById("detailed-phr-title").innerHTML=record[k].title;
+            document.getElementById("detailed-phr-date").innerHTML=record[k].date;
+            document.getElementById("detailed-phr-text").innerHTML=record[k].text;
+            currentElementID=record[k].id;
             break;
         }
     } 
@@ -368,23 +434,239 @@ function viewDetailedPHR(){
 
 
 function deleteElement(){
-    
+    var i=0;
+    switch(currentElementList)
+    {
+        case "vaccine-list":            
+            while(i<vaccines.length)
+            {
+                if(currentElementID==vaccines[i].id)
+                {
+                    vaccines.splice(i,1);
+                    break;
+                }
+                i++;
+            }
+            saveToLocalStorage(vaccines);
+            updateVaccineList();
+            break;
+        
+        case "prescription-list":
+            while(i<prescriptions.length)
+            {
+                if(currentElementID==prescriptions[i].id)
+                {
+                    prescriptions.splice(i,1);
+                    break;
+                }
+                i++;
+            }
+            saveToLocalStorage(prescriptions);
+            updatePrescriptionList();
+            break;
+        
+        case "record-list":
+            while(i<record.length)
+            {
+                if(currentElementID==record[i].id)
+                {
+                    record.splice(i,1);
+                    break;
+                }
+                i++;
+            }       
+            saveToLocalStorage(record);
+            updateRecordList();
+            break;
+    }
+    goBack();
 }
 
+function updateVaccineList()
+{
+    emptyList(document.getElementById("vaccine-list"));
+    for(var i=0;i<vaccines.length;i++)
+    {        
+        var newItem = document.createElement("div");
+        newItem.id = vaccines[i].id;
+        newItem.className='vaccine-entry';    
+        
+        var info = document.createElement("div");
+        info.innerHTML=vaccines[i].title
+        info.className='vaccine-title';
+        newItem.appendChild(info);  // Add the TextNode to the ListItem                      
+        
+        info = document.createElement("div");
+        info.innerHTML=vaccines[i].date;
+        info.className='vaccine-date';
+        newItem.appendChild(info);  // Add the TextNode to the ListItem
+        
+        newItem.onclick=viewDetailedVaccine
+        
+        document.getElementById("vaccine-list").appendChild(newItem);   // Add the div to the specified List
+    }
+}
 
+function updatePrescriptionList()
+{
+    emptyList(document.getElementById("prescription-list"));
+    for(var j=0; j<prescriptions.length; j++)
+    {
+        var newItem = document.createElement("div");
+        newItem.id = prescriptions[j].id;
+        newItem.className='prescription-entry';
+        
+        var info = document.createElement("div");
+        info.innerHTML=prescriptions[j].title;
+        info.className='prescription-title';
+        newItem.appendChild(info);  // Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=prescriptions[j].date;
+        info.className='prescription-date';
+        newItem.appendChild(info);  // Add the TextNode to the ListItem
+        
+        info = document.createElement("div");
+        info.innerHTML=prescriptions[j].text;
+        info.className='prescription-text';
+        newItem.appendChild(info);  // Add the TextNode to the ListItem
+        
+        newItem.onclick=viewDetailedPrescription;
+        
+        document.getElementById("prescription-list").appendChild(newItem);  // Add the div to the specified List
+    }
+}
 
+function updateRecordList()
+{
+    emptyList(document.getElementById("record-list"));
+    for(var k=0;k<record.length;k++)
+    {
+        var newItem = document.createElement("div");
+        var info;
+        newItem.id = record[k].id;
+        switch(record[k].type)
+        {
+                    case "vaccine":
+                    newItem.className='vaccine-entry';
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].title;
+                    info.className='vaccine-title';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem                      
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].date;
+                    info.className='vaccine-date'
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedVaccine
+                    
+                    document.getElementById("vaccine-list").appendChild(newItem);   // Add the div to the specified List
+                    break;
+                    
+                    case "prescription":
+                    newItem.className='prescription-entry';  
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].title;
+                    info.className='prescription-title';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].date;
+                    info.className='prescription-date';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].text;
+                    info.className='prescription-text';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedPrescription;
+                    
+                    document.getElementById("prescription-list").appendChild(newItem);  // Add the div to the specified List
+                    break;
+                    
+                    case "phr":
+                    newItem.className='phr-entry';   
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].title;
+                    info.className='phr-title';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem                      
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].date;
+                    info.className='phr-date'
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=record[k].text;
+                    info.className='phr-text'
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedPHR
+                    
+                    document.getElementById("record-list").appendChild(newItem);    // Add the div to the specified List                    
+                    break;     
+        }
+    }
+}
 
+function emptyList(list)
+{
+    var i=0;
+    while(i<list.childNodes.length)
+    {
+        if(list.childNodes[i].tagName=="DIV")
+        {
+            list.removeChild(list.childNodes[i]);
+        }
+        else{i++;}
+    }
+}
 
-
-
+function saveToLocalStorage(arrayToSave)
+{
+    var str="";
+    for(var i=0;i<arrayToSave.length;i++)
+    {
+        if(i==(arrayToSave.length-1))
+        {
+            str=str+JSON.stringify(arrayToSave[i]);
+        }
+        else
+        {
+            str=str+JSON.stringify(arrayToSave[i])+"+";            
+        }
+    }
+    
+    switch(currentElementList)
+    {
+        case "vaccine-list":
+            if(str!=""){localStorage.setItem("vaccines",str);}
+            else{localStorage.removeItem("vaccines");}            
+            break;
+        
+        case "prescription-list":
+            if(str!=""){localStorage.setItem("prescriptions",str);}
+            else{localStorage.removeItem("prescriptions");}            
+            break;
+        
+        case "record-list":
+            if(str!=""){localStorage.setItem("record",str);}
+            else{localStorage.removeItem("record");}            
+            break;
+    }
+}
 
 function test(){
+    /*
     var v1={"title":"caca","date":"2014-09-09"}
     localStorage.setItem("vaccines",JSON.stringify(v1));
     v1={"title":"pipi","date":"2015-11-25"}
     var str=localStorage.getItem("vaccines")+"+"+JSON.stringify(v1);
     localStorage.setItem("vaccines",str);
     var vector=localStorage.getItem("vaccines").split("+");
+    */
 }
 
 function goBack(){

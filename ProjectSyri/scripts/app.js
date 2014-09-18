@@ -24,19 +24,19 @@
             
             for(var i=0;i<vaccines.length;i++)
             {
-                var obj=JSON.parse(vaccines[i]);
+                vaccines[i]=JSON.parse(vaccines[i]);
                 
                 var newItem = document.createElement("div");
-                newItem.id = obj.id;
+                newItem.id = vaccines[i].id;
                 newItem.className='vaccine-entry';    
                 
                 var info = document.createElement("div");
-                info.innerHTML=obj.title;
+                info.innerHTML=vaccines[i].title;
                 info.className='vaccine-title';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                 
                 info = document.createElement("div");
-                info.innerHTML=obj.date;
+                info.innerHTML=vaccines[i].date;
                 info.className='vaccine-date'
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
@@ -56,24 +56,24 @@
             
             for(var j=0; j<prescriptions.length; j++)
             {
-                obj=JSON.parse(prescriptions[j]);
+                prescriptions[j]=JSON.parse(prescriptions[j]);
                 
                 newItem = document.createElement("div");
-                newItem.id = obj.id;
+                newItem.id = prescriptions[j].id;
                 newItem.className='prescription-entry';
                 
                 info = document.createElement("div");
-                info.innerHTML=obj.title;
+                info.innerHTML=prescriptions[j].title;
                 info.className='prescription-title';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
                 info = document.createElement("div");
-                info.innerHTML=obj.date;
+                info.innerHTML=prescriptions[j].date;
                 info.className='prescription-date';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
                 info = document.createElement("div");
-                info.innerHTML=obj.text;
+                info.innerHTML=prescriptions[j].text;
                 info.className='prescription-text';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
@@ -93,22 +93,22 @@
             
             for(var k=0;k<record.length;k++)
             {
-                var obj=JSON.parse(record[k]);
+                record[k]=JSON.parse(record[k]);
                 
                 var newItem = document.createElement("div");
                 var info;
-                newItem.id = obj.id;
-                switch(obj.type)
+                newItem.id = record[k].id;
+                switch(record[k].type)
                 {
                     case "vaccine":
                     newItem.className='vaccine-entry';
                     info = document.createElement("div");
-                    info.innerHTML=obj.title;
+                    info.innerHTML=record[k].title;
                     info.className='vaccine-title';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=obj.date;
+                    info.innerHTML=record[k].date;
                     info.className='vaccine-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -120,17 +120,17 @@
                     case "prescription":
                     newItem.className='prescription-entry';  
                     info = document.createElement("div");
-                    info.innerHTML=obj.title;
+                    info.innerHTML=record[k].title;
                     info.className='prescription-title';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
                     info = document.createElement("div");
-                    info.innerHTML=obj.date;
+                    info.innerHTML=record[k].date;
                     info.className='prescription-date';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
                     info = document.createElement("div");
-                    info.innerHTML=obj.text;
+                    info.innerHTML=record[k].text;
                     info.className='prescription-text';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -142,17 +142,17 @@
                     case "phr":
                     newItem.className='phr-entry';   
                     info = document.createElement("div");
-                    info.innerHTML=obj.title;
+                    info.innerHTML=record[k].title;
                     info.className='phr-title';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=obj.date;
+                    info.innerHTML=record[k].date;
                     info.className='phr-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
                     info = document.createElement("div");
-                    info.innerHTML=obj.text;
+                    info.innerHTML=record[k].text;
                     info.className='phr-text'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
