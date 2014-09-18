@@ -6,7 +6,8 @@ var currentElementList;
 
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION */
 
-function addNewVaccine(){
+function addNewVaccine()
+{
     var title= document.getElementById("new-vaccine-title").value;
     var date = document.getElementById("new-vaccine-date").value;
     if(title=="" || date=="")
@@ -72,7 +73,8 @@ function addNewVaccine(){
     }    
 }
 
-function addNewPrescription(){
+function addNewPrescription()
+{
     var title= document.getElementById("new-prescription-title").value;
     var date = document.getElementById("new-prescription-date").value;
     var finalDate = document.getElementById("new-prescription-final-date").value;
@@ -155,7 +157,8 @@ function addNewPrescription(){
     }
 }
 
-function addNewPHR(){
+function addNewPHR()
+{
     var title= document.getElementById("new-phr-title").value;
     var date = document.getElementById("new-phr-date").value;
     var text = document.getElementById("new-phr-text").value;
@@ -247,7 +250,8 @@ function addNewPHR(){
     }
 }*/
 
-function login(){
+function login()
+{
     user=localStorage.getItem("loginUser");
     password=localStorage.getItem("loginPassword");
     
@@ -315,7 +319,8 @@ function login(){
     }
 }
 
-function loadData(){
+function loadData()
+{
     user=window.localStorage.getItem("loginUser");
     password=window.localStorage.getItem("loginPassword");
     
@@ -328,7 +333,8 @@ function loadData(){
     }
 }
 
-function notificationsTest(){
+function notificationsTest()
+{
     window.plugin.notification.local.add({
         id: 1,
         title: "Cheer up, boys!",
@@ -336,11 +342,13 @@ function notificationsTest(){
     });
 }
 
-function resetInputBackground(){
+function resetInputBackground()
+{
     document.getElementById(window.event.srcElement.id).style.cssText="background-color:transparent !important;-webkit-transition: background-color 500ms linear;";
 }
 
-function defaultData(){
+function defaultData()
+{
     var obj = document.getElementById(window.event.srcElement.id);
     var date=new Date();
     
@@ -368,44 +376,58 @@ function defaultData(){
     }
 }
 
-function deleteLoginInfo(){
+function deleteLoginInfo()
+{
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginPassword");
     alert("User and password deleted.");
 }
 
-function viewDetailedVaccine(){
-    for(var i=0;i<vaccines.length;i++)
+function viewDetailedVaccine()
+{
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;
+    var a;
+    if(currentElementList=="vaccine-list"){a=vaccines;}
+    else{a=record;}
+    
+    for(var i=0;i<a.length;i++)
     {
         //var v=JSON.parse(vaccines[i]);
-        currentElementList=window.event.srcElement.parentElement.parentElement.id;
                     
-        if(vaccines[i].id==window.event.srcElement.parentElement.id)
+        if(a[i].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-vaccine-title").innerHTML=vaccines[i].title;
-            document.getElementById("detailed-vaccine-date").innerHTML=vaccines[i].date;
-            currentElementID=vaccines[i].id;
+            document.getElementById("detailed-vaccine-title").innerHTML=a[i].title;
+            document.getElementById("detailed-vaccine-date").innerHTML=a[i].date;
+            currentElementID=a[i].id;
             break;
         }
     }     
     document.location.href="#detailed-vaccine-view";    
 }
 
-function viewDetailedPrescription(){
-    for(var j=0;j<prescriptions.length;j++)
+function viewDetailedPrescription()
+{
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;
+    var a;
+    if(currentElementList=="prescription-list"){a=prescriptions;}
+    else
+    {
+        a=record;
+    }
+    
+    for(var j=0;j<a.length;j++)
     {
         //var p=JSON.parse(prescriptions[j]);
-        currentElementList=window.event.srcElement.parentElement.parentElement.id;
         
-        if(prescriptions[j].id==window.event.srcElement.parentElement.id)
+        if(a[j].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-prescription-title").innerHTML=prescriptions[j].title;
-            document.getElementById("detailed-prescription-date").innerHTML=prescriptions[j].date;
-            document.getElementById("detailed-prescription-final-date").innerHTML=prescriptions[j].finalDate;
-            document.getElementById("detailed-prescription-dose").innerHTML=prescriptions[j].doseTakes+" "
-            +prescriptions[j].doseTakesMeasure+"/"+prescriptions[j].doseFrequency+" "+prescriptions[j].doseFrequencyMeasure;
-            document.getElementById("detailed-prescription-text").innerHTML=prescriptions[j].text;
-            currentElementID=prescriptions[j].id;
+            document.getElementById("detailed-prescription-title").innerHTML=a[j].title;
+            document.getElementById("detailed-prescription-date").innerHTML=a[j].date;
+            document.getElementById("detailed-prescription-final-date").innerHTML=a[j].finalDate;
+            document.getElementById("detailed-prescription-dose").innerHTML=a[j].doseTakes+" "
+            +a[j].doseTakesMeasure+"/"+a[j].doseFrequency+" "+a[j].doseFrequencyMeasure;
+            document.getElementById("detailed-prescription-text").innerHTML=a[j].text;
+            currentElementID=a[j].id;
             
             break;
         }
@@ -413,11 +435,13 @@ function viewDetailedPrescription(){
     document.location.href="#detailed-prescription-view";
 }
 
-function viewDetailedPHR(){
+function viewDetailedPHR()
+{
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;
+    
     for(var k=0;k<record.length;k++)
     {
         //var p=JSON.parse(record[k]);
-        currentElementList=window.event.srcElement.parentElement.parentElement.id;
         
         if(record[k].id==window.event.srcElement.parentElement.id)
         {
@@ -431,9 +455,8 @@ function viewDetailedPHR(){
     document.location.href="#detailed-phr-view";
 }
 
-
-
-function deleteElement(){
+function deleteElement()
+{
     var i=0;
     switch(currentElementList)
     {
@@ -561,7 +584,7 @@ function updateRecordList()
                     
                     newItem.onclick=viewDetailedVaccine
                     
-                    document.getElementById("vaccine-list").appendChild(newItem);   // Add the div to the specified List
+                    document.getElementById("record-list").appendChild(newItem);   // Add the div to the specified List
                     break;
                     
                     case "prescription":
@@ -583,7 +606,7 @@ function updateRecordList()
                     
                     newItem.onclick=viewDetailedPrescription;
                     
-                    document.getElementById("prescription-list").appendChild(newItem);  // Add the div to the specified List
+                    document.getElementById("record-list").appendChild(newItem);  // Add the div to the specified List
                     break;
                     
                     case "phr":
@@ -624,8 +647,12 @@ function emptyList(list)
     }
 }
 
-function saveToLocalStorage(arrayToSave)
+function saveToLocalStorage(arrayToSave,targetList)
 {
+    // IF IT IS NOT SPECIFIED, THE KEY USED FOR THE LOCALSTORAGE WILL BE THE ONE RELATED TO THE
+    // CURRENT LIST (IT SHOULD BE SPECIFIED WHEN USER IS MOVING AN ELEMENT TO THE RECORD TAB)
+    if(typeof(targetList)==='undefined') targetList=currentElementList;
+    
     var str="";
     for(var i=0;i<arrayToSave.length;i++)
     {
@@ -639,7 +666,7 @@ function saveToLocalStorage(arrayToSave)
         }
     }
     
-    switch(currentElementList)
+    switch(targetList)
     {
         case "vaccine-list":
             if(str!=""){localStorage.setItem("vaccines",str);}
@@ -658,7 +685,50 @@ function saveToLocalStorage(arrayToSave)
     }
 }
 
-function test(){
+function moveToRecord()
+{
+    var i=0;
+    switch(currentElementList)
+    {
+        case "vaccine-list":            
+            while(i<vaccines.length)
+            {
+                if(currentElementID==vaccines[i].id)
+                {
+                    record.push(vaccines[i]);                
+                    vaccines.splice(i,1);
+                    break;
+                }
+                i++;
+            }
+            saveToLocalStorage(vaccines);
+            saveToLocalStorage(record,"record-list");
+            updateVaccineList();
+            updateRecordList();
+            break;
+        
+        case "prescription-list":
+            while(i<prescriptions.length)
+            {
+                if(currentElementID==prescriptions[i].id)
+                {
+                record.push(prescriptions[i]);
+                    prescriptions.splice(i,1);
+                    break;
+                }
+                i++;
+            }
+            saveToLocalStorage(prescriptions);
+            saveToLocalStorage(record,"record-list");
+            updatePrescriptionList();
+            updateRecordList();            
+            break;
+    }
+    goBack();
+}
+
+function test()
+{
     /*
     var v1={"title":"caca","date":"2014-09-09"}
     localStorage.setItem("vaccines",JSON.stringify(v1));
@@ -669,6 +739,7 @@ function test(){
     */
 }
 
-function goBack(){
+function goBack()
+{
     window.history.go(-1);
 }

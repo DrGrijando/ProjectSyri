@@ -141,12 +141,12 @@
             </li>
         </ul>        
         <div id="new-prescription-dose-block">
-            <input id="new-prescription-dose-takes" class="new-prescription-dose-input" type="text"/>
+            <input id="new-prescription-dose-takes" class="new-prescription-dose-input" type="number"/>
             <select id="new-prescription-dose-takes-measure">
                 <option value="pill(s)">pill(s)</option>
                 <option value="ml">ml</option>
             </select>
-            <input id="new-prescription-dose-frequency" class="new-prescription-dose-input" type="text"/>
+            <input id="new-prescription-dose-frequency" class="new-prescription-dose-input" type="number"/>
             <select id="new-prescription-dose-frequency-measure">
                 <option value="hour(s)">hour(s)</option>
                 <option value="day(s)">day(s)</option>
@@ -210,7 +210,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED PHRs -->
-    <div id="detailed-phr-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
+    <div id="detailed-phr-view" data-role="view" data-layout="Layout7" data-transition="slide:up">
         <h1>Personal history record</h1>
         <p>See all the information of your PHRs just touching them.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
@@ -230,6 +230,7 @@
     <!-- Elements contained in the layout are shared between views -->
     <!-- Layout 1: tab layout --> <!-- Layout 2: add vaccines --> <!-- Layout 3: add prescriptions -->
     <!-- Layout 4: without buttons --> <!-- Layout 5: detailed views --> <!-- Layout 6: add PHRs -->
+    <!-- Layout 7: detailed record layouts (no "Move to record" button) -->
         
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">                        
@@ -305,5 +306,17 @@
         </div>
     </div>
     
+    <div data-id="Layout7" data-role="layout">
+        <div class="wrapper-center header" data-role="header">                        
+            <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="25" height="25"/></a>
+            <snap class="header-text app-name">VacApp</snap>            
+        </div>
+        <div class="wrapper-center footer" data-role="footer">
+            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+        </div>
+    </div>
 </body>
 </html>

@@ -114,7 +114,7 @@
                     
                     newItem.onclick=viewDetailedVaccine
                     
-                    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
+                    document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
                     break;
                     
                     case "prescription":
@@ -136,7 +136,7 @@
                     
                     newItem.onclick=viewDetailedPrescription;
                     
-                    document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List
+                    document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
                     break;
                     
                     case "phr":
