@@ -53,22 +53,7 @@ function addNewVaccine()
             }            
         }
         localStorage.setItem("vaccines",str);
-        
-        /*var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
-        var str;
-        if(localStorage.getItem("vaccines")==null)
-        {
-            str=JSON.stringify(vaccineToStore);
-        }
-        else
-        {
-            str=localStorage.getItem("vaccines")+"+"+JSON.stringify(vaccineToStore);
-        }
-        localStorage.setItem("vaccines",str);
-        
-        vaccines=localStorage.getItem("vaccines").split("+"); // Load vaccines in the local array
-        */
-        
+                
         goBack();
     }    
 }
@@ -136,23 +121,6 @@ function addNewPrescription()
         }
         localStorage.setItem("prescriptions",str);
         
-        
-        /*var prescriptionToStore={"title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
-            "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
-            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"}
-        var str;        
-        if(localStorage.getItem("prescriptions")==null)
-        {
-            str=JSON.stringify(prescriptionToStore);
-        }
-        else
-        {
-            str=localStorage.getItem("prescriptions")+"+"+JSON.stringify(prescriptionToStore);
-        }
-        localStorage.setItem("prescriptions",str);
-        
-        prescriptions=localStorage.getItem("prescriptions").split("+"); // Load prescriptions in the local array*/
-        
         goBack();
     }
 }
@@ -211,44 +179,9 @@ function addNewPHR()
         }
         localStorage.setItem("record",str);        
         
-        
-        /*var phrToStore={"title":title,"date":date,"text":text,"id":id,"type":"phr"}
-        var str;        
-        if(localStorage.getItem("record")==null)
-        {
-            str=JSON.stringify(phrToStore);
-        }
-        else
-        {
-            str=localStorage.getItem("record")+"+"+JSON.stringify(phrToStore);
-        }
-        localStorage.setItem("record",str);
-        
-        record=localStorage.getItem("record").split("+"); // Load record in the local array
-        */
-        
-        
         goBack();
     }    
 }
-
-/*function sortVaccines(){
-    ul=document.getElementById("vaccine-list");
-    var lis=ul.getElementsByTag("div");
-    var vals=[];
-    
-    for(var i=0,l=lis.length;i<1;i++)
-    {
-        vals.push(lis[i].innerHTML);
-    }
-    
-    vals.sort();
-    
-    for(var i=0,l=lis.length;i<1;i++)
-    {
-        lis[i].innerHTML=vals[i];
-    }
-}*/
 
 function login()
 {
@@ -458,51 +391,106 @@ function viewDetailedPHR()
 function deleteElement()
 {
     var i=0;
-    switch(currentElementList)
+    var isChecked=document.getElementById("confirm-deletions-checkbox").checked;
+    if(isChecked)
     {
-        case "vaccine-list":            
-            while(i<vaccines.length)
+        if(confirm("Are you sure you want to delete this entry?"))
+        {
+            switch(currentElementList)
             {
-                if(currentElementID==vaccines[i].id)
+                case "vaccine-list":                       
+                while(i<vaccines.length)
                 {
-                    vaccines.splice(i,1);
-                    break;
+                    if(currentElementID==vaccines[i].id)
+                    {
+                        vaccines.splice(i,1);
+                        break;
+                    }
+                    i++;
                 }
-                i++;
+                saveToLocalStorage(vaccines);
+                updateVaccineList();
+                break;
+                
+                case "prescription-list":
+                while(i<prescriptions.length)
+                {
+                    if(currentElementID==prescriptions[i].id)
+                    {
+                        prescriptions.splice(i,1);
+                        break;
+                    }
+                    i++;
+                }
+                saveToLocalStorage(prescriptions);
+                updatePrescriptionList();
+                break;
+                
+                case "record-list":
+                while(i<record.length)
+                {
+                    if(currentElementID==record[i].id)
+                    {
+                        record.splice(i,1);
+                        break;
+                    }
+                    i++;
+                }       
+                saveToLocalStorage(record);
+                updateRecordList();
+                break;
             }
-            saveToLocalStorage(vaccines);
-            updateVaccineList();
-            break;
-        
-        case "prescription-list":
-            while(i<prescriptions.length)
-            {
-                if(currentElementID==prescriptions[i].id)
-                {
-                    prescriptions.splice(i,1);
-                    break;
-                }
-                i++;
-            }
-            saveToLocalStorage(prescriptions);
-            updatePrescriptionList();
-            break;
-        
-        case "record-list":
-            while(i<record.length)
-            {
-                if(currentElementID==record[i].id)
-                {
-                    record.splice(i,1);
-                    break;
-                }
-                i++;
-            }       
-            saveToLocalStorage(record);
-            updateRecordList();
-            break;
+            goBack();
+        }
     }
-    goBack();
+    else
+    {
+        switch(currentElementList)
+            {
+                case "vaccine-list":                       
+                while(i<vaccines.length)
+                {
+                    if(currentElementID==vaccines[i].id)
+                    {
+                        vaccines.splice(i,1);
+                        break;
+                    }
+                    i++;
+                }
+                saveToLocalStorage(vaccines);
+                updateVaccineList();
+                break;
+                
+                case "prescription-list":
+                while(i<prescriptions.length)
+                {
+                    if(currentElementID==prescriptions[i].id)
+                    {
+                        prescriptions.splice(i,1);
+                        break;
+                    }
+                    i++;
+                }
+                saveToLocalStorage(prescriptions);
+                updatePrescriptionList();
+                break;
+                
+                case "record-list":
+                while(i<record.length)
+                {
+                    if(currentElementID==record[i].id)
+                    {
+                        record.splice(i,1);
+                        break;
+                    }
+                    i++;
+                }       
+                saveToLocalStorage(record);
+                updateRecordList();
+                break;
+            }
+            goBack();
+    }    
 }
 
 function updateVaccineList()

@@ -15,6 +15,11 @@ a{
     -webkit-transition: background-color 500ms linear;
 }*/
 
+h1{
+    font-family:VacAppFont;
+    color:rgb(88,220,145);
+}
+
 /* WRAPPER USED TO CENTER THE ELEMENTS ON THE SCREEN */
 .wrapper-center{
     text-align: center;
@@ -55,6 +60,15 @@ a{
     width:25px;
     height:25px;
 }*/
+
+#cloud-button{
+    text-align:right;
+    font-size:100%;
+    position:absolute;
+    top:17%;
+    right:3%;
+    z-index:10;    
+}
 
 .app-name{
     position:absolute;

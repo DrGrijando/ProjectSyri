@@ -42,8 +42,7 @@
     
     <!-- VACCINES TAB -->    
     <div id="tabstrip-vaccines" data-role="view" data-layout="Layout1">
-        <h1>Upcoming vaccines</h1>
-        <p>Hello, user. In this tab you will find which are the next vaccines that you need to take.</p>
+        <h1>Vaccines</h1>
         <ul id="vaccine-list" data-role="listview" data-style="inset">
             <li data-icon="add" id="add-vaccine-listitem">
                 <a id="add-vaccine-button" href="#add-vaccine-view" data-transition="slide" onclick="defaultData();">Add vaccine...</a>
@@ -54,7 +53,6 @@
     <!-- PRESCRIPTIONS TAB -->
     <div id="tabstrip-prescriptions" data-role="view" data-layout="Layout1">
         <h1>Prescriptions</h1>
-        <p>Hello, user. In this tab you will find the notes or prescriptions given to you by your doctor.</p>
         <ul id="prescription-list" data-role="listview" data-style="inset">
             <li data-icon="add" id="add-prescription-listitem">
                 <a id="add-prescription-button" href="#add-prescription-view" data-transition="slide" onclick="defaultData();">Add prescription...</a>
@@ -65,7 +63,6 @@
     <!-- RECORD TAB -->
     <div id="tabstrip-record" data-role="view" data-layout="Layout1">
         <h1>Record</h1>
-        <p>Hello, user. In this tab you will find the record for past vaccinations, prescriptions and more.</p>
         <ul id="record-list" data-role="listview" data-style="inset">
             <li data-icon="add" id="add-phr-listitem">
                 <a id="add-phr-button" href="#add-phr-view" data-transition="slide" onclick="defaultData();">Add PHR...</a>
@@ -88,7 +85,7 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" id="checkbox2"/>Option 2
+                    <input type="checkbox" id="confirm-deletions-checkbox" value="true" checked/>Confirm deletions
                 </label>
             </li>
             <li>
@@ -236,6 +233,7 @@
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" href="#options" onclick="loadData();"><img src="styles/images/settings_white.png" width="25" height="25"/></a>
             <snap class="header-text app-name">VacApp</snap>            
+            <a id="cloud-button"><img src="styles/images/cloud_white.png" width="30" height="30"/></a>
         </div>
         <div data-role="footer">
             <div data-role="tabstrip">
