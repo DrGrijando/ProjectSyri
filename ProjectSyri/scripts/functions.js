@@ -254,8 +254,8 @@ function login()
 
 function loadData()
 {
-    user=window.localStorage.getItem("loginUser");
-    password=window.localStorage.getItem("loginPassword");
+    user=localStorage.getItem("loginUser");
+    password=localStorage.getItem("loginPassword");
     
     if((user!=null)&&(password!=null))
     {
@@ -264,6 +264,15 @@ function loadData()
         document.getElementById("login-password-input").value=password;
         document.getElementById("options-password-input").value=password;
     }
+    var isChecked=(localStorage.getItem("settings")==="true");
+    if(isChecked)
+    {
+        document.getElementById("confirm-deletions-checkbox").checked=true;
+    }
+    else
+    { 
+        document.getElementById("confirm-deletions-checkbox").checked=false;
+    }    
 }
 
 function notificationsTest()
@@ -725,6 +734,14 @@ function test()
     localStorage.setItem("vaccines",str);
     var vector=localStorage.getItem("vaccines").split("+");
     */
+}
+
+function saveSettings()
+{
+    localStorage.setItem("loginUser",document.getElementById("options-user-input").value);
+    localStorage.setItem("loginPassword",document.getElementById("options-password-input").value);
+    localStorage.setItem("settings",document.getElementById("confirm-deletions-checkbox").checked);
+    goBack();
 }
 
 function goBack()
