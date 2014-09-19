@@ -164,7 +164,10 @@
                 }
             }
         }
-        
+        if(localStorage.getItem("settings")==null)
+        {
+            localStorage.setItem("settings","true");
+        }
         // window.plugin.notification.local is now available
 
         /*app.changeSkin = function (e) {
