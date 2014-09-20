@@ -8,7 +8,7 @@ var currentElementList;
 
 function addNewVaccine()
 {
-    currentelementList="vaccine-list";
+    currentElementList="vaccine-list";
     var title= document.getElementById("new-vaccine-title").value;
     var date = document.getElementById("new-vaccine-date").value;
     if(title=="" || date=="")
@@ -40,20 +40,8 @@ function addNewVaccine()
         
         var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
         vaccines.push(vaccineToStore);
-        
-        var str="";
-        for(var i=0;i<vaccines.length;i++)
-        {
-            if(i==(vaccines.length-1))
-            {
-                str=str+JSON.stringify(vaccines[i]);
-            }            
-            else
-            {
-                str=str+JSON.stringify(vaccines[i])+"+";
-            }            
-        }
-        localStorage.setItem("vaccines",str);
+        sortByDate(vaccines);
+        saveToLocalStorage(vaccines);
         updateVaccineList();
                 
         goBack();
@@ -62,7 +50,7 @@ function addNewVaccine()
 
 function addNewPrescription()
 {
-    currentelementList="prescription-list";
+    currentElementList="prescription-list";
     var title= document.getElementById("new-prescription-title").value;
     var date = document.getElementById("new-prescription-date").value;
     var finalDate = document.getElementById("new-prescription-final-date").value;
@@ -109,20 +97,8 @@ function addNewPrescription()
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
             "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"}
         prescriptions.push(prescriptionToStore);
-        
-        var str="";
-        for(var j=0;j<prescriptions.length;j++)
-        {
-            if(j==(prescriptions.length-1))
-            {
-                str=str+JSON.stringify(prescriptions[j]);
-            }
-            else
-            {
-                str=str+JSON.stringify(prescriptions[j])+"+";
-            }
-        }
-        localStorage.setItem("prescriptions",str);
+        sortByDate(prescriptions);
+        saveToLocalStorage(prescriptions);
         updatePrescriptionList();
         
         goBack();
@@ -131,7 +107,7 @@ function addNewPrescription()
 
 function addNewPHR()
 {
-    currentelementList="record-list";
+    currentElementList="record-list";
     var title= document.getElementById("new-phr-title").value;
     var date = document.getElementById("new-phr-date").value;
     var text = document.getElementById("new-phr-text").value;
@@ -169,20 +145,8 @@ function addNewPHR()
         
         var phrToStore={"title":title,"date":date,"text":text,"id":id,"type":"phr"}
         record.push(phrToStore);
-        
-        var str="";        
-        for (var k=0;k<record.length;k++)
-        {
-            if(k==(record.length-1))
-            {
-                str=str+JSON.stringify(record[k]);
-            }
-            else
-            {
-                str=str+JSON.stringify(record[k])+"+";
-            }
-        }
-        localStorage.setItem("record",str);        
+        sortByDate(record);
+        saveToLocalStorage(record);    
         updateRecordList();
         
         goBack();
@@ -706,6 +670,7 @@ function moveToRecord()
                 }
                 i++;
             }
+            sortByDate(record);
             saveToLocalStorage(vaccines);
             saveToLocalStorage(record,"record-list");
             updateVaccineList();
@@ -723,6 +688,7 @@ function moveToRecord()
                 }
                 i++;
             }
+            sortByDate(record);
             saveToLocalStorage(prescriptions);
             saveToLocalStorage(record,"record-list");
             updatePrescriptionList();
@@ -749,6 +715,7 @@ function saveElementChanges()
             }
             i++;
         }
+        sortByDate(vaccines);
         saveToLocalStorage(vaccines);
         updateVaccineList();
         break;
@@ -771,6 +738,7 @@ function saveElementChanges()
             }
             i++;
         }
+        sortByDate(prescriptions);
         saveToLocalStorage(prescriptions);
         updatePrescriptionList();
         break;
@@ -811,11 +779,21 @@ function saveElementChanges()
             }
             i++;
         }       
+        sortByDate(record);
         saveToLocalStorage(record);
         updateRecordList();
         break;
     }
     goBack();
+}
+
+function sortByDate(entries)
+{
+    entries.sort(function compare(ent1, ent2){
+        if(ent1.date < ent2.date){return -1;}
+        if(ent1.date > ent2.date){return 1;}
+        return 0;
+    });
 }
 
 function test()
