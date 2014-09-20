@@ -142,12 +142,12 @@ h1{
     text-align:top;
 }
 
-#new-prescription-dose-block{
+.prescription-dose-block{
     display:inline-block !important;
 }
 
-.new-prescription-dose-input{
-    width:25px !important;
+.prescription-dose-input{
+    width:30px !important;
     text-align:right !important;
 }
 

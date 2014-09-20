@@ -125,25 +125,25 @@
         <p>Add a new prescription for a recent vaccine or medication.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input id="new-prescription-title" type="text" placeholder="Title" />
+                <input id="new-prescription-title" type="text" placeholder="Enter the medicine..." />
             </li>            
             <li data-icon="recents">
-                <input id="new-prescription-date" type="date" placeholder="Enter the date..." />
+                <input id="new-prescription-date" type="date"/>
             </li>
             <li data-icon="recents">
-                <input id="new-prescription-final-date" type="date" placeholder="Enter when the treatment ends..." />
+                <input id="new-prescription-final-date" type="date"/>
             </li>            
             <li data-icon="bookmarks">
                 <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>        
-        <div id="new-prescription-dose-block">
-            <input id="new-prescription-dose-takes" class="new-prescription-dose-input" type="number"/>
+        <div id="new-prescription-dose-block" class="prescription-dose-block">
+            <input id="new-prescription-dose-takes" class="prescription-dose-input" type="number"/>
             <select id="new-prescription-dose-takes-measure">
                 <option value="pill(s)">pill(s)</option>
                 <option value="ml">ml</option>
             </select>
-            <input id="new-prescription-dose-frequency" class="new-prescription-dose-input" type="number"/>
+            <input id="new-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
             <select id="new-prescription-dose-frequency-measure">
                 <option value="hour(s)">hour(s)</option>
                 <option value="day(s)">day(s)</option>
@@ -158,10 +158,10 @@
         <p>Add a new personal history record.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <input id="new-phr-title" type="text" placeholder="Title" />
+                <input id="new-phr-title" type="text" placeholder="Enter the title..." />
             </li>            
             <li data-icon="recents">
-                <input id="new-phr-date" type="date" placeholder="Enter the date..." />
+                <input id="new-phr-date" type="date"/>
             </li>            
             <li data-icon="bookmarks">
                 <textarea id="new-phr-text" placeholder="Enter the text..."></textarea>
@@ -175,10 +175,10 @@
         <p>See all the information of your vaccines just touching them</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <span id="detailed-vaccine-title"></span>
+                <input id="detailed-vaccine-title" type="text" placeholder="Vaccine for..."/>
             </li>
             <li data-icon="recents">
-                <span id="detailed-vaccine-date" type="date"></span>
+                <input id="detailed-vaccine-date" type="date"/>
             </li>
         </ul>
     </div>
@@ -189,21 +189,30 @@
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <span id="detailed-prescription-title"></span>
+                <input id="detailed-prescription-title" type="text" palceholder="Enter the medicine..."/>
             </li>            
             <li data-icon="recents">
-                <span id="detailed-prescription-date"></span>
+                <input id="detailed-prescription-date" type="date"/>
             </li>
             <li data-icon="recents">
-                <span id="detailed-prescription-final-date"></span>
-            </li>
-            <li data-icon="info">
-                <span id="detailed-prescription-dose"></span>
-            </li>
+                <input id="detailed-prescription-final-date" type="date"/>
+            </li>            
             <li data-icon="bookmarks">
-                <textarea id="detailed-prescription-text" readonly></textarea>
+                <textarea id="detailed-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
-        </ul>        
+        </ul>
+        <div id="detailed-prescription-dose-block" class="prescription-dose-block">
+            <input id="detailed-prescription-dose-takes" class="prescription-dose-input" type="number"/>
+            <select id="detailed-prescription-dose-takes-measure">
+                <option value="pill(s)">pill(s)</option>
+                <option value="ml">ml</option>
+            </select>
+            <input id="detailed-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
+            <select id="detailed-prescription-dose-frequency-measure">
+                <option value="hour(s)">hour(s)</option>
+                <option value="day(s)">day(s)</option>
+            </select>
+        </div>
     </div>
     
     <!-- VIEW TO SEE DETAILED PHRs -->
@@ -212,13 +221,13 @@
         <p>See all the information of your PHRs just touching them.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="compose">
-                <span id="detailed-phr-title"></span>
+                <input id="detailed-phr-title" type="text" placeholder="Enter the title..."/>
             </li>            
             <li data-icon="recents">
-                <span id="detailed-phr-date"></span>
+                <input id="detailed-phr-date" type="date"/>
             </li>
             <li data-icon="bookmarks">
-                <textarea id="detailed-phr-text" readonly></textarea>
+                <textarea id="detailed-phr-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>        
     </div>
@@ -284,10 +293,11 @@
         </div>
         <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="fastforward" onclick="moveToRecord();">Move to record</a>
-            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
+            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
+            <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
-            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+            <a data-role="button" data-icon="reply" onclick="goBack();"></a>
         </div>
     </div>
     
@@ -310,10 +320,11 @@
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
-            <a data-role="button" data-icon="trash" onclick="deleteElement();">Delete</a>
+            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
+            <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
-            <a data-role="button" data-icon="reply" onclick="goBack();">Back</a>
+            <a data-role="button" data-icon="reply" onclick="goBack();"></a>
         </div>
     </div>
 </body>

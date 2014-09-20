@@ -17,7 +17,7 @@ function addNewVaccine()
     else
     {
         var newItem = document.createElement("div");
-        var id=title.concat(date).replace(/-| /g,'');
+        var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;        
         newItem.className='vaccine-entry';    
         
@@ -77,7 +77,7 @@ function addNewPrescription()
     else
     {
         var newItem = document.createElement("div");
-        var id=title.concat(date).replace(/-| /g,'');
+        var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;
         newItem.className='prescription-entry';
         
@@ -137,7 +137,7 @@ function addNewPHR()
     else
     {
         var newItem = document.createElement("div");
-        var id=title.concat(date).replace(/-| /g,'');
+        var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;
         newItem.className='phr-entry';    
         
@@ -338,8 +338,8 @@ function viewDetailedVaccine()
                     
         if(a[i].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-vaccine-title").innerHTML=a[i].title;
-            document.getElementById("detailed-vaccine-date").innerHTML=a[i].date;
+            document.getElementById("detailed-vaccine-title").value=a[i].title;
+            document.getElementById("detailed-vaccine-date").value=a[i].date;
             currentElementID=a[i].id;
             break;
         }
@@ -363,14 +363,15 @@ function viewDetailedPrescription()
         
         if(a[j].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-prescription-title").innerHTML=a[j].title;
-            document.getElementById("detailed-prescription-date").innerHTML=a[j].date;
-            document.getElementById("detailed-prescription-final-date").innerHTML=a[j].finalDate;
-            document.getElementById("detailed-prescription-dose").innerHTML=a[j].doseTakes+" "
-            +a[j].doseTakesMeasure+"/"+a[j].doseFrequency+" "+a[j].doseFrequencyMeasure;
-            document.getElementById("detailed-prescription-text").innerHTML=a[j].text;
-            currentElementID=a[j].id;
-            
+            document.getElementById("detailed-prescription-title").value=a[j].title;
+            document.getElementById("detailed-prescription-date").value=a[j].date;
+            document.getElementById("detailed-prescription-final-date").value=a[j].finalDate;            
+            document.getElementById("detailed-prescription-text").value=a[j].text;
+            document.getElementById("detailed-prescription-dose-takes").value=a[j].doseTakes;
+            document.getElementById("detailed-prescription-dose-takes-measure").value=a[j].doseTakesMeasure;
+            document.getElementById("detailed-prescription-dose-frequency").value=a[j].doseFrequency;
+            document.getElementById("detailed-prescription-dose-frequency-measure").value=a[j].doseFrequencyMeasure;
+            currentElementID=a[j].id;            
             break;
         }
     } 
@@ -387,9 +388,9 @@ function viewDetailedPHR()
         
         if(record[k].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-phr-title").innerHTML=record[k].title;
-            document.getElementById("detailed-phr-date").innerHTML=record[k].date;
-            document.getElementById("detailed-phr-text").innerHTML=record[k].text;
+            document.getElementById("detailed-phr-title").value=record[k].title;
+            document.getElementById("detailed-phr-date").value=record[k].date;
+            document.getElementById("detailed-phr-text").value=record[k].text;
             currentElementID=record[k].id;
             break;
         }
@@ -720,6 +721,92 @@ function moveToRecord()
             updatePrescriptionList();
             updateRecordList();            
             break;
+    }
+    goBack();
+}
+
+function saveElementChanges()
+{
+    var i=0;
+    switch(currentElementList)
+    {
+        case "vaccine-list":                       
+        while(i<vaccines.length)
+        {
+            if(currentElementID==vaccines[i].id)
+            {
+                vaccines[i].title=document.getElementById("detailed-vaccine-title").value;
+                vaccines[i].date=document.getElementById("detailed-vaccine-date").value;
+                vaccines[i].id=vaccines[i].title.substring(0,3).concat(vaccines[i].date).replace(/-| /g,'');
+                break;
+            }
+            i++;
+        }
+        saveToLocalStorage(vaccines);
+        updateVaccineList();
+        break;
+        
+        case "prescription-list":
+        while(i<prescriptions.length)
+        {
+            if(currentElementID==prescriptions[i].id)
+            {
+                prescriptions[i].title=document.getElementById("detailed-prescription-title").value;
+                prescriptions[i].date=document.getElementById("detailed-prescription-date").value;
+                prescriptions[i].finalDate=document.getElementById("detailed-prescription-final-date").value;
+                prescriptions[i].text=document.getElementById("detailed-prescription-text").value;
+                prescriptions[i].doseTakes=document.getElementById("detailed-prescription-dose-takes").value;
+                prescriptions[i].doseTakesMeasure=document.getElementById("detailed-prescription-dose-takes-measure").value;
+                prescriptions[i].doseFrequency=document.getElementById("detailed-prescription-dose-frequency").value;
+                prescriptions[i].doseFrequencyMeasure=document.getElementById("detailed-prescription-dose-frequency-measure").value;
+                prescriptions[i].id=prescriptions[i].title.substring(0,3).concat(prescriptions[i].date).replace(/-| /g,'');
+                break;
+            }
+            i++;
+        }
+        saveToLocalStorage(prescriptions);
+        updatePrescriptionList();
+        break;
+        
+        case "record-list":
+        while(i<record.length)
+        {
+            if(currentElementID==record[i].id)
+            {
+                switch(record[i].type)
+                {
+                    case "vaccine":
+                    record[i].title=document.getElementById("detailed-vaccine-title").value;
+                    record[i].date=document.getElementById("detailed-vaccine-date").value;
+                    record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');
+                    break;                            
+                    
+                    case "prescription":
+                    record[i].title=document.getElementById("detailed-prescription-title").value;
+                    record[i].date=document.getElementById("detailed-prescription-date").value;
+                    record[i].finalDate=document.getElementById("detailed-prescription-final-date").value;
+                    record[i].text=document.getElementById("detailed-prescription-text").value;
+                    record[i].doseTakes=document.getElementById("detailed-prescription-dose-takes").value;
+                    record[i].doseTakesMeasure=document.getElementById("detailed-prescription-dose-takes-measure").value;
+                    record[i].doseFrequency=document.getElementById("detailed-prescription-dose-frequency").value;
+                    record[i].doseFrequencyMeasure=document.getElementById("detailed-prescription-dose-frequency-measure").value;
+                    record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');                    
+                    break;
+                    
+                    case "phr":
+                    record[i].title=document.getElementById("detailed-phr-title").value;
+                    record[i].date=document.getElementById("detailed-phr-date").value;
+                    record[i].text=document.getElementById("detailed-phr-text").value;
+                    record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');
+                    break;
+                }
+                break;
+            }
+            i++;
+        }       
+        saveToLocalStorage(record);
+        updateRecordList();
+        break;
     }
     goBack();
 }
