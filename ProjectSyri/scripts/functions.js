@@ -8,6 +8,7 @@ var currentElementList;
 
 function addNewVaccine()
 {
+    currentelementList="vaccine-list";
     var title= document.getElementById("new-vaccine-title").value;
     var date = document.getElementById("new-vaccine-date").value;
     if(title=="" || date=="")
@@ -53,6 +54,7 @@ function addNewVaccine()
             }            
         }
         localStorage.setItem("vaccines",str);
+        updateVaccineList();
                 
         goBack();
     }    
@@ -60,6 +62,7 @@ function addNewVaccine()
 
 function addNewPrescription()
 {
+    currentelementList="prescription-list";
     var title= document.getElementById("new-prescription-title").value;
     var date = document.getElementById("new-prescription-date").value;
     var finalDate = document.getElementById("new-prescription-final-date").value;
@@ -120,6 +123,7 @@ function addNewPrescription()
             }
         }
         localStorage.setItem("prescriptions",str);
+        updatePrescriptionList();
         
         goBack();
     }
@@ -127,6 +131,7 @@ function addNewPrescription()
 
 function addNewPHR()
 {
+    currentelementList="record-list";
     var title= document.getElementById("new-phr-title").value;
     var date = document.getElementById("new-phr-date").value;
     var text = document.getElementById("new-phr-text").value;
@@ -178,6 +183,7 @@ function addNewPHR()
             }
         }
         localStorage.setItem("record",str);        
+        updateRecordList();
         
         goBack();
     }    
@@ -667,6 +673,7 @@ function saveToLocalStorage(arrayToSave,targetList)
     switch(targetList)
     {
         case "vaccine-list":
+            
             if(str!=""){localStorage.setItem("vaccines",str);}
             else{localStorage.removeItem("vaccines");}            
             break;
