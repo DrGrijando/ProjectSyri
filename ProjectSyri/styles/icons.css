@@ -1,0 +1,65 @@
+.km-cloud:after,
+.km-cloud:before
+{
+    content:"\e08e";
+}
+
+.km-save:after,
+.km-save:before
+{
+    content:"\e096";
+}
+
+.km-savedisk:after,
+.km-savedisk:before
+{
+    content:"\e0bd";
+}
+
+.km-calendar:after,
+.km-calendar:before
+{
+    content:"\e089";
+}
+
+.km-medic:after,
+.km-medic:before
+{
+    content:"\e07a";
+}
+
+.km-folder:after,
+.km-folder:before
+{
+    content:"\e0a2";
+}
+
+.km-cross:after,
+.km-cross:before
+{
+    content:"\e034";
+}
+
+.km-key:after,
+.km-key:before
+{
+    content:"\e0b1";
+}
+
+.km-mail:after,
+.km-mail:before
+{
+    content:"\e099";
+}
+
+.km-plus:after,
+.km-plus:before
+{
+    content:"\e03b";
+}
+
+.km-label:after,
+.km-label:before
+{
+    content:"\e0bf";
+}

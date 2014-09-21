@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
     <link href="styles/main.css" rel="stylesheet" />
+    <link href="styles/icons.css" rel="stylesheet" />
 
     <script src="cordova.js"></script>
     <script src="Plugins/cordova-plugin-local-notifications-master/www/local-notification.js" type="text/javascript"></script>
@@ -24,10 +25,10 @@
     <!-- LOGIN SCREEN -->
     <div id="login" data-role="view" data-layout="Layout4">
         <ul id="login-fields" data-role="listview">
-            <li data-icon="compose">
+            <li data-icon="mail">
                 <input id="login-user-input" type="text" placeholder="User" onclick="resetInputBackground();"/>
             </li>            
-            <li data-icon="recents">
+            <li data-icon="key">
                 <input id="login-password-input" type="password" placeholder="Password" onclick="resetInputBackground();"/>
             </li>
         </ul>
@@ -44,7 +45,7 @@
     <div id="tabstrip-vaccines" data-role="view" data-layout="Layout1">
         <h1>Vaccines</h1>
         <ul id="vaccine-list" data-role="listview" data-style="inset">
-            <li data-icon="add" id="add-vaccine-listitem">
+            <li data-icon="plus" id="add-vaccine-listitem">
                 <a id="add-vaccine-button" href="#add-vaccine-view" data-transition="slide" onclick="defaultData();">Add vaccine...</a>
             </li>
         </ul>       
@@ -54,7 +55,7 @@
     <div id="tabstrip-prescriptions" data-role="view" data-layout="Layout1">
         <h1>Prescriptions</h1>
         <ul id="prescription-list" data-role="listview" data-style="inset">
-            <li data-icon="add" id="add-prescription-listitem">
+            <li data-icon="plus" id="add-prescription-listitem">
                 <a id="add-prescription-button" href="#add-prescription-view" data-transition="slide" onclick="defaultData();">Add prescription...</a>
             </li>
         </ul>
@@ -64,7 +65,7 @@
     <div id="tabstrip-record" data-role="view" data-layout="Layout1">
         <h1>Record</h1>
         <ul id="record-list" data-role="listview" data-style="inset">
-            <li data-icon="add" id="add-phr-listitem">
+            <li data-icon="plus" id="add-phr-listitem">
                 <a id="add-phr-button" href="#add-phr-view" data-transition="slide" onclick="defaultData();">Add PHR...</a>
             </li>
         </ul>
@@ -110,10 +111,10 @@
         <h1>New vaccine</h1>
         <p>Add a new vaccine to your schedule by introducing the following data.</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="new-vaccine-title" type="text" placeholder="Vaccine for..." />
             </li>
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="new-vaccine-date" type="date" placeholder="Enter the date..." />
             </li>
         </ul>
@@ -124,16 +125,16 @@
         <h1>New prescription</h1>
         <p>Add a new prescription for a recent vaccine or medication.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="new-prescription-title" type="text" placeholder="Enter the medicine..." />
             </li>            
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="new-prescription-date" type="date"/>
             </li>
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="new-prescription-final-date" type="date"/>
             </li>            
-            <li data-icon="bookmarks">
+            <li data-icon="compose">
                 <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>        
@@ -157,13 +158,13 @@
         <h1>New PHR</h1>
         <p>Add a new personal history record.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="new-phr-title" type="text" placeholder="Enter the title..." />
             </li>            
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="new-phr-date" type="date"/>
             </li>            
-            <li data-icon="bookmarks">
+            <li data-icon="compose">
                 <textarea id="new-phr-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>        
@@ -174,10 +175,10 @@
         <h1>Vaccine</h1>
         <p>See all the information of your vaccines just touching them</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="detailed-vaccine-title" type="text" placeholder="Vaccine for..."/>
             </li>
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="detailed-vaccine-date" type="date"/>
             </li>
         </ul>
@@ -188,16 +189,16 @@
         <h1>Prescription</h1>
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="detailed-prescription-title" type="text" palceholder="Enter the medicine..."/>
             </li>            
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="detailed-prescription-date" type="date"/>
             </li>
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="detailed-prescription-final-date" type="date"/>
             </li>            
-            <li data-icon="bookmarks">
+            <li data-icon="compose">
                 <textarea id="detailed-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>
@@ -220,13 +221,13 @@
         <h1>Personal history record</h1>
         <p>See all the information of your PHRs just touching them.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
-            <li data-icon="compose">
+            <li data-icon="label">
                 <input id="detailed-phr-title" type="text" placeholder="Enter the title..."/>
             </li>            
-            <li data-icon="recents">
+            <li data-icon="calendar">
                 <input id="detailed-phr-date" type="date"/>
             </li>
-            <li data-icon="bookmarks">
+            <li data-icon="compose">
                 <textarea id="detailed-phr-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>        
@@ -246,9 +247,9 @@
         </div>
         <div data-role="footer">
             <div data-role="tabstrip">
-                <a data-icon="recents" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
-                <a data-icon="bookmarks" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
-                <a data-icon="organize" href="#tabstrip-record" data-transition="slide:left">Record</a>
+                <a data-icon="cross" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
+                <a data-icon="medic" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
+                <a data-icon="folder" href="#tabstrip-record" data-transition="slide:left">Record</a>
             </div>            
         </div>
     </div>
@@ -259,7 +260,7 @@
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
-            <a data-role="button" data-icon="add" onclick="addNewVaccine();">Save</a>
+            <a data-role="button" data-icon="plus" onclick="addNewVaccine();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
@@ -272,7 +273,7 @@
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
-            <a data-role="button" data-icon="add" onclick="addNewPrescription();">Save</a>
+            <a data-role="button" data-icon="plus" onclick="addNewPrescription();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
@@ -307,7 +308,7 @@
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
-            <a data-role="button" data-icon="add" onclick="addNewPHR();">Save</a>
+            <a data-role="button" data-icon="plus" onclick="addNewPHR();">Save</a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
             <a data-role="button" data-icon="reply" onclick="goBack();">Cancel</a>
