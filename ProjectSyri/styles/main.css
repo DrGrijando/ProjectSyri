@@ -49,24 +49,25 @@ h1{
 }
 
 #settings-button{
+    background-color:transparent!important;
+    color:rgb(255,255,255)!important;
+    border:none;
+    font-size:80%;
     position:absolute;
-    top:22%;
-    left:3%;
+    top:2%;
+    left:-3%;
     z-index:10;
 }
-/*    // IF ACTIVE, THE BUTTON DOESN'T WORK
-#settings-button:active{
-    content:url("images/settings.png");
-    width:25px;
-    height:25px;
-}
-*/
+
 #cloud-button{
+    background-color:transparent!important;
+    color:rgb(255,255,255)!important;
+    border:none;
     text-align:right;
     font-size:100%;
     position:absolute;
-    top:17%;
-    right:3%;
+    top:-12%;
+    right:-4%;
     z-index:10;    
 }
 
