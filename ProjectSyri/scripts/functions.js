@@ -297,20 +297,16 @@ function deleteLoginInfo()
 
 function viewDetailedVaccine()
 {
-    currentElementList=window.event.srcElement.parentElement.parentElement.id;
-    var a;
-    if(currentElementList=="vaccine-list"){a=vaccines;}
-    else{a=record;}
-    
-    for(var i=0;i<a.length;i++)
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;    
+    for(var i=0;i<vaccines.length;i++)
     {
         //var v=JSON.parse(vaccines[i]);
                     
-        if(a[i].id==window.event.srcElement.parentElement.id)
+        if(vaccines[i].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-vaccine-title").value=a[i].title;
-            document.getElementById("detailed-vaccine-date").value=a[i].date;
-            currentElementID=a[i].id;
+            document.getElementById("detailed-vaccine-title").value=vaccines[i].title;
+            document.getElementById("detailed-vaccine-date").value=vaccines[i].date;
+            currentElementID=vaccines[i].id;
             break;
         }
     }     
@@ -320,28 +316,21 @@ function viewDetailedVaccine()
 function viewDetailedPrescription()
 {
     currentElementList=window.event.srcElement.parentElement.parentElement.id;
-    var a;
-    if(currentElementList=="prescription-list"){a=prescriptions;}
-    else
-    {
-        a=record;
-    }
-    
-    for(var j=0;j<a.length;j++)
+    for(var j=0;j<prescriptions.length;j++)
     {
         //var p=JSON.parse(prescriptions[j]);
         
-        if(a[j].id==window.event.srcElement.parentElement.id)
+        if(prescriptions[j].id==window.event.srcElement.parentElement.id)
         {
-            document.getElementById("detailed-prescription-title").value=a[j].title;
-            document.getElementById("detailed-prescription-date").value=a[j].date;
-            document.getElementById("detailed-prescription-final-date").value=a[j].finalDate;            
-            document.getElementById("detailed-prescription-text").value=a[j].text;
-            document.getElementById("detailed-prescription-dose-takes").value=a[j].doseTakes;
-            document.getElementById("detailed-prescription-dose-takes-measure").value=a[j].doseTakesMeasure;
-            document.getElementById("detailed-prescription-dose-frequency").value=a[j].doseFrequency;
-            document.getElementById("detailed-prescription-dose-frequency-measure").value=a[j].doseFrequencyMeasure;
-            currentElementID=a[j].id;            
+            document.getElementById("detailed-prescription-title").value=prescriptions[j].title;
+            document.getElementById("detailed-prescription-date").value=prescriptions[j].date;
+            document.getElementById("detailed-prescription-final-date").value=prescriptions[j].finalDate;            
+            document.getElementById("detailed-prescription-text").value=prescriptions[j].text;
+            document.getElementById("detailed-prescription-dose-takes").value=prescriptions[j].doseTakes;
+            document.getElementById("detailed-prescription-dose-takes-measure").value=prescriptions[j].doseTakesMeasure;
+            document.getElementById("detailed-prescription-dose-frequency").value=prescriptions[j].doseFrequency;
+            document.getElementById("detailed-prescription-dose-frequency-measure").value=prescriptions[j].doseFrequencyMeasure;
+            currentElementID=prescriptions[j].id;            
             break;
         }
     } 
