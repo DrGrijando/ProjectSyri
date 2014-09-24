@@ -112,7 +112,7 @@
                     info.className='vaccine-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedVaccine
+                    newItem.onclick=viewDetailedRecordVaccine;
                     
                     document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
                     break;
@@ -134,7 +134,7 @@
                     info.className='prescription-text';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedPrescription;
+                    newItem.onclick=viewDetailedRecordPrescription;
                     
                     document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
                     break;
@@ -156,7 +156,7 @@
                     info.className='phr-text'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedPHR
+                    newItem.onclick=viewDetailedPHR;
                     
                     document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
                     

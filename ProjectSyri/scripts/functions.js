@@ -368,6 +368,48 @@ function viewDetailedPHR()
     document.location.href="#detailed-phr-view";
 }
 
+function viewDetailedRecordVaccine()
+{
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;
+    for(var i=0;i<record.length;i++)
+    {
+        //var v=JSON.parse(vaccines[i]);
+                    
+        if(record[i].id==window.event.srcElement.parentElement.id)
+        {
+            document.getElementById("detailed-record-vaccine-title").value=record[i].title;
+            document.getElementById("detailed-record-vaccine-date").value=record[i].date;
+            currentElementID=record[i].id;
+            break;
+        }
+    }     
+    document.location.href="#detailed-record-vaccine-view";    
+}
+
+function viewDetailedRecordPrescription()
+{
+    currentElementList=window.event.srcElement.parentElement.parentElement.id;    
+    for(var j=0;j<record.length;j++)
+    {
+        //var p=JSON.parse(prescriptions[j]);
+        
+        if(record[j].id==window.event.srcElement.parentElement.id)
+        {
+            document.getElementById("detailed-record-prescription-title").value=record[j].title;
+            document.getElementById("detailed-record-prescription-date").value=record[j].date;
+            document.getElementById("detailed-record-prescription-final-date").value=record[j].finalDate;            
+            document.getElementById("detailed-record-prescription-text").value=record[j].text;
+            document.getElementById("detailed-record-prescription-dose-takes").value=record[j].doseTakes;
+            document.getElementById("detailed-record-prescription-dose-takes-measure").value=record[j].doseTakesMeasure;
+            document.getElementById("detailed-record-prescription-dose-frequency").value=record[j].doseFrequency;
+            document.getElementById("detailed-record-prescription-dose-frequency-measure").value=record[j].doseFrequencyMeasure;
+            currentElementID=record[j].id;            
+            break;
+        }
+    } 
+    document.location.href="#detailed-record-prescription-view";
+}
+
 function deleteElement()
 {
     var i=0;
@@ -550,7 +592,7 @@ function updateRecordList()
                     info.className='vaccine-date'
                     newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedVaccine
+                    newItem.onclick=viewDetailedRecordVaccine;
                     
                     document.getElementById("record-list").appendChild(newItem);   // Add the div to the specified List
                     break;
@@ -572,7 +614,7 @@ function updateRecordList()
                     info.className='prescription-text';
                     newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedPrescription;
+                    newItem.onclick=viewDetailedRecordPrescription;
                     
                     document.getElementById("record-list").appendChild(newItem);  // Add the div to the specified List
                     break;
@@ -594,7 +636,7 @@ function updateRecordList()
                     info.className='phr-text'
                     newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
-                    newItem.onclick=viewDetailedPHR
+                    newItem.onclick=viewDetailedPHR;
                     
                     document.getElementById("record-list").appendChild(newItem);    // Add the div to the specified List                    
                     break;     
@@ -652,6 +694,48 @@ function saveToLocalStorage(arrayToSave,targetList)
             else{localStorage.removeItem("record");}            
             break;
     }
+}
+
+function moveToVaccines()
+{
+    var i=0;
+    while(i<record.length)
+    {
+        if(currentElementID==record[i].id)
+        {
+            vaccines.push(record[i]);                
+            record.splice(i,1);
+            break;
+        }
+        i++;
+    }
+    sortByDate(vaccines);
+    saveToLocalStorage(vaccines,"vaccine-list");
+    saveToLocalStorage(record,"record-list");
+    updateVaccineList();
+    updateRecordList();
+    goBack()
+}
+
+function moveToPrescriptions()
+{
+    var i=0;
+    while(i<record.length)
+    {
+        if(currentElementID==record[i].id)
+        {
+            prescriptions.push(record[i]);                
+            record.splice(i,1);
+            break;
+        }
+        i++;
+    }
+    sortByDate(prescriptions);
+    saveToLocalStorage(prescriptions,"prescription-list");
+    saveToLocalStorage(record,"record-list");
+    updatePrescriptionList();
+    updateRecordList();
+    goBack()
 }
 
 function moveToRecord()

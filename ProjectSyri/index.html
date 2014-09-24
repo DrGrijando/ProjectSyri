@@ -232,13 +232,57 @@
             </li>
         </ul>        
     </div>
+    
+    <!-- VIEW TO SEE DETAILED RECORD VACCINES -->
+    <div id="detailed-record-vaccine-view" data-role="view" data-layout="Layout8" data-transition="slide:up">
+        <h1>Vaccine</h1>
+        <p>See all the information of your vaccines just touching them</p>
+        <ul id="record-vaccine-entries" data-role="listview" data-style="inset">
+            <li data-icon="label">
+                <input id="detailed-record-vaccine-title" type="text" placeholder="Vaccine for..."/>
+            </li>
+            <li data-icon="calendar">
+                <input id="detailed-record-vaccine-date" type="date"/>
+            </li>
+        </ul>
+    </div>
+    
+    <!-- VIEW TO SEE DETAILED RECORD PRESCRIPTIONS -->
+    <div id="detailed-record-prescription-view" data-role="view" data-layout="Layout9" data-transition="slide:up">
+        <h1>Prescription</h1>
+        <p>See all the information of your prescriptions just touching them.</p>
+        <ul id="record-prescription-entries" data-role="listview" data-style="inset">
+            <li data-icon="label">
+                <input id="detailed-record-prescription-title" type="text" palceholder="Enter the medicine..."/>
+            </li>            
+            <li data-icon="calendar">
+                <input id="detailed-record-prescription-date" type="date"/>
+            </li>
+            <li data-icon="calendar">
+                <input id="detailed-record-prescription-final-date" type="date"/>
+            </li>            
+            <li data-icon="compose">
+                <textarea id="detailed-record-prescription-text" placeholder="Enter the text..."></textarea>
+            </li>
+        </ul>
+        <div id="detailed-record-prescription-dose-block" class="prescription-dose-block">
+            <input id="detailed-record-prescription-dose-takes" class="prescription-dose-input" type="number"/>
+            <select id="detailed-record-prescription-dose-takes-measure">
+                <option value="pill(s)">pill(s)</option>
+                <option value="ml">ml</option>
+            </select>
+            <input id="detailed-record-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
+            <select id="detailed-record-prescription-dose-frequency-measure">
+                <option value="hour(s)">hour(s)</option>
+                <option value="day(s)">day(s)</option>
+            </select>
+        </div>
+    </div>
         
     <!-- LAYOUTS -->
-    <!-- Elements contained in the layout are shared between views -->
-    <!-- Layout 1: tab layout --> <!-- Layout 2: add vaccines --> <!-- Layout 3: add prescriptions -->
-    <!-- Layout 4: without buttons --> <!-- Layout 5: detailed views --> <!-- Layout 6: add PHRs -->
-    <!-- Layout 7: detailed record layouts (no "Move to record" button) -->
-        
+    <!-- Elements contained in the layout are shared between views using the same layout -->
+    
+    <!-- LAYOUT 1: TAB LAYOUT -->    
     <div data-id="Layout1" data-role="layout" height="100%">    		
         <div class="wrapper-center header" data-role="header">                        
             <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="loadData();"></a>
@@ -254,6 +298,7 @@
         </div>
     </div>
     
+    <!-- LAYOUT 2: ADD VACCINES -->
     <div data-id="Layout2" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <snap class="header-text app-name">VacApp</snap>            
@@ -266,6 +311,7 @@
         </div>
     </div>
     
+    <!-- LAYOUT 3: ADD PRESCRIPTIONS -->
     <div data-id="Layout3" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <snap class="header-text app-name">VacApp</snap>            
@@ -278,6 +324,7 @@
         </div>
     </div>
     
+    <!-- LAYOUT 4: WITHOUT BUTTONS -->
     <div data-id="Layout4" data-role="layout">        
         <div class="wrapper-center header" data-role="header">
             <div class="header-text">VacApp</div>            
@@ -285,6 +332,7 @@
         <div class="wrapper-center footer" data-role="footer"></div>
     </div>
     
+    <!-- LAYOUT 5: DETAILED VIEWS -->
     <div data-id="Layout5" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <snap class="header-text app-name">VacApp</snap>            
@@ -299,6 +347,7 @@
         </div>
     </div>
     
+    <!-- LAYOUT 6: ADD PHRs -->
     <div data-id="Layout6" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <snap class="header-text app-name">VacApp</snap>            
@@ -311,11 +360,42 @@
         </div>
     </div>
     
+    <!-- LAYOUT 7: DETAILED RECORD LAYOUTS(NO "MOVE TO RECORD" BUTTON) -->
     <div data-id="Layout7" data-role="layout">
         <div class="wrapper-center header" data-role="header">                        
             <snap class="header-text app-name">VacApp</snap>            
         </div>
         <div class="wrapper-center footer" data-role="footer">
+            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
+            <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();"></a>
+        </div>
+    </div>
+    
+    <!-- LAYOUT 8: DETAILED RECORD VACCINES -->
+    <div data-id="Layout8" data-role="layout">
+        <div class="wrapper-center header" data-role="header">                        
+            <snap class="header-text app-name">VacApp</snap>            
+        </div>
+        <div class="wrapper-center footer" data-role="footer">
+            <a data-role="button" data-icon="history" onclick="moveToVaccines();">Restore</a>
+            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
+            <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
+            <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
+                 views, because in any case we will go back to the tab we were in -->
+            <a data-role="button" data-icon="reply" onclick="goBack();"></a>
+        </div>
+    </div>
+    
+    <!-- LAYOUT 9: DETAILED RECORD PRESCRIPTIONS -->
+    <div data-id="Layout9" data-role="layout">
+        <div class="wrapper-center header" data-role="header">                        
+            <snap class="header-text app-name">VacApp</snap>            
+        </div>
+        <div class="wrapper-center footer" data-role="footer">
+            <a data-role="button" data-icon="history" onclick="moveToPrescriptions();">Restore</a>
             <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
             <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
