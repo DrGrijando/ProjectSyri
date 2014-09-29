@@ -13,6 +13,13 @@
     <script src="kendo/js/kendo.mobile.min.js"></script>
     
     <script>
+     new kendo.mobile.Application($(document.body), {
+         platform: "ios7"
+     });
+        
+    </script>
+    
+    <script>
         var vaccines=[];
         var prescriptions=[];
         var record=[];
@@ -329,7 +336,6 @@
         <div class="wrapper-center header" data-role="header">
             <div class="header-text">VacApp</div>            
         </div>
-        <div class="wrapper-center footer" data-role="footer"></div>
     </div>
     
     <!-- LAYOUT 5: DETAILED VIEWS -->

@@ -4,6 +4,13 @@
     src: url('quicksand.ttf') format('woff'), url('quicksand.woff') format('truetype');
 }
 
+.km-android .km-view:not(.km-splitview) {
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
 /* NO UNDERLINED LINKS */
 a{
     text-decoration: none;
