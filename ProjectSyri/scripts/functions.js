@@ -824,20 +824,20 @@ function saveElementChanges()
                 switch(record[i].type)
                 {
                     case "vaccine":
-                    record[i].title=document.getElementById("detailed-vaccine-title").value;
-                    record[i].date=document.getElementById("detailed-vaccine-date").value;
+                    record[i].title=document.getElementById("detailed-record-vaccine-title").value;
+                    record[i].date=document.getElementById("detailed-record-vaccine-date").value;
                     record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');
                     break;                            
                     
                     case "prescription":
-                    record[i].title=document.getElementById("detailed-prescription-title").value;
-                    record[i].date=document.getElementById("detailed-prescription-date").value;
-                    record[i].finalDate=document.getElementById("detailed-prescription-final-date").value;
-                    record[i].text=document.getElementById("detailed-prescription-text").value;
-                    record[i].doseTakes=document.getElementById("detailed-prescription-dose-takes").value;
-                    record[i].doseTakesMeasure=document.getElementById("detailed-prescription-dose-takes-measure").value;
-                    record[i].doseFrequency=document.getElementById("detailed-prescription-dose-frequency").value;
-                    record[i].doseFrequencyMeasure=document.getElementById("detailed-prescription-dose-frequency-measure").value;
+                    record[i].title=document.getElementById("detailed-record-prescription-title").value;
+                    record[i].date=document.getElementById("detailed-record-prescription-date").value;
+                    record[i].finalDate=document.getElementById("detailed-record-prescription-final-date").value;
+                    record[i].text=document.getElementById("detailed-record-prescription-text").value;
+                    record[i].doseTakes=document.getElementById("detailed-record-prescription-dose-takes").value;
+                    record[i].doseTakesMeasure=document.getElementById("detailed-record-prescription-dose-takes-measure").value;
+                    record[i].doseFrequency=document.getElementById("detailed-record-prescription-dose-frequency").value;
+                    record[i].doseFrequencyMeasure=document.getElementById("detailed-record-prescription-dose-frequency-measure").value;
                     record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');                    
                     break;
                     

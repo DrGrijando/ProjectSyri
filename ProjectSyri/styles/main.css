@@ -4,6 +4,8 @@
     src: url('quicksand.ttf') format('woff'), url('quicksand.woff') format('truetype');
 }
 
+
+/* ANDROID TAB WIDGET WILL APPEAR ON BOTTOM */
 .km-android .km-view:not(.km-splitview) {
     -webkit-box-direction: normal;
     -moz-box-direction: normal;
