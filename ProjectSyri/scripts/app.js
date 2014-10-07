@@ -14,6 +14,12 @@
         // are created. If they exist, they remain with their values (and won't be erased when exiting the app). This are used for giving sequential keys in order
         // to store them in the localStorage.
         
+        // Set actual date in date inputs
+        var d = new Date();
+        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-prescription-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];
+        
         if(localStorage.getItem("vaccines")==null)
         {
             //localStorage.setItem("vaccines","");

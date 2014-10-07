@@ -3,6 +3,7 @@ var user;
 var password;
 var currentElementID;
 var currentElementList;
+var d = new Date();
 
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION */
 
@@ -36,13 +37,26 @@ function addNewVaccine()
         
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
-        // Store the new vaccine in the localStorage
+        // Set the notification for this vaccine
+        var msg = "Vaccine for "+title;
+        window.plugin.notification.local.add({
+            id : 1,
+            title : "Vaccination today",
+            message : msg,
+            date : date,
+            sound : "TYPE_NOTIFICATION"
+        });
         
+        // Store the new vaccine in the localStorage        
         var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
         vaccines.push(vaccineToStore);
         sortByDate(vaccines);
         saveToLocalStorage(vaccines);
         updateVaccineList();
+        
+        // Reset the inputs
+        document.getElementById("new-vaccine-title").value="";
+        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
                 
         goBack();
     }    
@@ -101,6 +115,16 @@ function addNewPrescription()
         saveToLocalStorage(prescriptions);
         updatePrescriptionList();
         
+        // Reset the inputs
+        document.getElementById("new-prescription-title").value="";
+        document.getElementById("new-prescription-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-prescription-final-date").value="";
+        document.getElementById("new-prescription-text").value="";
+        document.getElementById("new-prescription-dose-takes").value="";
+        document.getElementById("new-prescription-dose-takes-measure").value="pill(s)";
+        document.getElementById("new-prescription-dose-frequency").value="";
+        document.getElementById("new-prescription-dose-frequency-measure").value="hour(s)";
+        
         goBack();
     }
 }
@@ -148,6 +172,11 @@ function addNewPHR()
         sortByDate(record);
         saveToLocalStorage(record);    
         updateRecordList();
+        
+        // Reset the inputs
+        document.getElementById("new-phr-title").value="";
+        document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-phr-text").value="";
         
         goBack();
     }    
@@ -258,35 +287,6 @@ function notificationsTest()
 function resetInputBackground()
 {
     document.getElementById(window.event.srcElement.id).style.cssText="background-color:transparent !important;-webkit-transition: background-color 500ms linear;";
-}
-
-function defaultData()
-{
-    var obj = document.getElementById(window.event.srcElement.id);
-    var date=new Date();
-    
-    if(obj.id=="add-vaccine-button")
-    {
-        document.getElementById("new-vaccine-title").value="";
-        document.getElementById("new-vaccine-date").value=date.toISOString().split("T")[0];
-    }
-    else if(obj.id=="add-prescription-button")
-    {
-        document.getElementById("new-prescription-title").value="";
-        document.getElementById("new-prescription-date").value=date.toISOString().split("T")[0];
-        document.getElementById("new-prescription-final-date").value="";
-        document.getElementById("new-prescription-text").value="";
-        document.getElementById("new-prescription-dose-takes").value="";
-        document.getElementById("new-prescription-dose-takes-measure").value="pill(s)";
-        document.getElementById("new-prescription-dose-frequency").value="";
-        document.getElementById("new-prescription-dose-frequency-measure").value="hour(s)";
-    }
-    else if(obj.id=="add-phr-button")
-    {
-        document.getElementById("new-phr-title").value="";
-        document.getElementById("new-phr-date").value=date.toISOString().split("T")[0];
-        document.getElementById("new-phr-text").value="";
-    }
 }
 
 function deleteLoginInfo()
