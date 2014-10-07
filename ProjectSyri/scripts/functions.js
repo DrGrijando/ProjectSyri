@@ -250,7 +250,8 @@ function notificationsTest()
     window.plugin.notification.local.add({
         id: 1,
         title: "Cheer up, boys!",
-        message: "Notifications are running!"
+        message: "Notifications are running!",
+        sound:'TYPE_NOTIFICATION'
     });
 }
 
