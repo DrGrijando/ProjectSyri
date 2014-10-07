@@ -36,9 +36,16 @@ function addNewVaccine()
         newItem.onclick=viewDetailedVaccine;
         
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
-        
+        /*
+        alert(date);
         // Set the notification for this vaccine
         var msg = "Vaccine for "+title;
+        var year=date.split("-")[0],
+            month=date.split("-")[1],
+            day=date.split("-")[2];
+        d = new Date(year,month,day);
+        alert(d.toString());
+        */
         window.plugin.notification.local.add({
             id : 1,
             title : "Vaccination today",
@@ -47,6 +54,8 @@ function addNewVaccine()
             sound : "TYPE_NOTIFICATION"
         });
         
+        //d = new Date();
+        
         // Store the new vaccine in the localStorage        
         var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
         vaccines.push(vaccineToStore);
@@ -54,11 +63,11 @@ function addNewVaccine()
         saveToLocalStorage(vaccines);
         updateVaccineList();
         
+        goBack();
+        
         // Reset the inputs
         document.getElementById("new-vaccine-title").value="";
-        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
-                
-        goBack();
+        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];                
     }    
 }
 
@@ -115,6 +124,8 @@ function addNewPrescription()
         saveToLocalStorage(prescriptions);
         updatePrescriptionList();
         
+        goBack();
+        
         // Reset the inputs
         document.getElementById("new-prescription-title").value="";
         document.getElementById("new-prescription-date").value=d.toISOString().split("T")[0];
@@ -123,9 +134,7 @@ function addNewPrescription()
         document.getElementById("new-prescription-dose-takes").value="";
         document.getElementById("new-prescription-dose-takes-measure").value="pill(s)";
         document.getElementById("new-prescription-dose-frequency").value="";
-        document.getElementById("new-prescription-dose-frequency-measure").value="hour(s)";
-        
-        goBack();
+        document.getElementById("new-prescription-dose-frequency-measure").value="hour(s)";        
     }
 }
 
@@ -172,13 +181,13 @@ function addNewPHR()
         sortByDate(record);
         saveToLocalStorage(record);    
         updateRecordList();
+                
+        goBack();
         
         // Reset the inputs
         document.getElementById("new-phr-title").value="";
         document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];
         document.getElementById("new-phr-text").value="";
-        
-        goBack();
     }    
 }
 

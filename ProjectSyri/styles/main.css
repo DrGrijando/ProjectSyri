@@ -23,7 +23,11 @@ a{
     -webkit-transition: background-color 500ms linear;
 }*/
 
-input{
+body{
+    background-color:rgb(255,255,255);
+}
+
+input,textarea,select{
     color:rgb(0,0,0)!important;
 }
 
