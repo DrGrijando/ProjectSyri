@@ -190,6 +190,6 @@
             app.application.skin(mobileSkin);
         };*/
 
-        app.application = new kendo.mobile.Application(document.body, { layout: "tabstrip-layout" });
+        app.application = new kendo.mobile.Application(document.body, { layout: "tabstrip-layout", platform: "ios7" });
     }, false);
 })(window);
