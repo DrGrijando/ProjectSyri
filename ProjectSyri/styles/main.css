@@ -52,6 +52,10 @@ h1{
     position:relative;
 }
 
+.header-text{
+    padding-top:2.5%;
+}
+
 .footer{
     background-color:rgb(255,255,255) !important;
     height:10%;
@@ -200,9 +204,6 @@ h1{
     text-overflow:ellipsis;
 }
 
-.header-text{
-    padding-top:2.5%;
-}
 
 /* IMAGES */
 .welcome-image {
