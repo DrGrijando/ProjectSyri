@@ -76,22 +76,24 @@ h1{
 #settings-button{
     background-color:transparent!important;
     color:rgb(255,255,255)!important;
+    height:100%;
     border:none;
     position:absolute;
-    top:2%;
-    left:-3%;
+    vertical-align:middle;
+    top:0%;
+    left:-2%;
     z-index:10;
 }
 
 #cloud-button{
     background-color:transparent!important;
     color:rgb(255,255,255)!important;
+    height:100%;
     border:none;
-    text-align:right;
-    font-size:100%;
     position:absolute;
-    top:-12%;
-    right:-4%;
+    vertical-align:middle;
+    top:0%;
+    right:-2%;
     z-index:10;    
 }
 
