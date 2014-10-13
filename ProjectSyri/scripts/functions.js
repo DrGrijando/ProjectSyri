@@ -12,6 +12,8 @@ function addNewVaccine()
     currentElementList="vaccine-list";
     var title= document.getElementById("new-vaccine-title").value;
     var date = document.getElementById("new-vaccine-date").value;
+    var time = document.getElementById("new-vaccine-time").value;
+    
     if(title=="" || date=="")
     {
         alert("Enter all the information before saving the data.");
@@ -36,25 +38,24 @@ function addNewVaccine()
         newItem.onclick=viewDetailedVaccine;
         
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
-        /*
-        alert(date);
+        
         // Set the notification for this vaccine
+        
         var msg = "Vaccine for "+title;
         var year=date.split("-")[0],
-            month=date.split("-")[1],
-            day=date.split("-")[2];
-        d = new Date(year,month,day);
-        alert(d.toString());
-        */
+            month=(date.split("-")[1])-1,
+            day=date.split("-")[2],
+            hours=time.split(":")[0],
+            minutes=time.split(":")[1];
+        
+        d = new Date(year,month,day,hours,minutes);
         window.plugin.notification.local.add({
-            id : 1,
+            id : id,
             title : "Vaccination today",
             message : msg,
-            date : date,
+            date : d,
             sound : "TYPE_NOTIFICATION"
         });
-        
-        //d = new Date();
         
         // Store the new vaccine in the localStorage        
         var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
@@ -66,8 +67,10 @@ function addNewVaccine()
         goBack();
         
         // Reset the inputs
+        d = new Date();
         document.getElementById("new-vaccine-title").value="";
-        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];                
+        document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-vaccine-time").value=d.getHours()+":"+d.getMinutes();
     }    
 }
 

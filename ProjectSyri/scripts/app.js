@@ -17,8 +17,9 @@
         // Set actual date in date inputs
         var d = new Date();
         document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-vaccine-time").value=d.getHours()+":"+d.getMinutes();
         document.getElementById("new-prescription-date").value=d.toISOString().split("T")[0];
-        document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];
+        document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];        
         
         if(localStorage.getItem("vaccines")==null)
         {
