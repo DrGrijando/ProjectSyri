@@ -31,7 +31,7 @@ function addNewVaccine()
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
         info = document.createElement("div");
-        info.innerHTML=date;
+        info.innerHTML=date+" "+time;
         info.className='vaccine-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
@@ -40,7 +40,6 @@ function addNewVaccine()
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Set the notification for this vaccine
-        
         var msg = "Vaccine for "+title;
         var year=date.split("-")[0],
             month=(date.split("-")[1])-1,
@@ -58,7 +57,7 @@ function addNewVaccine()
         });
         
         // Store the new vaccine in the localStorage        
-        var vaccineToStore={"title":title,"date":date,"id":id,"type":"vaccine"}
+        var vaccineToStore={"title":title,"date":date,"time":time,"id":id,"type":"vaccine"}
         vaccines.push(vaccineToStore);
         sortByDate(vaccines);
         saveToLocalStorage(vaccines);
@@ -286,15 +285,6 @@ function loadData()
     }    
 }
 
-function notificationsTest()
-{
-    window.plugin.notification.local.add({
-        id: 1,
-        title: "Cheer up, boys!",
-        message: "Notifications are running!",
-        sound:'TYPE_NOTIFICATION'
-    });
-}
 
 function resetInputBackground()
 {
@@ -319,6 +309,7 @@ function viewDetailedVaccine()
         {
             document.getElementById("detailed-vaccine-title").value=vaccines[i].title;
             document.getElementById("detailed-vaccine-date").value=vaccines[i].date;
+            document.getElementById("detailed-vaccine-time").value=vaccines[i].time;
             currentElementID=vaccines[i].id;
             break;
         }
@@ -381,6 +372,7 @@ function viewDetailedRecordVaccine()
         {
             document.getElementById("detailed-record-vaccine-title").value=record[i].title;
             document.getElementById("detailed-record-vaccine-date").value=record[i].date;
+            document.getElementById("detailed-record-vaccine-time").value=record[i].time;
             currentElementID=record[i].id;
             break;
         }
@@ -532,7 +524,7 @@ function updateVaccineList()
         newItem.appendChild(info);  // Add the TextNode to the ListItem                      
         
         info = document.createElement("div");
-        info.innerHTML=vaccines[i].date;
+        info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
         info.className='vaccine-date';
         newItem.appendChild(info);  // Add the TextNode to the ListItem
         
@@ -590,7 +582,7 @@ function updateRecordList()
                     newItem.appendChild(info);  // Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=record[k].date;
+                    info.innerHTML=record[k].date+" "+record[k].time;
                     info.className='vaccine-date'
                     newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
@@ -796,6 +788,7 @@ function saveElementChanges()
             {
                 vaccines[i].title=document.getElementById("detailed-vaccine-title").value;
                 vaccines[i].date=document.getElementById("detailed-vaccine-date").value;
+                vaccines[i].time=document.getElementById("detailed-vaccine-time").value;
                 vaccines[i].id=vaccines[i].title.substring(0,3).concat(vaccines[i].date).replace(/-| /g,'');
                 break;
             }
@@ -839,6 +832,7 @@ function saveElementChanges()
                     case "vaccine":
                     record[i].title=document.getElementById("detailed-record-vaccine-title").value;
                     record[i].date=document.getElementById("detailed-record-vaccine-date").value;
+                    record[i].time=document.getElementById("detailed-record-vaccine-time").value;
                     record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');
                     break;                            
                     

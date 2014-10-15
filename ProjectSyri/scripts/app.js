@@ -43,7 +43,7 @@
                 newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                 
                 info = document.createElement("div");
-                info.innerHTML=vaccines[i].date;
+                info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
                 info.className='vaccine-date'
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
@@ -115,7 +115,7 @@
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=record[k].date;
+                    info.innerHTML=record[k].date+" "+record[k].time;
                     info.className='vaccine-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
