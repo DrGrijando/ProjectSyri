@@ -40,7 +40,7 @@ function addNewVaccine()
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Set the notification for this vaccine
-        var msg = "Vaccine for "+title;
+        var msg = "Vaccine for "+title+" at "+time;
         var year=date.split("-")[0],
             month=(date.split("-")[1])-1,
             day=date.split("-")[2],
@@ -510,7 +510,7 @@ function deleteElement()
 }
 
 function updateVaccineList()
-{
+{    
     emptyList(document.getElementById("vaccine-list"));
     for(var i=0;i<vaccines.length;i++)
     {        
@@ -786,10 +786,32 @@ function saveElementChanges()
         {
             if(currentElementID==vaccines[i].id)
             {
+                // Cancel the previous notification
+                window.plugin.notification.local.cancel(vaccines[i].id);
+                
                 vaccines[i].title=document.getElementById("detailed-vaccine-title").value;
                 vaccines[i].date=document.getElementById("detailed-vaccine-date").value;
                 vaccines[i].time=document.getElementById("detailed-vaccine-time").value;
                 vaccines[i].id=vaccines[i].title.substring(0,3).concat(vaccines[i].date).replace(/-| /g,'');
+                
+                // Set the new notification
+                var msg = "Vaccine for "+vaccines[i].title+" at "+vaccines[i].time;
+                var year=vaccines[i].date.split("-")[0],
+                    month=(vaccines[i].date.split("-")[1])-1,
+                    day=vaccines[i].date.split("-")[2],
+                    hours=vaccines[i].time.split(":")[0],
+                    minutes=vaccines[i].time.split(":")[1];
+               
+                d = new Date(year,month,day,hours,minutes)
+                window.plugin.notification.local.add({
+                    id : vaccines[i].id,
+                    title : "Vaccination today",
+                    message : msg,
+                    date : d,
+                    sound : "TYPE_NOTIFICATION"
+                });
+                
+                d = new Date();
                 break;
             }
             i++;
@@ -829,11 +851,34 @@ function saveElementChanges()
             {
                 switch(record[i].type)
                 {
-                    case "vaccine":
+                    case "vaccine":                    
+                    // Cancel the previous notification
+                    //window.plugin.notification.local.cancel(record[i].id);
+                    
                     record[i].title=document.getElementById("detailed-record-vaccine-title").value;
                     record[i].date=document.getElementById("detailed-record-vaccine-date").value;
                     record[i].time=document.getElementById("detailed-record-vaccine-time").value;
                     record[i].id=record[i].title.substring(0,3).concat(record[i].date).replace(/-| /g,'');
+                    /*
+                    // Set the new notification
+                    var msg = "Vaccine for "+record[i].title+" at "+record[i].time;
+                    var year=record[i].date.split("-")[0],
+                        month=(record[i].date.split("-")[1])-1,
+                        day=record[i].date.split("-")[2],
+                        hours=record[i].time.split(":")[0],
+                        minutes=record[i].time.split(":")[1];
+                    
+                    d = new Date(year,month,day,hours,minutes)
+                    window.plugin.notification.local.add({
+                        id : record[i].id,
+                        title : "Vaccination today",
+                        message : msg,
+                        date : d,
+                        sound : "TYPE_NOTIFICATION"
+                    });
+                    
+                    d = new Date();
+                    */
                     break;                            
                     
                     case "prescription":
