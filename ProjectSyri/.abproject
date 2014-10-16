@@ -73,5 +73,10 @@
   "WP8PublisherID": "{db65ab8d-e633-4335-9e1a-38c5c1713080}",
   "WP8Publisher": "",
   "WP8Capabilities": [],
-  "WP8Requirements": []
+  "WP8Requirements": [],
+  "CordovaPluginVariables": {
+    "com.telerik.mobiletesting": {
+      "IOS_APP_URL": ""
+    }
+  }
 }
