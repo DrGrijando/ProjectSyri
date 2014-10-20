@@ -110,7 +110,12 @@ function addNewPrescription()
         var newItem = document.createElement("div");
         var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;
-        newItem.className='prescription-entry';
+        if(prescriptions.length % 2==0){
+            newItem.className="prescription-entry-a"; 
+        }
+        else{
+            newItem.className="prescription-entry-b"; 
+        }
         
         var info = document.createElement("div");
         info.innerHTML=title;
@@ -560,8 +565,12 @@ function updatePrescriptionList()
     {
         var newItem = document.createElement("div");
         newItem.id = prescriptions[j].id;
-        newItem.className='prescription-entry';
-        
+        if(j % 2==0){
+            newItem.className="prescription-entry-a"; 
+        }
+        else{
+            newItem.className="prescription-entry-b"; 
+        }        
         var info = document.createElement("div");
         info.innerHTML=prescriptions[j].title;
         info.className='prescription-title';
@@ -616,7 +625,12 @@ function updateRecordList()
                     break;
                     
                     case "prescription":
-                    newItem.className='prescription-entry';  
+                    if(k % 2==0){
+                        newItem.className="prescription-entry-a"; 
+                    }
+                    else{
+                        newItem.className="prescription-entry-b"; 
+                    }
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='prescription-title';

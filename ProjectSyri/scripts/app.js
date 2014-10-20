@@ -71,7 +71,12 @@
                 
                 newItem = document.createElement("div");
                 newItem.id = prescriptions[j].id;
-                newItem.className='prescription-entry';
+                if(j % 2==0){
+                    newItem.className="prescription-entry-a"; 
+                }
+                else{
+                    newItem.className="prescription-entry-b"; 
+                } 
                 
                 info = document.createElement("div");
                 info.innerHTML=prescriptions[j].title;
@@ -134,7 +139,13 @@
                     break;
                     
                     case "prescription":
-                    newItem.className='prescription-entry';  
+                    if(k % 2==0){
+                        newItem.className="prescription-entry-a"; 
+                    }
+                    else{
+                        newItem.className="prescription-entry-b"; 
+                    }   
+                    
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='prescription-title';
