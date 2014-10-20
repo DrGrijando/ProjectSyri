@@ -175,7 +175,12 @@ function addNewPHR()
         var newItem = document.createElement("div");
         var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;
-        newItem.className='phr-entry';    
+        if(record.length % 2==0){
+            newItem.className="phr-entry-a"; 
+        }
+        else{
+            newItem.className="phr-entry-b"; 
+        }
         
         var info = document.createElement("div");
         info.innerHTML=title;
@@ -652,7 +657,13 @@ function updateRecordList()
                     break;
                     
                     case "phr":
-                    newItem.className='phr-entry';   
+                    if(k % 2==0){
+                        newItem.className="phr-entry-a"; 
+                    }
+                    else{
+                        newItem.className="phr-entry-b"; 
+                    }
+            
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='phr-title';

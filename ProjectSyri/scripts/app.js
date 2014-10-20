@@ -167,7 +167,12 @@
                     break;
                     
                     case "phr":
-                    newItem.className='phr-entry';   
+                    if(k % 2==0){
+                        newItem.className="phr-entry-a"; 
+                    }
+                    else{
+                        newItem.className="phr-entry-b"; 
+                    } 
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='phr-title';
