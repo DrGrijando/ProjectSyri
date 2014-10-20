@@ -127,6 +127,15 @@
                 <input id="new-vaccine-time" type="time" placeholder="Enter the time..." />
             </li>
         </ul>
+        <div>
+            <span>Notify me...</span>
+            <input id="new-vaccine-notification-time" type="number" class="prescription-dose-input"/>
+            <select id="new-vaccine-notification-time-measure">
+                <option value="minute">minutes</option>
+                <option value="hour">hour(s)</option>
+            </select>
+            <span>before the time.</span>
+        </div>
     </div>
     
     <!-- VIEW TO ADD NEW PRESCRIPTIONS -->
@@ -142,7 +151,19 @@
             </li>
             <li data-icon="calendar">
                 <input id="new-prescription-final-date" type="date"/>
-            </li>            
+            </li>        
+            <li data-icon="dose" class="prescription-dose-block">
+                <input id="new-prescription-dose-takes" class="prescription-dose-input" type="number"/>
+                <select id="new-prescription-dose-takes-measure">
+                    <option value="pill(s)">pill(s)</option>
+                    <option value="ml">ml</option>
+                </select>
+                <input id="new-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
+                <select id="new-prescription-dose-frequency-measure">
+                    <option value="hour(s)">hour(s)</option>
+                    <option value="day(s)">day(s)</option>
+                </select>
+            </li>
             <li data-icon="compose">
                 <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
             </li>

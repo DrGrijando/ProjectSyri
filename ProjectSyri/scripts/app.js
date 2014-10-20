@@ -35,8 +35,12 @@
                 
                 var newItem = document.createElement("div");
                 newItem.id = vaccines[i].id;
-                newItem.className='vaccine-entry';    
-                
+                if(i % 2==0){
+                    newItem.className="vaccine-entry-a"; 
+                }
+                else{
+                    newItem.className="vaccine-entry-b"; 
+                }                                  
                 var info = document.createElement("div");
                 info.innerHTML=vaccines[i].title;
                 info.className='vaccine-title';
@@ -108,7 +112,12 @@
                 switch(record[k].type)
                 {
                     case "vaccine":
-                    newItem.className='vaccine-entry';
+                    if(k % 2==0){
+                        newItem.className="vaccine-entry-a"; 
+                    }
+                    else{
+                        newItem.className="vaccine-entry-b"; 
+                    } 
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='vaccine-title';

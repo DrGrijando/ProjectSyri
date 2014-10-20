@@ -23,7 +23,12 @@ function addNewVaccine()
         var newItem = document.createElement("div");
         var id=title.substring(0,3).concat(date).replace(/-| /g,'');
         newItem.id = id;        
-        newItem.className='vaccine-entry';    
+        if(vaccines.length % 2==0){
+            newItem.className="vaccine-entry-a"; 
+        }
+        else{
+            newItem.className="vaccine-entry-b"; 
+        }                  
         
         var info = document.createElement("div");
         info.innerHTML=title;
@@ -36,16 +41,26 @@ function addNewVaccine()
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
         newItem.onclick=viewDetailedVaccine;
-        
+                
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Set the notification for this vaccine
+        /*
         var msg = "Vaccine for "+title+" at "+time;
         var year=date.split("-")[0],
             month=(date.split("-")[1])-1,
-            day=date.split("-")[2],
-            hours=time.split(":")[0],
-            minutes=time.split(":")[1];
+            day=date.split("-")[2];
+        var hours, minutes;
+        if(document.getElementById("new-vaccine-notification-time-measure").value=="minute")
+        {
+            hours=time.split(":")[0];
+            minutes=(time.split(":")[1])-(document.getElementById("new-vaccine-notification-time").value);
+        }
+        else
+        {
+            hours=time.split(":")[0]-(document.getElementById("new-vaccine-notification-time").value);
+            minutes=time.split(":")[1];            
+        }        
         
         d = new Date(year,month,day,hours,minutes);
         window.plugin.notification.local.add({
@@ -55,7 +70,7 @@ function addNewVaccine()
             date : d,
             sound : "TYPE_NOTIFICATION"
         });
-        
+        */
         // Store the new vaccine in the localStorage        
         var vaccineToStore={"title":title,"date":date,"time":time,"id":id,"type":"vaccine"}
         vaccines.push(vaccineToStore);
@@ -515,9 +530,13 @@ function updateVaccineList()
     for(var i=0;i<vaccines.length;i++)
     {        
         var newItem = document.createElement("div");
-        newItem.id = vaccines[i].id;
-        newItem.className='vaccine-entry';    
-        
+        newItem.id = vaccines[i].id;        
+        if(i % 2==0){
+            newItem.className="vaccine-entry-a"; 
+        }
+        else{
+            newItem.className="vaccine-entry-b"; 
+        }                         
         var info = document.createElement("div");
         info.innerHTML=vaccines[i].title
         info.className='vaccine-title';
@@ -575,7 +594,12 @@ function updateRecordList()
         switch(record[k].type)
         {
                     case "vaccine":
-                    newItem.className='vaccine-entry';
+                    if(k % 2==0){
+                        newItem.className="vaccine-entry-a"; 
+                    }
+                    else{
+                        newItem.className="vaccine-entry-b"; 
+                    }     
                     info = document.createElement("div");
                     info.innerHTML=record[k].title;
                     info.className='vaccine-title';

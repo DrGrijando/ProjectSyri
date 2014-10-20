@@ -63,3 +63,9 @@
 {
     content:"\e0bf";
 }
+
+.km-dose:after,
+.km-dose:before
+{
+    content:"\e079";
+}

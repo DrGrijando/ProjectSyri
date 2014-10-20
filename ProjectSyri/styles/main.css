@@ -110,10 +110,22 @@ h1{
 }
 
 /* VACCINE ENTRIES */
-.vaccine-entry{
+.vaccine-entry-a{
     background-color:rgb(88,220,145);
-    border-style:outset;
-    border-color:rgb(88,220,145);
+    background-image:url(../styles/images/backv1.png);
+    background-position:right top;
+    background-repeat:no-repeat;
+    /*border-style:outset;*/
+    /*border-color:rgb(88,220,145);*/
+}
+
+.vaccine-entry-b{
+    background-color:rgb(160,219,186);
+    background-image:url(../styles/images/backv2.png);
+    background-position:left top;
+    background-repeat:no-repeat;
+    /*border-style:outset;*/
+    /*border-color:rgb(88,220,145);*/
 }
 
 .vaccine-title{
