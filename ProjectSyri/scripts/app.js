@@ -196,9 +196,24 @@
                 }
             }
         }
+        
         if(localStorage.getItem("settings")==null)
         {
             localStorage.setItem("settings","true");
+        }
+        
+        if(localStorage.getItem("requests")==null)
+        {
+            //localStorage.setItem("requests","");
+        }
+        else
+        {
+            requests=localStorage.getItem("requests").split("+");
+            
+            for(var i=0;i<requests.length;i++)
+            {
+                requests[i]=JSON.parse(requests[i]);
+            }
         }
         // window.plugin.notification.local is now available
 
