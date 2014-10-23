@@ -876,7 +876,7 @@ function saveElementChanges() {
                   */  
                     // Save the info for later PUT request
                     var req = {
-                        url : "http://localhost:3000/Vaccine/"+currentElementID+"?profile=_default",
+                        url : "http://localhost:3000/Vaccine/"+currentElementID,
                         reqType : "put",
                         entry : vaccines[i]
                     };        
@@ -907,7 +907,7 @@ function saveElementChanges() {
                     
                     // Save the info for later PUT request
                     var req = {
-                        url : "http://localhost:3000/Prescription/"+currentElementID+"?profile=_default",
+                        url : "http://localhost:3000/Prescription/"+currentElementID,
                         reqType : "put",
                         entry : prescriptions[i]
                     };        
@@ -938,7 +938,7 @@ function saveElementChanges() {
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://localhost:3000/Vaccine/"+currentElementID+"?profile=_default",
+                                url : "http://localhost:3000/Vaccine/"+currentElementID,
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -959,7 +959,7 @@ function saveElementChanges() {
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://localhost:3000/Prescription/"+currentElementID+"?profile=_default",
+                                url : "http://localhost:3000/Prescription/"+currentElementID,
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -973,7 +973,7 @@ function saveElementChanges() {
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://localhost:3000/Phr/"+currentElementID+"?profile=_default",
+                                url : "http://localhost:3000/Phr/"+currentElementID,
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -1005,7 +1005,8 @@ function sortByDate(entries) {
     });
 }
 
-function test() {
+function test()
+{
     /*
     var v1={"title":"caca","date":"2014-09-09"}
     localStorage.setItem("vaccines",JSON.stringify(v1));
@@ -1016,13 +1017,34 @@ function test() {
     */
 }
 
-function saveSettings() {
+function saveSettings()
+{
     localStorage.setItem("loginUser", document.getElementById("options-user-input").value);
     localStorage.setItem("loginPassword", document.getElementById("options-password-input").value);
     localStorage.setItem("settings", document.getElementById("confirm-deletions-checkbox").checked);
     goBack();
 }
 
-function goBack() {
+function synchronize()
+{
+    for(var i=0;i<requests.length;i++)
+    {
+        $.ajax({
+        url: requests[i].url,
+        type: requests[i].reqType,
+        dataType: "json",
+        success: function(data)
+        {
+            $("#target").html(data.msg);
+        },
+        data:requests[i].entry
+        });
+    }
+    // Empty the array after all requests are done
+    requests.length=0;
+}
+
+function goBack()
+{
     window.history.go(-1);
 }
