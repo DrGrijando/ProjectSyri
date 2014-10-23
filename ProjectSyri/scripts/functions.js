@@ -17,8 +17,8 @@ function addNewVaccine() {
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var id = title.substring(0, 3).concat(date).replace(/-| /g, '');
-        newItem.id = id;        
+        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        newItem.id = vid;        
         if (vaccines.length % 2 == 0) {
             newItem.className = "vaccine-entry-a"; 
         } else {
@@ -59,7 +59,7 @@ function addNewVaccine() {
         
         d = new Date(year,month,day,hours,minutes);
         window.plugin.notification.local.add({
-        id : id,
+        id : vid,
         title : "Vaccination today",
         message : msg,
         date : d,
@@ -67,7 +67,7 @@ function addNewVaccine() {
         });
         */
         // Store the new vaccine in the localStorage        
-        var vaccineToStore = {"title":title,"date":date,"time":time,"id":id,"type":"vaccine"}
+        var vaccineToStore = {"title":title,"date":date,"time":time,"vid":vid,"type":"vaccine"}
         vaccines.push(vaccineToStore);
         sortByDate(vaccines);
         saveToLocalStorage(vaccines);
@@ -107,8 +107,8 @@ function addNewPrescription() {
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var id = title.substring(0, 3).concat(date).replace(/-| /g, '');
-        newItem.id = id;
+        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        newItem.id = vid;
         if (prescriptions.length % 2 == 0) {
             newItem.className = "prescription-entry-a"; 
         } else {
@@ -139,7 +139,7 @@ function addNewPrescription() {
         var prescriptionToStore = {
             "title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
-            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"id":id,"type":"prescription"
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"vid":vid,"type":"prescription"
         }
         prescriptions.push(prescriptionToStore);
         sortByDate(prescriptions);
@@ -178,8 +178,8 @@ function addNewPHR() {
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var id = title.substring(0, 3).concat(date).replace(/-| /g, '');
-        newItem.id = id;
+        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        newItem.id = vid;
         if (record.length % 2 == 0) {
             newItem.className = "phr-entry-a"; 
         } else {
@@ -207,7 +207,7 @@ function addNewPHR() {
         
         // Store the new PHR in the localStorage
         
-        var phrToStore = {"title":title,"date":date,"text":text,"id":id,"type":"phr"}
+        var phrToStore = {"title":title,"date":date,"text":text,"vid":vid,"type":"phr"}
         record.push(phrToStore);
         sortByDate(record);
         saveToLocalStorage(record);    
@@ -312,11 +312,11 @@ function viewDetailedVaccine() {
     currentElementList = window.event.srcElement.parentElement.parentElement.id;    
     for (var i = 0;i < vaccines.length;i++) {
         //var v=JSON.parse(vaccines[i]);
-        if (vaccines[i].id == window.event.srcElement.parentElement.id) {
+        if (vaccines[i].vid == window.event.srcElement.parentElement.id) {
             document.getElementById("detailed-vaccine-title").value = vaccines[i].title;
             document.getElementById("detailed-vaccine-date").value = vaccines[i].date;
             document.getElementById("detailed-vaccine-time").value = vaccines[i].time;
-            currentElementID = vaccines[i].id;
+            currentElementID = vaccines[i].vid;
             break;
         }
     }     
@@ -327,7 +327,7 @@ function viewDetailedPrescription() {
     currentElementList = window.event.srcElement.parentElement.parentElement.id;
     for (var j = 0;j < prescriptions.length;j++) {
         //var p=JSON.parse(prescriptions[j]);
-        if (prescriptions[j].id == window.event.srcElement.parentElement.id) {
+        if (prescriptions[j].vid == window.event.srcElement.parentElement.id) {
             document.getElementById("detailed-prescription-title").value = prescriptions[j].title;
             document.getElementById("detailed-prescription-date").value = prescriptions[j].date;
             document.getElementById("detailed-prescription-final-date").value = prescriptions[j].finalDate;            
@@ -336,7 +336,7 @@ function viewDetailedPrescription() {
             document.getElementById("detailed-prescription-dose-takes-measure").value = prescriptions[j].doseTakesMeasure;
             document.getElementById("detailed-prescription-dose-frequency").value = prescriptions[j].doseFrequency;
             document.getElementById("detailed-prescription-dose-frequency-measure").value = prescriptions[j].doseFrequencyMeasure;
-            currentElementID = prescriptions[j].id;            
+            currentElementID = prescriptions[j].vid;            
             break;
         }
     } 
@@ -348,11 +348,11 @@ function viewDetailedPHR() {
     
     for (var k = 0;k < record.length;k++) {
         //var p=JSON.parse(record[k]);
-        if (record[k].id == window.event.srcElement.parentElement.id) {
+        if (record[k].vid == window.event.srcElement.parentElement.id) {
             document.getElementById("detailed-phr-title").value = record[k].title;
             document.getElementById("detailed-phr-date").value = record[k].date;
             document.getElementById("detailed-phr-text").value = record[k].text;
-            currentElementID = record[k].id;
+            currentElementID = record[k].vid;
             break;
         }
     } 
@@ -363,11 +363,11 @@ function viewDetailedRecordVaccine() {
     currentElementList = window.event.srcElement.parentElement.parentElement.id;
     for (var i = 0;i < record.length;i++) {
         //var v=JSON.parse(vaccines[i]);
-        if (record[i].id == window.event.srcElement.parentElement.id) {
+        if (record[i].vid == window.event.srcElement.parentElement.id) {
             document.getElementById("detailed-record-vaccine-title").value = record[i].title;
             document.getElementById("detailed-record-vaccine-date").value = record[i].date;
             document.getElementById("detailed-record-vaccine-time").value = record[i].time;
-            currentElementID = record[i].id;
+            currentElementID = record[i].vid;
             break;
         }
     }     
@@ -378,7 +378,7 @@ function viewDetailedRecordPrescription() {
     currentElementList = window.event.srcElement.parentElement.parentElement.id;    
     for (var j = 0;j < record.length;j++) {
         //var p=JSON.parse(prescriptions[j]);
-        if (record[j].id == window.event.srcElement.parentElement.id) {
+        if (record[j].vid == window.event.srcElement.parentElement.id) {
             document.getElementById("detailed-record-prescription-title").value = record[j].title;
             document.getElementById("detailed-record-prescription-date").value = record[j].date;
             document.getElementById("detailed-record-prescription-final-date").value = record[j].finalDate;            
@@ -387,7 +387,7 @@ function viewDetailedRecordPrescription() {
             document.getElementById("detailed-record-prescription-dose-takes-measure").value = record[j].doseTakesMeasure;
             document.getElementById("detailed-record-prescription-dose-frequency").value = record[j].doseFrequency;
             document.getElementById("detailed-record-prescription-dose-frequency-measure").value = record[j].doseFrequencyMeasure;
-            currentElementID = record[j].id;            
+            currentElementID = record[j].vid;            
             break;
         }
     } 
@@ -402,12 +402,12 @@ function deleteElement() {
             switch (currentElementList) {
                 case "vaccine-list":                       
                     while (i < vaccines.length) {
-                        if (currentElementID == vaccines[i].id) {
+                        if (currentElementID == vaccines[i].vid) {
                             vaccines.splice(i, 1);
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://localhost:3000/Vaccine/"+currentElementID+"?profile=_default",
+                                url : "http://localhost:3000/Vaccine/"+currentElementID,
                                 reqType : "delete"
                             };        
                             requests.push(req);                            
@@ -422,12 +422,12 @@ function deleteElement() {
                     break;
                 case "prescription-list":
                     while (i < prescriptions.length) {
-                        if (currentElementID == prescriptions[i].id) {
+                        if (currentElementID == prescriptions[i].vid) {
                             prescriptions.splice(i, 1);
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://localhost:3000/Prescription/"+currentElementID+"?profile=_default",
+                                url : "http://localhost:3000/Prescription/"+currentElementID,
                                 reqType : "delete"
                             };        
                             requests.push(req); 
@@ -442,12 +442,12 @@ function deleteElement() {
                     break;
                 case "record-list":
                     while (i < record.length) {
-                        if (currentElementID == record[i].id) {
+                        if (currentElementID == record[i].vid) {
                             // Save the info for later DELETE request
                             switch(record[i].type){
                                 case "vaccine":
                                     var req = {
-                                        url : "http://localhost:3000/Vaccine/"+currentElementID+"?profile=_default",
+                                        url : "http://localhost:3000/Vaccine/"+currentElementID,
                                         reqType : "delete"
                                     };  
                                     requests.push(req); 
@@ -457,7 +457,7 @@ function deleteElement() {
                                 
                                 case "prescription":
                                     var req = {
-                                        url : "http://localhost:3000/Prescription/"+currentElementID+"?profile=_default",
+                                        url : "http://localhost:3000/Prescription/"+currentElementID,
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -467,7 +467,7 @@ function deleteElement() {
                                 
                                 case "phr":
                                     var req = {
-                                        url : "http://localhost:3000/Phr/"+currentElementID+"?profile=_default",
+                                        url : "http://localhost:3000/Phr/"+currentElementID,
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -490,9 +490,9 @@ function deleteElement() {
         switch (currentElementList) {
             case "vaccine-list":                       
                 while (i < vaccines.length) {
-                    if (currentElementID == vaccines[i].id) {
+                    if (currentElementID == vaccines[i].vid) {
                         var req = {
-                            url : "http://localhost:3000/Vaccine/"+currentElementID+"?profile=_default",
+                            url : "http://localhost:3000/Vaccine/"+currentElementID,
                             reqType : "delete"
                         };  
                         requests.push(req); 
@@ -508,9 +508,9 @@ function deleteElement() {
                 break;
             case "prescription-list":
                 while (i < prescriptions.length) {
-                    if (currentElementID == prescriptions[i].id) {
+                    if (currentElementID == prescriptions[i].vid) {
                         var req = {
-                            url : "http://localhost:3000/Prescription/"+currentElementID+"?profile=_default",
+                            url : "http://localhost:3000/Prescription/"+currentElementID,
                             reqType : "delete"
                         }; 
                         
@@ -524,12 +524,12 @@ function deleteElement() {
                 break;
             case "record-list":
                 while (i < record.length) {
-                    if (currentElementID == record[i].id) {
+                    if (currentElementID == record[i].vid) {
                         switch (record[i].type) 
                         {
                             case "vaccine":
                                 var req = {
-                                    url : "http://localhost:3000/Vaccine/" + currentElementID + "?profile=_default",
+                                    url : "http://localhost:3000/Vaccine/" + currentElementID,
                                     reqType : "delete"
                                 };  
                                 requests.push(req); 
@@ -539,7 +539,7 @@ function deleteElement() {
                             
                             case "prescription":
                                 var req = {
-                                    url : "http://localhost:3000/Prescription/" + currentElementID + "?profile=_default",
+                                    url : "http://localhost:3000/Prescription/" + currentElementID,
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -549,7 +549,7 @@ function deleteElement() {
                             
                             case "phr":
                                 var req = {
-                                    url : "http://localhost:3000/Phr/" + currentElementID + "?profile=_default",
+                                    url : "http://localhost:3000/Phr/" + currentElementID,
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -575,7 +575,7 @@ function updateVaccineList() {
     for (var i = 0;i < vaccines.length;i++) 
     {        
         var newItem = document.createElement("div");
-        newItem.id = vaccines[i].id;        
+        newItem.id = vaccines[i].vid;        
         if (i % 2 == 0) {
             newItem.className = "vaccine-entry-a"; 
         } else {
@@ -602,7 +602,7 @@ function updatePrescriptionList() {
     for (var j = 0; j < prescriptions.length; j++) 
     {
         var newItem = document.createElement("div");
-        newItem.id = prescriptions[j].id;
+        newItem.id = prescriptions[j].vid;
         if (j % 2 == 0) {
             newItem.className = "prescription-entry-a"; 
         } else {
@@ -635,7 +635,7 @@ function updateRecordList() {
     {
         var newItem = document.createElement("div");
         var info;
-        newItem.id = record[k].id;
+        newItem.id = record[k].vid;
         switch (record[k].type) {
             case "vaccine":
                 if (k % 2 == 0) {
@@ -774,7 +774,7 @@ function saveToLocalStorage(arrayToSave, targetList) {
 function moveToVaccines() {
     var i = 0;
     while (i < record.length) {
-        if (currentElementID == record[i].id) {
+        if (currentElementID == record[i].vid) {
             vaccines.push(record[i]);                
             record.splice(i, 1);
             break;
@@ -789,10 +789,13 @@ function moveToVaccines() {
     goBack()
 }
 
-function moveToPrescriptions() {
+function moveToPrescriptions()
+{
     var i = 0;
-    while (i < record.length) {
-        if (currentElementID == record[i].id) {
+    while (i < record.length)
+    {
+        if (currentElementID == record[i].vid)
+        {
             prescriptions.push(record[i]);                
             record.splice(i, 1);
             break;
@@ -807,12 +810,16 @@ function moveToPrescriptions() {
     goBack()
 }
 
-function moveToRecord() {
+function moveToRecord()
+{
     var i = 0;
-    switch (currentElementList) {
+    switch (currentElementList)
+    {
         case "vaccine-list":            
-            while (i < vaccines.length) {
-                if (currentElementID == vaccines[i].id) {
+            while (i < vaccines.length)
+            {
+                if (currentElementID == vaccines[i].vid)
+                {
                     record.push(vaccines[i]);                
                     vaccines.splice(i, 1);
                     break;
@@ -826,8 +833,10 @@ function moveToRecord() {
             updateRecordList();
             break;
         case "prescription-list":
-            while (i < prescriptions.length) {
-                if (currentElementID == prescriptions[i].id) {
+            while (i < prescriptions.length)
+            {
+                if (currentElementID == prescriptions[i].vid)
+                {
                     record.push(prescriptions[i]);
                     prescriptions.splice(i, 1);
                     break;
@@ -849,9 +858,9 @@ function saveElementChanges() {
     switch (currentElementList) {
         case "vaccine-list":                       
             while (i < vaccines.length) {
-                if (currentElementID == vaccines[i].id) {
+                if (currentElementID == vaccines[i].vid) {
                     // Cancel the previous notification
-               //     window.plugin.notification.local.cancel(vaccines[i].id);
+               //     window.plugin.notification.local.cancel(vaccines[i].vid);
                 
                     vaccines[i].title = document.getElementById("detailed-vaccine-title").value;
                     vaccines[i].date = document.getElementById("detailed-vaccine-date").value;
@@ -867,7 +876,7 @@ function saveElementChanges() {
                
                     d = new Date(year, month, day, hours, minutes)
                     window.plugin.notification.local.add({
-                                                             id : vaccines[i].id,
+                                                             id : vaccines[i].vid,
                                                              title : "Vaccination today",
                                                              message : msg,
                                                              date : d,
@@ -895,7 +904,7 @@ function saveElementChanges() {
             break;
         case "prescription-list":
             while (i < prescriptions.length) {
-                if (currentElementID == prescriptions[i].id) {
+                if (currentElementID == prescriptions[i].vid) {
                     prescriptions[i].title = document.getElementById("detailed-prescription-title").value;
                     prescriptions[i].date = document.getElementById("detailed-prescription-date").value;
                     prescriptions[i].finalDate = document.getElementById("detailed-prescription-final-date").value;
@@ -926,11 +935,11 @@ function saveElementChanges() {
             break;
         case "record-list":
             while (i < record.length) {
-                if (currentElementID == record[i].id) {
+                if (currentElementID == record[i].vid) {
                     switch (record[i].type) {
                         case "vaccine":                    
                             // Cancel the previous notification
-                            //window.plugin.notification.local.cancel(record[i].id);
+                            //window.plugin.notification.local.cancel(record[i].vid);
                     
                             record[i].title = document.getElementById("detailed-record-vaccine-title").value;
                             record[i].date = document.getElementById("detailed-record-vaccine-date").value;
@@ -1033,10 +1042,6 @@ function synchronize()
         url: requests[i].url,
         type: requests[i].reqType,
         dataType: "json",
-        success: function(data)
-        {
-            $("#target").html(data.msg);
-        },
         data:requests[i].entry
         });
     }

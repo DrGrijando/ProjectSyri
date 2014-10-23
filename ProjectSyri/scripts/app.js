@@ -34,7 +34,7 @@
                 vaccines[i]=JSON.parse(vaccines[i]);
                 
                 var newItem = document.createElement("div");
-                newItem.id = vaccines[i].id;
+                newItem.id = vaccines[i].vid;
                 if(i % 2==0){
                     newItem.className="vaccine-entry-a"; 
                 }
@@ -70,7 +70,7 @@
                 prescriptions[j]=JSON.parse(prescriptions[j]);
                 
                 newItem = document.createElement("div");
-                newItem.id = prescriptions[j].id;
+                newItem.id = prescriptions[j].vid;
                 if(j % 2==0){
                     newItem.className="prescription-entry-a"; 
                 }
@@ -113,7 +113,7 @@
                 
                 var newItem = document.createElement("div");
                 var info;
-                newItem.id = record[k].id;
+                newItem.id = record[k].vid;
                 switch(record[k].type)
                 {
                     case "vaccine":
