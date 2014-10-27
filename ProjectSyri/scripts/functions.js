@@ -285,6 +285,7 @@ function onLoadLayout1()
     if(requests.length != 0)
     {
         document.getElementById("cloud-button").style.color="rgb(255,255,255)";
+        
     }
     else
     {
