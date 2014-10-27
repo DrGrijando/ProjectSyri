@@ -69,7 +69,7 @@ h1{
 
 [data-role="button"]{
     background-color:rgb(88,220,145)!important;
-    color:rgb(255,255,255)!important;
+    color:rgb(255,255,255);
     border-radius:40px!important;
 }
 
@@ -87,7 +87,7 @@ h1{
 
 #cloud-button{
     background-color:transparent!important;
-    color:rgb(255,255,255)!important;
+    color:rgb(0,0,0);
     height:100%;
     border:none;
     position:absolute;

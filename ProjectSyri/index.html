@@ -28,7 +28,7 @@
     <script src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/functions.js"></script>    
 </head>
-<body onload="loadData();">
+<body onload="onLoad();">
     
     <!-- LOGIN SCREEN -->
     <div id="login" data-role="view" data-layout="Layout4">
@@ -322,7 +322,7 @@
     <!-- Elements contained in the layout are shared between views using the same layout -->
     
     <!-- LAYOUT 1: TAB LAYOUT -->    
-    <div data-id="Layout1" data-role="layout" height="100%">    		
+    <div data-id="Layout1" data-role="layout" data-init="onLoadLayout1();" height="100%">    		
         <div class="header-wrapper" data-role="header">
             <div class="header">
                 <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="loadData();"></a>

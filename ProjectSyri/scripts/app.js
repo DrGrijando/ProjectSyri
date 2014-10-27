@@ -21,6 +21,7 @@
         document.getElementById("new-prescription-date").value=d.toISOString().split("T")[0];
         document.getElementById("new-phr-date").value=d.toISOString().split("T")[0];        
         
+        // Load arrays
         if(localStorage.getItem("vaccines")==null)
         {
             //localStorage.setItem("vaccines","");
@@ -213,23 +214,14 @@
             for(var i=0;i<requests.length;i++)
             {
                 requests[i]=JSON.parse(requests[i]);
-            }
+            }            
         }
+
+        // Set online & offline listeners        
+        document.addEventListener("online", onOnline, false);
+        document.addEventListener("offline", onOffline, false);
+        
         // window.plugin.notification.local is now available
-
-        /*app.changeSkin = function (e) {
-            var mobileSkin = "";
-
-            if (e.sender.element.text() === "Flat") {
-                e.sender.element.text("Native");
-                mobileSkin = "flat";
-            } else {
-                e.sender.element.text("Flat");
-                mobileSkin = "";
-            }
-
-            app.application.skin(mobileSkin);
-        };*/
 
         app.application = new kendo.mobile.Application(document.body, { layout: "tabstrip-layout", platform: "ios7" });
     }, false);

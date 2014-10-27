@@ -279,8 +279,20 @@ function login() {
         }
     }
 }
-
-function loadData() {
+function onLoadLayout1()
+{
+    // Check if there are requests to do, and change button color
+    if(requests.length != 0)
+    {
+        document.getElementById("cloud-button").style.color="rgb(255,255,255)";
+    }
+    else
+    {
+        document.getElementById("cloud-button").style.color="rgb(0,0,0)";
+    }
+}
+function onLoad() 
+{   
     user = localStorage.getItem("loginUser");
     password = localStorage.getItem("loginPassword");
     
@@ -762,9 +774,14 @@ function saveToLocalStorage(arrayToSave, targetList) {
             }            
             break;
         case "requests":
-            if (str != "") {
+            if (str != "")
+            {
+                document.getElementById("cloud-button").style.color="rgb(255,255,255)";
                 localStorage.setItem("requests", str);
-            } else {
+            }
+            else
+            {
+                document.getElementById("cloud-button").style.color="rgb(0,0,0)";
                 localStorage.removeItem("requests");
             }            
             break;
@@ -1036,17 +1053,35 @@ function saveSettings()
 
 function synchronize()
 {
-    for(var i=0;i<requests.length;i++)
+    if(requests.length == 0)
     {
-        $.ajax({
-        url: requests[i].url,
-        type: requests[i].reqType,
-        dataType: "json",
-        data:requests[i].entry
-        });
+        alert("There are no pending requests.");
     }
-    // Empty the array after all requests are done
-    requests.length=0;
+    else
+    {
+        for(var i=0;i<requests.length;i++)
+        {
+            $.ajax({
+                url: requests[i].url,
+                type: requests[i].reqType,
+                dataType: "json",
+                data:requests[i].entry
+            });
+        }
+        // Empty the array after all requests are done
+        requests.length=0;
+        document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
+    }
+}
+
+function onOnline()
+{
+    alert("it's online");
+}
+
+function onOffline()
+{
+    alert("it's offline");
 }
 
 function goBack()
