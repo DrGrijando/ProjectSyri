@@ -89,10 +89,13 @@
                 info.className='prescription-date';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
-                info = document.createElement("div");
-                info.innerHTML=prescriptions[j].text;
-                info.className='prescription-text';
-                newItem.appendChild(info);	// Add the TextNode to the ListItem
+                if(prescriptions[j].text != "")
+                {
+                    info = document.createElement("div");
+                    info.innerHTML=prescriptions[j].text;
+                    info.className='prescription-text';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                }
                 
                 newItem.onclick=viewDetailedPrescription;
                 
@@ -206,6 +209,7 @@
         if(localStorage.getItem("requests")==null)
         {
             //localStorage.setItem("requests","");
+            //document.getElementById("cloud-button").innerHTML="(0)";
         }
         else
         {
@@ -215,6 +219,7 @@
             {
                 requests[i]=JSON.parse(requests[i]);
             }            
+            //document.getElementById("cloud-button").innerHTML="("+requests.length+")";
         }
 
         // Set online & offline listeners        

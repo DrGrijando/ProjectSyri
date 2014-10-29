@@ -24,7 +24,7 @@ a{
 }*/
 
 body{
-    background-color:rgb(255,255,255);
+ /*   background-color:rgb(255,255,255);*/
 }
 
 input,textarea,select{
@@ -82,7 +82,7 @@ h1{
     vertical-align:middle;
     top:0%;
     left:-2%;
-    z-index:10;
+    z-index:1;
 }
 
 #cloud-button{
@@ -94,7 +94,7 @@ h1{
     vertical-align:middle;
     top:0%;
     right:-2%;
-    z-index:10;    
+    z-index:1;    
 }
 
 .app-name{

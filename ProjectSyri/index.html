@@ -6,6 +6,7 @@
     <link href="kendo/styles/kendo.mobile.all.min.css" rel="stylesheet" />
     <link href="styles/main.css" rel="stylesheet" />
     <link href="styles/icons.css" rel="stylesheet" />
+    <link href="styles/spinner.css" rel="stylesheet" />
 
     <script src="cordova.js"></script>
     <script src="Plugins/cordova-plugin-local-notifications-master/www/local-notification.js" type="text/javascript"></script>
@@ -15,8 +16,7 @@
     <script>
      new kendo.mobile.Application($(document.body), {
          platform: "ios7"
-     });
-        
+     });        
     </script>
     
     <script>
@@ -25,8 +25,10 @@
         var record=[];
         var requests=[];
     </script>
+    
     <script src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/functions.js"></script>    
+    <script type="text/javascript" src="scripts/login.js"></script>    
 </head>
 <body onload="onLoad();">
     
@@ -41,10 +43,40 @@
             </li>
         </ul>
         <br>
-        <div id="login-error-text" class="login-error">Ok</div>
         <div class="wrapper-center">
             <a data-role="button" onclick="login();">Sign in</a>
+            <a data-role="button" href="#register">Register</a>
             <a data-role="button" onclick="deleteLoginInfo();">Delete login</a>
+            <a data-role="button" href="#spinner-view" onclick="showSpinner();">Show spinner</a>
+        </div>
+    </div>
+    
+    <!-- SPINNER TO SHOW WHEN SYNCHRONIZING -->
+    <div id="spinner-view" data-role="view">
+        <div class="spinner">
+            <div class="rect1"></div>
+            <div class="rect2"></div>
+            <div class="rect3"></div>
+            <div class="rect4"></div>
+            <div class="rect5"></div>
+            
+        </div>
+    </div>
+    
+    <!-- REGISTER SCREEN -->
+    <div id="register" data-role="view" data-layout="Layout4">
+        <ul id="register-fields" data-role="listview">
+            <li data-icon="mail">
+                <input id="register-user-input" type="text" placeholder="Enter your e-mail..." onclick="resetInputBackground();"/>
+            </li>            
+            <li data-icon="key">
+                <input id="register-password-input" type="password" placeholder="Enter your password..." onclick="resetInputBackground();"/>
+            </li>
+        </ul>
+        <br>
+        <div class="wrapper-center">
+            <a data-role="button" onclick="register();">Register</a>
+            <a data-role="button" onclick="goBack();">Cancel</a>
         </div>
     </div>
     
@@ -93,7 +125,7 @@
             </li>
             <li>
                 <label>
-                    <input type="checkbox" id="confirm-deletions-checkbox" value="true" checked/>Confirm deletions
+                    <input type="checkbox" data-role="switch" id="confirm-deletions-checkbox" value="true" checked/>Confirm deletions
                 </label>
             </li>
             <li>
@@ -119,18 +151,18 @@
         <p>Add a new vaccine to your schedule by introducing the following data.</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-vaccine-title" type="text" placeholder="Vaccine for..." />
+                <input id="new-vaccine-title" type="text" placeholder="Vaccine for..." onclick="resetInputBackground();"/>
             </li>
             <li data-icon="calendar">
-                <input id="new-vaccine-date" type="date" placeholder="Enter the date..." />
+                <input id="new-vaccine-date" type="date" placeholder="Enter the date..." onclick="resetInputBackground();"/>
             </li>
             <li data-icon="recents">
-                <input id="new-vaccine-time" type="time" placeholder="Enter the time..." />
+                <input id="new-vaccine-time" type="time" placeholder="Enter the time..." onclick="resetInputBackground();"/>
             </li>
         </ul>
         <div>
             <span>Notify me...</span>
-            <input id="new-vaccine-notification-time" type="number" class="prescription-dose-input"/>
+            <input id="new-vaccine-notification-time" type="number" class="prescription-dose-input" onclick="resetInputBackground();" value="0"/>
             <select id="new-vaccine-notification-time-measure">
                 <option value="minute">minutes</option>
                 <option value="hour">hour(s)</option>
@@ -145,13 +177,13 @@
         <p>Add a new prescription for a recent vaccine or medication.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-prescription-title" type="text" placeholder="Enter the medicine..." />
+                <input id="new-prescription-title" type="text" placeholder="Enter the medicine..." onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="calendar">
-                <input id="new-prescription-date" type="date"/>
+                <input id="new-prescription-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="calendar">
-                <input id="new-prescription-final-date" type="date"/>
+                <input id="new-prescription-final-date" type="date" onclick="resetInputBackground();"/>
             </li>        
             <!-- 
             <li data-icon="dose" class="prescription-dose-block">
@@ -168,16 +200,16 @@
             </li>
             -->
             <li data-icon="compose">
-                <textarea id="new-prescription-text" placeholder="Enter the text..."></textarea>
+                <textarea id="new-prescription-text" placeholder="Enter the text... (optional)"></textarea>
             </li>
         </ul>        
         <div id="new-prescription-dose-block" class="prescription-dose-block">
-            <input id="new-prescription-dose-takes" class="prescription-dose-input" type="number"/>
+            <input id="new-prescription-dose-takes" class="prescription-dose-input" type="number" onclick="resetInputBackground();"/>
             <select id="new-prescription-dose-takes-measure">
                 <option value="pill(s)">pill(s)</option>
                 <option value="ml">ml</option>
             </select>
-            <input id="new-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
+            <input id="new-prescription-dose-frequency" class="prescription-dose-input" type="number" onclick="resetInputBackground();"/>
             <select id="new-prescription-dose-frequency-measure">
                 <option value="hour(s)">hour(s)</option>
                 <option value="day(s)">day(s)</option>
@@ -192,13 +224,13 @@
         <p>Add a new personal history record.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-phr-title" type="text" placeholder="Enter the title..." />
+                <input id="new-phr-title" type="text" placeholder="Enter the title..." onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="calendar">
-                <input id="new-phr-date" type="date"/>
+                <input id="new-phr-date" type="date" onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="compose">
-                <textarea id="new-phr-text" placeholder="Enter the text..."></textarea>
+                <textarea id="new-phr-text" placeholder="Enter the text..." onclick="resetInputBackground();"></textarea>
             </li>
         </ul>        
     </div>    
@@ -209,13 +241,13 @@
         <p>See all the information of your vaccines just touching them</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-vaccine-title" type="text" placeholder="Vaccine for..."/>
+                <input id="detailed-vaccine-title" type="text" placeholder="Vaccine for..." onclick="resetInputBackground();"/>
             </li>
             <li data-icon="calendar">
-                <input id="detailed-vaccine-date" type="date"/>
+                <input id="detailed-vaccine-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="recents">
-                <input id="detailed-vaccine-time" type="time"/>
+                <input id="detailed-vaccine-time" type="time" onclick="resetInputBackground();"/>
             </li>
         </ul>
     </div>
@@ -226,25 +258,25 @@
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-prescription-title" type="text" palceholder="Enter the medicine..."/>
+                <input id="detailed-prescription-title" type="text" palceholder="Enter the medicine..." onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="calendar">
-                <input id="detailed-prescription-date" type="date"/>
+                <input id="detailed-prescription-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="calendar">
-                <input id="detailed-prescription-final-date" type="date"/>
+                <input id="detailed-prescription-final-date" type="date" onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="compose">
                 <textarea id="detailed-prescription-text" placeholder="Enter the text..."></textarea>
             </li>
         </ul>
         <div id="detailed-prescription-dose-block" class="prescription-dose-block">
-            <input id="detailed-prescription-dose-takes" class="prescription-dose-input" type="number"/>
+            <input id="detailed-prescription-dose-takes" class="prescription-dose-input" type="number" onclick="resetInputBackground();"/>
             <select id="detailed-prescription-dose-takes-measure">
                 <option value="pill(s)">pill(s)</option>
                 <option value="ml">ml</option>
             </select>
-            <input id="detailed-prescription-dose-frequency" class="prescription-dose-input" type="number"/>
+            <input id="detailed-prescription-dose-frequency" class="prescription-dose-input" type="number" onclick="resetInputBackground();"/>
             <select id="detailed-prescription-dose-frequency-measure">
                 <option value="hour(s)">hour(s)</option>
                 <option value="day(s)">day(s)</option>
@@ -258,13 +290,13 @@
         <p>See all the information of your PHRs just touching them.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-phr-title" type="text" placeholder="Enter the title..."/>
+                <input id="detailed-phr-title" type="text" placeholder="Enter the title..." onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="calendar">
-                <input id="detailed-phr-date" type="date"/>
+                <input id="detailed-phr-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="compose">
-                <textarea id="detailed-phr-text" placeholder="Enter the text..."></textarea>
+                <textarea id="detailed-phr-text" placeholder="Enter the text..." onclick="resetInputBackground();"></textarea>
             </li>
         </ul>        
     </div>
@@ -327,7 +359,7 @@
             <div class="header">
                 <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="loadData();"></a>
                 <div class="header-content">VacApp</div>           
-                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>                    
+                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
             </div>
         </div>
         

@@ -5,15 +5,26 @@ var currentElementID;
 var currentElementList;
 var d = new Date();
 
+function showSpinner()
+{
+    
+}
+
 /* FUNCTIONS FOR ADDING A NEW VACCINE OR PRESCRIPTION */
 
-function addNewVaccine() {
+function addNewVaccine()
+{
     currentElementList = "vaccine-list";
     var title = document.getElementById("new-vaccine-title").value;
     var date = document.getElementById("new-vaccine-date").value;
     var time = document.getElementById("new-vaccine-time").value;
     
-    if (title == "" || date == "") {
+    if (title == "" || date == "" || time == "") {
+        if(title == ""){ highlightInputError("new-vaccine-title"); }
+        if(date == ""){ highlightInputError("new-vaccine-date"); }
+        if(time == ""){ highlightInputError("new-vaccine-time"); }        
+        if(time == ""){ highlightInputError("new-vaccine-time"); }
+        if(document.getElementById("new-vaccine-notification-time").value == ""){ highlightInputError("new-vaccine-notification-time"); }        
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
@@ -103,7 +114,12 @@ function addNewPrescription() {
     var doseFrequencyMeasure = document.getElementById("new-prescription-dose-frequency-measure").value;
     var text = document.getElementById("new-prescription-text").value;
     
-    if (title == "" || date == "" || finalDate == "" || doseTakes == "" || doseTakesMeasure == "" || doseFrequency == "" || doseFrequencyMeasure == "" || text == "") {
+    if (title == "" || date == "" || finalDate == "" || doseTakes == "" || doseFrequency == "") {        
+        if(title==""){ highlightInputError("new-prescription-title"); }
+        if(date==""){ highlightInputError("new-prescription-date"); }        
+        if(finalDate==""){ highlightInputError("new-prescription-final-date"); }
+        if(doseTakes==""){ highlightInputError("new-prescription-dose-takes"); }
+        if(doseFrequency==""){ highlightInputError("new-prescription-dose-frequency"); }
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
@@ -124,11 +140,14 @@ function addNewPrescription() {
         info.innerHTML = date;
         info.className = 'prescription-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem   
-                
-        info = document.createElement("div");
-        info.innerHTML = text;
-        info.className = 'prescription-text';
-        newItem.appendChild(info);	// Add the TextNode to the ListItem   
+        
+        if(text != "")
+        {
+            info = document.createElement("div");
+            info.innerHTML = text;
+            info.className = 'prescription-text';
+            newItem.appendChild(info);	// Add the TextNode to the ListItem   
+        }
         
         newItem.onclick = viewDetailedPrescription;
         
@@ -175,6 +194,9 @@ function addNewPHR() {
     var date = document.getElementById("new-phr-date").value;
     var text = document.getElementById("new-phr-text").value;
     if (title == "" || date == "" || text == "") {
+        if(title == ""){ highlightInputError("new-phr-title"); }
+        if(date == ""){ highlightInputError("new-phr-date"); }
+        if(text == ""){ highlightInputError("new-phr-text"); }
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
@@ -230,62 +252,12 @@ function addNewPHR() {
         document.getElementById("new-phr-text").value = "";
     }    
 }
-
-function login() {
-    user = localStorage.getItem("loginUser");
-    password = localStorage.getItem("loginPassword");
-    
-    if ((user == null) || (password == null)) {
-        user = document.getElementById("login-user-input").value;
-        password = document.getElementById("login-password-input").value;
-        
-        if ((user == "") && (password == "")) {
-            document.getElementById("login-user-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-password-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Information missing.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";
-        } else if (user == "") {
-            document.getElementById("login-user-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Please, enter your user email before proceeding.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
-        } else if (password == "") {
-            document.getElementById("login-password-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Please, enter your password before proceeding.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
-        } else {
-            window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
-            window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
-            document.location.href = "#tabstrip-vaccines";
-        }
-    } else {
-        if ((user == document.getElementById("login-user-input").value) && (password == document.getElementById("login-password-input").value)) {
-            document.location.href = "#tabstrip-vaccines";
-        } else if ((document.getElementById("login-user-input").value == "") && (document.getElementById("login-password-input").value == "")) {
-            document.getElementById("login-user-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-password-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Information missing.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";
-        } else if (document.getElementById("login-user-input").value == "") {
-            document.getElementById("login-user-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Please, enter your user email before proceeding.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
-        } else if (document.getElementById("login-password-input").value == "") {
-            document.getElementById("login-password-input").style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
-            document.getElementById("login-error-text").innerHTML = "Please, enter your password before proceeding.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
-        } else {
-            document.getElementById("login-error-text").innerHTML = "Wrong user name and/or password. Please, try again.";
-            document.getElementById("login-error-text").style.cssText = "text-align: center;color:rgb(88,220,145) !important;-webkit-transition: background-color 3000ms linear;";            
-        }
-    }
-}
 function onLoadLayout1()
 {
     // Check if there are requests to do, and change button color
     if(requests.length != 0)
     {
-        document.getElementById("cloud-button").style.color="rgb(255,255,255)";
-        
+        document.getElementById("cloud-button").style.color="rgb(255,255,255)";          
     }
     else
     {
@@ -296,7 +268,6 @@ function onLoad()
 {   
     user = localStorage.getItem("loginUser");
     password = localStorage.getItem("loginPassword");
-    
     if ((user != null) && (password != null)) {
         document.getElementById("login-user-input").value = user;
         document.getElementById("options-user-input").value = user;
@@ -631,10 +602,13 @@ function updatePrescriptionList() {
         info.className = 'prescription-date';
         newItem.appendChild(info);  // Add the TextNode to the ListItem
         
-        info = document.createElement("div");
-        info.innerHTML = prescriptions[j].text;
-        info.className = 'prescription-text';
-        newItem.appendChild(info);  // Add the TextNode to the ListItem
+        if(prescriptions[j].text != "")
+        {
+            info = document.createElement("div");
+            info.innerHTML = prescriptions[j].text;
+            info.className = 'prescription-text';
+            newItem.appendChild(info);  // Add the TextNode to the ListItem
+        }
         
         newItem.onclick = viewDetailedPrescription;
         
@@ -871,29 +845,46 @@ function moveToRecord()
     goBack();
 }
 
-function saveElementChanges() {
+function saveElementChanges()
+{
     var i = 0;
-    switch (currentElementList) {
+    switch (currentElementList)
+    {
         case "vaccine-list":                       
-            while (i < vaccines.length) {
-                if (currentElementID == vaccines[i].vid) {
+            while (i < vaccines.length)
+            {
+                if (currentElementID == vaccines[i].vid) 
+                {
+                    var title = document.getElementById("detailed-vaccine-title").value;
+                    var date = document.getElementById("detailed-vaccine-date").value;
+                    var time = document.getElementById("detailed-vaccine-time").value;
+                    
                     // Cancel the previous notification
                //     window.plugin.notification.local.cancel(vaccines[i].vid);
-                
-                    vaccines[i].title = document.getElementById("detailed-vaccine-title").value;
-                    vaccines[i].date = document.getElementById("detailed-vaccine-date").value;
-                    vaccines[i].time = document.getElementById("detailed-vaccine-time").value;
-                
+                    if (title == "" || date == "" || text == "")
+                    {
+                        if(title == ""){ highlightInputError("detailed-vaccine-title"); }
+                        if(date == ""){ highlightInputError("detailed-vaccine-date"); }
+                        if(time == ""){ highlightInputError("detailed-vaccine-time"); } 
+                        alert("Enter all the information before saving the data.");
+                        break;
+                    }
+                    else
+                    {
+                        vaccines[i].title = title;
+                        vaccines[i].date = date;
+                        vaccines[i].time = time;
+                        
                     // Set the new notification
-             /*       var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
-                    var year = vaccines[i].date.split("-")[0],
+             /*         var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
+                        var year = vaccines[i].date.split("-")[0],
                         month = (vaccines[i].date.split("-")[1]) - 1,
                         day = vaccines[i].date.split("-")[2],
                         hours = vaccines[i].time.split(":")[0],
                         minutes = vaccines[i].time.split(":")[1];
                
-                    d = new Date(year, month, day, hours, minutes)
-                    window.plugin.notification.local.add({
+                        d = new Date(year, month, day, hours, minutes)
+                        window.plugin.notification.local.add({
                                                              id : vaccines[i].vid,
                                                              title : "Vaccination today",
                                                              message : msg,
@@ -902,59 +893,91 @@ function saveElementChanges() {
                                                          });
                   */  
                     // Save the info for later PUT request
-                    var req = {
-                        url : "http://localhost:3000/Vaccine/"+currentElementID,
-                        reqType : "put",
-                        entry : vaccines[i]
-                    };        
-                    requests.push(req);
-                    saveToLocalStorage(requests,"requests");
-                
-                    d = new Date();
-                    
-                    break;
+                        var req = {
+                            url : "http://localhost:3000/Vaccine/"+currentElementID,
+                            reqType : "put",
+                            entry : vaccines[i]
+                        };        
+                        requests.push(req);
+                        saveToLocalStorage(requests,"requests");
+                        
+                        d = new Date();
+                        
+                        sortByDate(vaccines);
+                        saveToLocalStorage(vaccines);
+                        updateVaccineList();
+                        goBack();
+                        break;
+                    }
                 }
                 i++;
-            }
-            sortByDate(vaccines);
-            saveToLocalStorage(vaccines);
-            updateVaccineList();
+            }        
             break;
+        
         case "prescription-list":
-            while (i < prescriptions.length) {
-                if (currentElementID == prescriptions[i].vid) {
-                    prescriptions[i].title = document.getElementById("detailed-prescription-title").value;
-                    prescriptions[i].date = document.getElementById("detailed-prescription-date").value;
-                    prescriptions[i].finalDate = document.getElementById("detailed-prescription-final-date").value;
-                    prescriptions[i].text = document.getElementById("detailed-prescription-text").value;
-                    prescriptions[i].doseTakes = document.getElementById("detailed-prescription-dose-takes").value;
-                    prescriptions[i].doseTakesMeasure = document.getElementById("detailed-prescription-dose-takes-measure").value;
-                    prescriptions[i].doseFrequency = document.getElementById("detailed-prescription-dose-frequency").value;
-                    prescriptions[i].doseFrequencyMeasure = document.getElementById("detailed-prescription-dose-frequency-measure").value;
+            while (i < prescriptions.length)
+            {
+                if (currentElementID == prescriptions[i].vid)
+                {
+                    var title = document.getElementById("detailed-prescription-title").value;
+                    var date = document.getElementById("detailed-prescription-date").value;
+                    var finalDate = document.getElementById("detailed-prescription-final-date").value;
+                    var doseTakes = document.getElementById("detailed-prescription-dose-takes").value;
+                    var doseTakesMeasure = document.getElementById("detailed-prescription-dose-takes-measure").value;
+                    var doseFrequency = document.getElementById("detailed-prescription-dose-frequency").value;
+                    var doseFrequencyMeasure = document.getElementById("detailed-prescription-dose-frequency-measure").value;
+                    var text = document.getElementById("detailed-prescription-text").value;
                     
-                    // Save the info for later PUT request
-                    var req = {
-                        url : "http://localhost:3000/Prescription/"+currentElementID,
-                        reqType : "put",
-                        entry : prescriptions[i]
-                    };        
-                    requests.push(req);
-                    saveToLocalStorage(requests,"requests");
-                
-                    d = new Date();
-                    
-                    break;
+                    if (title == "" || date == "" || finalDate == "" || doseTakes == "" || doseFrequency == "")
+                    {        
+                        if(title==""){ highlightInputError("detailed-prescription-title"); }
+                        if(date==""){ highlightInputError("detailed-prescription-date"); }        
+                        if(finalDate==""){ highlightInputError("detailed-prescription-final-date"); }
+                        if(doseTakes==""){ highlightInputError("detailed-prescription-dose-takes"); }
+                        if(doseFrequency==""){ highlightInputError("detailed-prescription-dose-frequency"); }
+                        alert("Enter all the information before saving the data.");
+                        break;
+                    }
+                    else 
+                    {
+                        prescriptions[i].title = title;
+                        prescriptions[i].date = date;
+                        prescriptions[i].finalDate = finalDate;
+                        prescriptions[i].text = text;
+                        prescriptions[i].doseTakes = doseTakes;
+                        prescriptions[i].doseTakesMeasure = doseTakesMeasure;
+                        prescriptions[i].doseFrequency = doseFrequency;
+                        prescriptions[i].doseFrequencyMeasure = doseFrequencyMeasure;
+                        
+                        // Save the info for later PUT request
+                        var req = {
+                            url : "http://localhost:3000/Prescription/"+currentElementID,
+                            reqType : "put",
+                            entry : prescriptions[i]
+                        };        
+                        requests.push(req);
+                        saveToLocalStorage(requests,"requests");
+                        
+                        d = new Date();
+                        
+                        sortByDate(prescriptions);
+                        saveToLocalStorage(prescriptions);
+                        updatePrescriptionList();
+                        goBack(); 
+                        break;
+                    }
                 }
                 i++;
-            }
-            sortByDate(prescriptions);
-            saveToLocalStorage(prescriptions);
-            updatePrescriptionList();
+            }        
             break;
+        
         case "record-list":
-            while (i < record.length) {
-                if (currentElementID == record[i].vid) {
-                    switch (record[i].type) {
+            while (i < record.length) 
+            {
+                if (currentElementID == record[i].vid) 
+                {
+                    switch (record[i].type) 
+                    {
                         case "vaccine":                    
                             // Cancel the previous notification
                             //window.plugin.notification.local.cancel(record[i].vid);
@@ -993,31 +1016,48 @@ function saveElementChanges() {
                             requests.push(req);
                         
                             break;
+                        
                         case "phr":
-                            record[i].title = document.getElementById("detailed-phr-title").value;
-                            record[i].date = document.getElementById("detailed-phr-date").value;
-                            record[i].text = document.getElementById("detailed-phr-text").value;
+                            var title = document.getElementById("detailed-phr-title").value;
+                            var date = document.getElementById("detailed-phr-date").value;
+                            var text = document.getElementById("detailed-phr-text").value;
+                            if (title == "" || date == "" || text == "") 
+                            {
+                                if(title == ""){ highlightInputError("detailed-phr-title"); }
+                                if(date == ""){ highlightInputError("detailed-phr-date"); }
+                                if(text == ""){ highlightInputError("detailed-phr-text"); }
+                                alert("Enter all the information before saving the data.");
+                                break;
+                            }
+                            else 
+                            {                                
+                                record[i].title = title;
+                                record[i].date = date;
+                                record[i].text = text;
                         
                             // Save the info for later PUT request
-                            var req = {
-                                url : "http://localhost:3000/Phr/"+currentElementID,
-                                reqType : "put",
-                                entry : record[i]
-                            };        
-                            requests.push(req);
-                        
-                            break;
+                                var req = {
+                                    url : "http://localhost:3000/Phr/"+currentElementID,
+                                    reqType : "put",
+                                    entry : record[i]
+                                };        
+                                requests.push(req);  
+                                
+                                sortByDate(record);
+                                saveToLocalStorage(record);
+                                updateRecordList();
+                                goBack();
+                                break;
+                            }
                     }
-                    break;
+                    
+                        break;
                 }
                 i++;
-            }       
-            sortByDate(record);
-            saveToLocalStorage(record);
-            updateRecordList();
+            }         
             break;
     }
-    goBack();
+    //goBack();
 }
 
 function sortByDate(entries) {
