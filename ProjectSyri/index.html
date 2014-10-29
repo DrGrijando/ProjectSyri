@@ -29,6 +29,8 @@
     <script src="scripts/app.js"></script>
     <script type="text/javascript" src="scripts/functions.js"></script>    
     <script type="text/javascript" src="scripts/login.js"></script>    
+    <script type="text/javascript" src="scripts/prescriptions.js"></script>
+    <script type="text/javascript" src="scripts/vaccines.js"></script>
 </head>
 <body onload="onLoad();">
     
@@ -357,7 +359,7 @@
     <div data-id="Layout1" data-role="layout" data-init="onLoadLayout1();" height="100%">    		
         <div class="header-wrapper" data-role="header">
             <div class="header">
-                <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="loadData();"></a>
+                <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="onLoad();"></a>
                 <div class="header-content">VacApp</div>           
                 <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
             </div>

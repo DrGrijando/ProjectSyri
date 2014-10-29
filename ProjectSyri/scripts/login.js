@@ -1,3 +1,6 @@
+var user;
+var password;
+
 function login() {
     user = localStorage.getItem("loginUser");
     password = localStorage.getItem("loginPassword");
@@ -103,4 +106,12 @@ function register()
 function highlightInputError(input)
 {
     document.getElementById(input).style.cssText = "background-color:rgb(255,128,128) !important;-webkit-transition: background-color 500ms linear;";
+}
+
+// USED FOR DEBUG PURPOSES
+function deleteLoginInfo() 
+{
+    localStorage.removeItem("loginUser");
+    localStorage.removeItem("loginPassword");
+    alert("User and password deleted.");
 }
