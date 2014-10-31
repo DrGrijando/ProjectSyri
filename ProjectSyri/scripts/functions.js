@@ -10,14 +10,15 @@ function showSpinner()
 function onLoadLayout1()
 {
     // Check if there are requests to do, and change button color
-    if(requests.length != 0)
+  /*  if(requests.length != 0)
     {
         document.getElementById("cloud-button").style.color="rgb(255,255,255)";          
     }
     else
     {
         document.getElementById("cloud-button").style.color="rgb(0,0,0)";
-    }
+    }*/
+    
 }
 
 function onLoad() 
@@ -134,6 +135,7 @@ function deleteElement()
                     updateRecordList();
                     break;
             }
+            document.getElementById("cloud-button-number").innerHTML = requests.length;
             goBack();
         }
     } else {
@@ -216,6 +218,7 @@ function deleteElement()
                 updateRecordList();
                 break;
         }
+        document.getElementById("cloud-button-number").innerHTML = requests.length;
         goBack();
     }    
 }
@@ -274,12 +277,12 @@ function saveToLocalStorage(arrayToSave, targetList)
         case "requests":
             if (str != "")
             {
-                document.getElementById("cloud-button").style.color="rgb(255,255,255)";
+                //document.getElementById("cloud-button").style.color="rgb(255,255,255)";
                 localStorage.setItem("requests", str);
             }
             else
             {
-                document.getElementById("cloud-button").style.color="rgb(0,0,0)";
+                //document.getElementById("cloud-button").style.color="rgb(0,0,0)";
                 localStorage.removeItem("requests");
             }            
             break;
@@ -359,6 +362,7 @@ function saveElementChanges()
                         sortByDate(vaccines);
                         saveToLocalStorage(vaccines);
                         updateVaccineList();
+                        document.getElementById("cloud-button-number").innerHTML = requests.length;
                         goBack();
                         break;
                     }
@@ -416,6 +420,7 @@ function saveElementChanges()
                         sortByDate(prescriptions);
                         saveToLocalStorage(prescriptions);
                         updatePrescriptionList();
+                        document.getElementById("cloud-button-number").innerHTML = requests.length;
                         goBack(); 
                         break;
                     }
@@ -499,12 +504,12 @@ function saveElementChanges()
                                 sortByDate(record);
                                 saveToLocalStorage(record);
                                 updateRecordList();
+                                document.getElementById("cloud-button-number").innerHTML = requests.length;
                                 goBack();
                                 break;
                             }
                     }
-                    
-                        break;
+                    break;
                 }
                 i++;
             }         
@@ -553,7 +558,9 @@ function synchronize()
         }
         // Empty the array after all requests are done
         requests.length=0;
-        document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
+        saveToLocalStorage(requests,"requests");
+        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        //document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
     }
 }
 

@@ -78,7 +78,8 @@ function addNewVaccine()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        
+        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        //document.getElementById("cloud-button").setAttribute("data-icon","cloud");
         goBack();
         
         // Reset the inputs

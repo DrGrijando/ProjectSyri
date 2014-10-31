@@ -69,7 +69,7 @@ function addNewPrescription()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        
+        document.getElementById("cloud-button-number").innerHTML = requests.length;
         goBack();
         
         // Reset the inputs

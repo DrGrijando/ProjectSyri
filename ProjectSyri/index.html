@@ -30,6 +30,7 @@
     <script type="text/javascript" src="scripts/functions.js"></script>    
     <script type="text/javascript" src="scripts/login.js"></script>    
     <script type="text/javascript" src="scripts/prescriptions.js"></script>
+    <script type="text/javascript" src="scripts/record.js"></script>
     <script type="text/javascript" src="scripts/vaccines.js"></script>
 </head>
 <body onload="onLoad();">
@@ -362,6 +363,7 @@
                 <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="onLoad();"></a>
                 <div class="header-content">VacApp</div>           
                 <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
+                <a id="cloud-button-number" class="cloud-button" data-role="button" onclick="synchronize();" data-bind="requests.length">0</a>
             </div>
         </div>
         

@@ -2,43 +2,66 @@ var user;
 var password;
 
 function login() {
-    user = localStorage.getItem("loginUser");
-    password = localStorage.getItem("loginPassword");
+    user = document.getElementById("login-user-input").value;
+    password = document.getElementById("login-password-input").value;
     
-    if ((user == null) || (password == null)) 
+    if ((user == "") && (password == ""))
     {
-        user = document.getElementById("login-user-input").value;
-        password = document.getElementById("login-password-input").value;
-        
-        if ((user == "") && (password == ""))
-        {
-            highlightInputError("login-user-input");
-            highlightInputError("login-password-input");
-            alert("Information missing.");
-            
-        }
-        else if (user == "")
-        {
-            highlightInputError("login-user-input");
-            alert("Please, enter your user email before proceeding.");            
-        }
-        else if (password == "")
-        {
-            highlightInputError("login-password-input");
-            alert("Please, enter your password before proceeding.");            
-        }
-        else
-        {
-            window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
-            window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
-            document.location.href = "#tabstrip-vaccines";
-        }
-    } 
+        highlightInputError("login-user-input");
+        highlightInputError("login-password-input");
+        alert("Information missing.");
+    }
+    else if (user == "")
+    {
+        highlightInputError("login-user-input");
+        alert("Please, enter your user email before proceeding.");            
+    }
+    else if (password == "")
+    {
+        highlightInputError("login-password-input");
+        alert("Please, enter your password before proceeding.");            
+    }
     else
+    {
+        $.ajax({
+            url: "http://localhost:3000/login/"+user+"/"+password,
+            type: "get",            
+            dataType: "json",
+            success:function(msg)
+            {
+                window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
+                window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
+                document.location.href = "#tabstrip-vaccines";
+            },
+            error:function(msg)
+            {
+                if(msg.status=="404")
+                {
+                    alert("The user doesn't exist.");
+                }
+                else if(msg.status=="405")
+                {
+                    alert("Incorrect user e-mail or password.");
+                }                
+            }
+        });            
+    }
+    
+   /* else
     {
         if ((user == document.getElementById("login-user-input").value) && (password == document.getElementById("login-password-input").value))
         {            
-            document.location.href = "#tabstrip-vaccines";
+            $.ajax({
+                url: "http://localhost:3000/login/"+user+"/"+password,
+                type: "get",
+                dataType: "json",
+                success:function(msg)
+                {
+                    window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
+                    window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
+                    document.location.href = "#tabstrip-vaccines";
+                }
+            });   
         } 
         else if ((document.getElementById("login-user-input").value == "") && (document.getElementById("login-password-input").value == ""))
         {
@@ -60,7 +83,7 @@ function login() {
         {
             alert("Wrong user name and/or password. Please, try again.");
         }
-    }
+    }*/
 }
 
 function register()
@@ -86,7 +109,7 @@ function register()
     }
     else
     {
-        jsonObject = {"email":mail,"password":password,"profile":"object"};
+        jsonObject = {"email":mail,"password":password};
         
         $.ajax({
             url: "http://localhost:3000/User",
