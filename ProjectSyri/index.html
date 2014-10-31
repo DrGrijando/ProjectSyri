@@ -47,6 +47,7 @@
         </ul>
         <br>
         <div class="wrapper-center">
+            <a data-role="button" href="#tabstrip-vaccines">no login</a>
             <a data-role="button" onclick="login();">Sign in</a>
             <a data-role="button" href="#register">Register</a>
             <a data-role="button" onclick="deleteLoginInfo();">Delete login</a>
@@ -253,6 +254,15 @@
                 <input id="detailed-vaccine-time" type="time" onclick="resetInputBackground();"/>
             </li>
         </ul>
+        <div>
+            <span>Notify me...</span>
+            <input id="detailed-vaccine-notification-time" type="number" class="prescription-dose-input" onclick="resetInputBackground();" value="0"/>
+            <select id="detailed-vaccine-notification-time-measure">
+                <option value="minute">minutes</option>
+                <option value="hour">hour(s)</option>
+            </select>
+            <span>before the time.</span>
+        </div>
     </div>
     
     <!-- VIEW TO SEE DETAILED PRESCRIPTIONS -->
@@ -472,7 +482,6 @@
         </div>
         <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="history" onclick="moveToVaccines();">Restore</a>
-            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
             <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->
@@ -489,7 +498,6 @@
         </div>
         <div class="wrapper-center footer" data-role="footer">
             <a data-role="button" data-icon="history" onclick="moveToPrescriptions();">Restore</a>
-            <a data-role="button" data-icon="download" onclick="saveElementChanges();">Save</a>
             <a data-role="button" data-icon="trash" onclick="deleteElement();"></a>
             <!-- This button goes to the last visited page, so we can use it for both add vaccine/add prescription
                  views, because in any case we will go back to the tab we were in -->

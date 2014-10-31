@@ -316,12 +316,13 @@ function saveElementChanges()
                     var time = document.getElementById("detailed-vaccine-time").value;
                     
                     // Cancel the previous notification
-               //     window.plugin.notification.local.cancel(vaccines[i].vid);
+                    // window.plugin.notification.local.cancel(vaccines[i].vid);
                     if (title == "" || date == "" || text == "")
                     {
                         if(title == ""){ highlightInputError("detailed-vaccine-title"); }
                         if(date == ""){ highlightInputError("detailed-vaccine-date"); }
-                        if(time == ""){ highlightInputError("detailed-vaccine-time"); } 
+                        if(time == ""){ highlightInputError("detailed-vaccine-time"); }
+                        if(document.getElementById("detailed-vaccine-notification-time").value == ""){ highlightInputError("detailed-vaccine-notification-time"); }        
                         alert("Enter all the information before saving the data.");
                         break;
                     }
@@ -332,12 +333,22 @@ function saveElementChanges()
                         vaccines[i].time = time;
                         
                     // Set the new notification
-             /*         var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
+                        /*
+                      var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
                         var year = vaccines[i].date.split("-")[0],
                         month = (vaccines[i].date.split("-")[1]) - 1,
-                        day = vaccines[i].date.split("-")[2],
-                        hours = vaccines[i].time.split(":")[0],
-                        minutes = vaccines[i].time.split(":")[1];
+                        day = vaccines[i].date.split("-")[2];
+                        var hours, minutes;
+                        if(document.getElementById("detailed-vaccine-notification-time-measure").value=="minute")
+                        {
+                            hours=time.split(":")[0];
+                            minutes=(time.split(":")[1])-(document.getElementById("detailed-vaccine-notification-time").value);
+                        }
+                        else
+                        {
+                            hours=time.split(":")[0]-(document.getElementById("detailed-vaccine-notification-time").value);
+                            minutes=time.split(":")[1];            
+                        }  
                
                         d = new Date(year, month, day, hours, minutes)
                         window.plugin.notification.local.add({
@@ -346,8 +357,8 @@ function saveElementChanges()
                                                              message : msg,
                                                              date : d,
                                                              sound : "TYPE_NOTIFICATION"
-                                                         });
-                  */  
+                        });
+                      */
                     // Save the info for later PUT request
                         var req = {
                             url : "http://localhost:3000/Vaccine/"+currentElementID,
