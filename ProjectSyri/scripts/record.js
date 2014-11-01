@@ -212,12 +212,24 @@ function moveToRecord()
             {
                 if (currentElementID == vaccines[i].vid)
                 {
+                    vaccines[i].inRecord = "true";
+                    
+                    var req = {
+                        url : "http://localhost:3000/Vaccine/"+currentElementID,
+                        reqType : "put",
+                        entry : vaccines[i]
+                    };
+                    requests.push(req);
+                    savetoLocalStorage(requests,"requests");
+                    
                     record.push(vaccines[i]);                
                     vaccines.splice(i, 1);
                     break;
                 }
                 i++;
-            }
+            }          
+            
+        
             sortByDate(record);
             saveToLocalStorage(vaccines);
             saveToLocalStorage(record, "record-list");
@@ -229,6 +241,16 @@ function moveToRecord()
             {
                 if (currentElementID == prescriptions[i].vid)
                 {
+                    prescriptions[i].inRecord = "true";
+                    
+                    var req = {
+                        url : "http://localhost:3000/Prescription/"+currentElementID,
+                        reqType : "put",
+                        entry : prescriptions[i]
+                    };
+                    requests.push(req);
+                    savetoLocalStorage(requests,"requests");
+                    
                     record.push(prescriptions[i]);
                     prescriptions.splice(i, 1);
                     break;

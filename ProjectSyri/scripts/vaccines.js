@@ -64,7 +64,7 @@ function addNewVaccine()
         });
         */
         // Store the new vaccine in the localStorage        
-        var vaccineToStore = {"title":title,"date":date,"time":time,"vid":vid,"type":"vaccine"}
+        var vaccineToStore = {"title":title,"date":date,"time":time,"vid":vid,"type":"vaccine","inRecord":"false"}
         vaccines.push(vaccineToStore);
         sortByDate(vaccines);
         saveToLocalStorage(vaccines);
@@ -139,6 +139,16 @@ function moveToVaccines()
     var i = 0;
     while (i < record.length) {
         if (currentElementID == record[i].vid) {
+            record[i].inRecord="false";
+            
+            var req = {
+                url : "http://localhost:3000/Vaccine/"+currentElementID,
+                reqType : "put",
+                entry : record[i]
+            };            
+            requests.push(req);
+            savetoLocalStorage(requests,"requests");
+            
             vaccines.push(record[i]);                
             record.splice(i, 1);
             break;

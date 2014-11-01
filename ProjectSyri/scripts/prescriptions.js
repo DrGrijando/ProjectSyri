@@ -54,7 +54,7 @@ function addNewPrescription()
         var prescriptionToStore = {
             "title":title,"date":date,"finalDate":finalDate,"doseTakes":doseTakes,
             "doseTakesMeasure":doseTakesMeasure,"doseFrequency":doseFrequency,
-            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"vid":vid,"type":"prescription"
+            "doseFrequencyMeasure":doseFrequencyMeasure,"text":text,"vid":vid,"type":"prescription","inRecord":"false"
         }
         prescriptions.push(prescriptionToStore);
         sortByDate(prescriptions);
@@ -148,6 +148,16 @@ function moveToPrescriptions()
     {
         if (currentElementID == record[i].vid)
         {
+            record[i].inRecord = "false";            
+            
+            var req = {
+                url : "http://localhost:3000/Prescription/"+currentElementID,
+                reqType : "put",
+                entry : record[i]
+            };
+            requests.push(req);
+            savetoLocalStorage(requests,"requests");
+            
             prescriptions.push(record[i]);                
             record.splice(i, 1);
             break;
