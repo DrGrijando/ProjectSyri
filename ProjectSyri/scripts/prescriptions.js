@@ -156,7 +156,7 @@ function moveToPrescriptions()
                 entry : record[i]
             };
             requests.push(req);
-            savetoLocalStorage(requests,"requests");
+            saveToLocalStorage(requests,"requests");
             
             prescriptions.push(record[i]);                
             record.splice(i, 1);

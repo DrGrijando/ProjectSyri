@@ -147,7 +147,7 @@ function moveToVaccines()
                 entry : record[i]
             };            
             requests.push(req);
-            savetoLocalStorage(requests,"requests");
+            saveToLocalStorage(requests,"requests");
             
             vaccines.push(record[i]);                
             record.splice(i, 1);

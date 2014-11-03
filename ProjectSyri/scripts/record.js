@@ -220,7 +220,7 @@ function moveToRecord()
                         entry : vaccines[i]
                     };
                     requests.push(req);
-                    savetoLocalStorage(requests,"requests");
+                    saveToLocalStorage(requests,"requests");
                     
                     record.push(vaccines[i]);                
                     vaccines.splice(i, 1);
@@ -249,7 +249,7 @@ function moveToRecord()
                         entry : prescriptions[i]
                     };
                     requests.push(req);
-                    savetoLocalStorage(requests,"requests");
+                    saveToLocalStorage(requests,"requests");
                     
                     record.push(prescriptions[i]);
                     prescriptions.splice(i, 1);
