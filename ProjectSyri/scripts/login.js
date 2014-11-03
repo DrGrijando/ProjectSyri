@@ -118,11 +118,22 @@ function register()
             data: jsonObject,
             success:function(msg)
             {
-                alert(msg.status);
+                $.ajax({
+                    url: "http://localhost:3000/login/"+mail+"/"+password,
+                    type: "get",
+                    dataType: "json",
+                    data: jsonObject,
+                    success:function(msg)
+                    {
+                        window.localStorage.setItem("loginUser", mail);
+                        window.localStorage.setItem("loginPassword", password);    
+                        document.location.href = "#tabstrip-vaccines";
+                        document.getElementById("register-user-input").value = "";
+                        document.getElementById("register-password-input").value = "";
+                    }
+                });
             }
         });
-        
-        goBack();
     }
 }
 
