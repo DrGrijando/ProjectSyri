@@ -95,16 +95,20 @@ function login() {
 
 function logout()
 {
-    // Fill the login inputs with the last logged in user e-mail
-    document.getElementById("login-user-input").value = window.localStorage.getItem("loginUser");
-    document.getElementById("login-password-input").value = "";
-    
-    // Delete the user credentials in localStorage
-    window.localStorage.removeItem("loginUser");
-    window.localStorage.removeItem("loginPassword");
-    
-    // Go back to the login screen
-    document.location.href = "#login";
+    var res = confirm("Any changes that are not synchronized with the server will be lost. Do you really want to log out?");
+    if(res == true)
+    {
+        // Fill the login inputs with the last logged in user e-mail
+        document.getElementById("login-user-input").value = window.localStorage.getItem("loginUser");
+        document.getElementById("login-password-input").value = "";
+        
+        // Delete the user credentials in localStorage
+        window.localStorage.removeItem("loginUser");
+        window.localStorage.removeItem("loginPassword");
+        
+        // Go back to the login screen
+        document.location.href = "#login";
+    }
 }
 
 function register()
