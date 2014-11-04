@@ -33,10 +33,9 @@
     <script type="text/javascript" src="scripts/record.js"></script>
     <script type="text/javascript" src="scripts/vaccines.js"></script>
 </head>
-<body onload="onLoad();">
-    
+<body><!--  onload="onLoad();" -->    
     <!-- LOGIN SCREEN -->
-    <div id="login" data-role="view" data-layout="Layout4">
+    <div id="login" data-role="view" data-init="onLoad()" data-layout="Layout4">
         <ul id="login-fields" data-role="listview">
             <li data-icon="mail">
                 <input id="login-user-input" type="text" placeholder="User" onclick="resetInputBackground();"/>
@@ -119,12 +118,12 @@
         <ul id="option-list" data-role="listview" data-style="inset">
             <li>
                 <label>
-                    <input type="text" id="options-user-input"/>aaaida user
+                    <input type="text" id="options-user-input" readonly/>aaaida user
                 </label>
             </li>
             <li>
                 <label>
-                    <input type="password" id="options-password-input"/>aaaida password
+                    <input type="password" id="options-password-input" readonly/>aaaida password
                 </label>
             </li>
             <li>
@@ -143,6 +142,7 @@
                 </label>                
             </li><br>
             <div class="wrapper-center">
+                <a data-role="button" id="logout-button" onClick="logout()">Log out</a>
                 <a data-role="button" onClick="saveSettings();">Return</a>
                 <div></div>
             </div>
@@ -370,7 +370,7 @@
     <div data-id="Layout1" data-role="layout" data-init="onLoadLayout1();" height="100%">    		
         <div class="header-wrapper" data-role="header">
             <div class="header">
-                <a id="settings-button" data-role="button" data-icon="settings" href="#options" onclick="onLoad();"></a>
+                <a id="settings-button" data-role="button" data-icon="settings" href="#options" ></a><!-- onclick="onLoad();" -->
                 <div class="header-content">VacApp</div>           
                 <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
                 <a id="cloud-button-number" class="cloud-button" data-role="button" onclick="synchronize();" data-bind="requests.length">0</a>

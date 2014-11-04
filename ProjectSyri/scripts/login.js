@@ -31,10 +31,17 @@ function login() {
             {
                 window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
                 window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
+                document.getElementById("options-user-input").value = window.localStorage.getItem("loginUser");
+                document.getElementById("options-password-input").value = window.localStorage.getItem("loginPassword");
+                
                 document.location.href = "#tabstrip-vaccines";
             },
             error:function(msg)
             {
+                if(msg.status=="0")
+                {
+                    alert("The app couldn't communicate with the server, please try again later.");
+                }
                 if(msg.status=="404")
                 {
                     alert("The user doesn't exist.");
@@ -86,6 +93,20 @@ function login() {
     }*/
 }
 
+function logout()
+{
+    // Fill the login inputs with the last logged in user e-mail
+    document.getElementById("login-user-input").value = window.localStorage.getItem("loginUser");
+    document.getElementById("login-password-input").value = "";
+    
+    // Delete the user credentials in localStorage
+    window.localStorage.removeItem("loginUser");
+    window.localStorage.removeItem("loginPassword");
+    
+    // Go back to the login screen
+    document.location.href = "#login";
+}
+
 function register()
 {
     var mail = document.getElementById("register-user-input").value;
@@ -122,7 +143,6 @@ function register()
                     url: "http://localhost:3000/login/"+mail+"/"+password,
                     type: "get",
                     dataType: "json",
-                    data: jsonObject,
                     success:function(msg)
                     {
                         window.localStorage.setItem("loginUser", mail);

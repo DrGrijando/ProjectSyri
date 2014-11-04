@@ -17,6 +17,10 @@ a{
     text-decoration: none;
 }
 
+#logout-button{
+    background-color:red!important;
+}
+
 /* TRANSITION FOR INPUTS TO TURN WHITE AGAIN AFTER ERRORS ARE DETECTED */
 /*input:focus{
     background-color:rgb(255,255,255) !important;

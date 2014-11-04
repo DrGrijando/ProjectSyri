@@ -25,12 +25,36 @@ function onLoad()
 {   
     user = localStorage.getItem("loginUser");
     password = localStorage.getItem("loginPassword");
+    
     if ((user != null) && (password != null)) {
         document.getElementById("login-user-input").value = user;
         document.getElementById("options-user-input").value = user;
         document.getElementById("login-password-input").value = password;
         document.getElementById("options-password-input").value = password;
+        
+        document.location.href = "#tabstrip-vaccines";
+        /*
+        if(navigator.onLine)
+        {
+            alert("automatic logging in");
+            $.ajax({
+                url: "http://localhost:3000/login/"+user+"/"+password,
+                type: "get",
+                dataType: "json",
+                success:function(msg)
+                {
+                    document.location.href = "#tabstrip-vaccines";
+                }
+            });
+        }
+        else
+        {            
+            alert("offline, entering the app")
+            document.location.href = "#tabstrip-vaccines";            
+        }
+        */
     }
+    
     var isChecked = (localStorage.getItem("settings")==="true");
     if (isChecked) {
         document.getElementById("confirm-deletions-checkbox").checked = true;
