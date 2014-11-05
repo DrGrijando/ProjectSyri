@@ -149,8 +149,10 @@ function register()
                     dataType: "json",
                     success:function(msg)
                     {
-                        window.localStorage.setItem("loginUser", mail);
-                        window.localStorage.setItem("loginPassword", password);    
+                        localStorage.setItem("loginUser", mail);
+                        localStorage.setItem("loginPassword", password);    
+                        document.getElementById("options-user-input").value = mail;
+                        document.getElementById("options-password-input").value = password;
                         document.location.href = "#tabstrip-vaccines";
                         document.getElementById("register-user-input").value = "";
                         document.getElementById("register-password-input").value = "";
