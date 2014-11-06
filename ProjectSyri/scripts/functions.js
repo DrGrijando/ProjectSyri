@@ -250,11 +250,18 @@ function deleteElement()
 function emptyList(list)
 {
     var i = 0;
-    while (i < list.childNodes.length) {
-        if (list.childNodes[i].tagName == "DIV") {
-            list.removeChild(list.childNodes[i]);
-        } else {
-            i++;
+    if(list.childNodes)
+    {
+        while (i < list.childNodes.length)
+        {
+            if (list.childNodes[i].tagName == "DIV") 
+            {
+                list.removeChild(list.childNodes[i]);
+            }
+            else
+            {
+                i++;
+            }
         }
     }
 }
@@ -576,6 +583,10 @@ function saveSettings()
 
 function synchronize()
 {
+    var myVaccines=[];
+    var myPrescriptions=[];
+    var myPhrs=[];
+    
     if(requests.length == 0)
     {
         alert("There are no pending requests.");
@@ -595,6 +606,43 @@ function synchronize()
         requests.length=0;
         saveToLocalStorage(requests,"requests");
         document.getElementById("cloud-button-number").innerHTML = requests.length;
+        
+        // Update the user in the database with the vaccines, prescriptions and PHRs they own        
+        for (i=0;i < vaccines.length; i++)
+        {
+            myVaccines.push(vaccines[i].vid);
+        }
+        
+        for (i=0;i < prescriptions.length; i++)
+        {
+            myPrescriptions.push(prescriptions[i].vid);
+        }
+        
+        for (i=0;i < record.length; i++)
+        {
+            switch(record[i].type)
+            {
+                case "vaccine":
+                    myVaccines.push(record[i].vid);
+                    break;
+                case "prescription":
+                    myPrescriptions.push(record[i].vid);
+                    break;
+                case "phr":
+                    myPhrs.push(record[i].vid);
+                    break;
+            }            
+        }
+        var userModel = {"userId":localStorage.getItem("userId"),"email":localStorage.getItem("loginUser"),
+            "password":localStorage.getItem("loginPassword"),"myVaccines":JSON.stringify(myVaccines),
+            "myPrescriptions":JSON.stringify(myPrescriptions),"myPhrs":JSON.stringify(myPhrs)}
+        
+        $.ajax({
+            url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
+            type: "put",
+            dataType: "json",
+            data: userModel
+        });
         //document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
     }
 }

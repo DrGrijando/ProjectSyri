@@ -4,7 +4,7 @@ var password;
 function login() {
     user = document.getElementById("login-user-input").value;
     password = document.getElementById("login-password-input").value;
-    
+    var i;
     if ((user == "") && (password == ""))
     {
         highlightInputError("login-user-input");
@@ -29,10 +29,270 @@ function login() {
             dataType: "json",
             success:function(msg)
             {
-                window.localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
-                window.localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
+                localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
+                localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
                 document.getElementById("options-user-input").value = window.localStorage.getItem("loginUser");
                 document.getElementById("options-password-input").value = window.localStorage.getItem("loginPassword");
+                
+                // Save user ID for synchronizing their entries
+                localStorage.setItem("userId",msg.userId);
+                
+                // Get current user's vaccines, prescriptions and PHRs
+                if(msg.myVaccines != null)
+                {
+                    var auxVaccines;
+                    
+                    $.ajax({
+                        url: "http://localhost:3000/Vaccines",
+                        type: "get",      
+                        async:false,
+                        dataType: "json",
+                        success:function(vac)
+                        {
+                            auxVaccines = vac.result;    // Save all the vaccines retrieved in an auxiliar array
+                        }
+                    });
+                    var myVaccines = JSON.parse(msg.myVaccines);
+                    i=0;
+                    while(i < myVaccines.length)
+                    {
+                        for(var j=0;j<auxVaccines.length;j++)    // For the actual item in myVaccine, chek all items of auxVaccines
+                        {
+                            if(myVaccines[i] == auxVaccines[j].vid)    // If the curren auxVaccines item has the same ID as one of myVaccines
+                            {
+                                if(auxVaccines[j].inRecord=="false"){vaccines.push(auxVaccines[j]);}
+                                else{record.push(auxVaccines[j]);}
+                                break;
+                            }
+                        }
+                        i++;
+                    }
+                    auxVaccines=null;    // free the variable so all the other vaccines are not stored in the app
+                }
+                
+                if(msg.myPrescriptions != null)
+                {
+                    var auxPrescriptions;
+                    $.ajax({
+                        url: "http://localhost:3000/Prescriptions",
+                        type: "get",   
+                        async:false,
+                        dataType: "json",
+                        success:function(pres)
+                        {
+                            auxPrescriptions = pres.result;    // Save all the prescriptions retrieved in an auxiliar array
+                        }
+                    });
+                    var myPrescriptions = JSON.parse(msg.myPrescriptions);
+                    i=0;
+                    while(i < myPrescriptions.length)
+                    {
+                        for(var j=0;j<auxPrescriptions.length;j++)    // For the actual item in myPrescriptions, chek all items of auxPrescriptions
+                        {
+                            if(myPrescriptions[i] == auxPrescriptions[j].vid)    // If the curren auxPrescriptions item has the same ID as one of myPrescriptions
+                            {
+                                if(auxPrescriptions[j].inRecord=="false"){prescriptions.push(auxPrescriptions[j]);}
+                                else{record.push(auxPrescriptions[j]);}
+                                break;
+                            }
+                        }
+                        i++;
+                    }
+                    auxPrescriptions=null;    // free the variable so all the other prescriptions are not stored in the app
+                }
+                
+                if(msg.myPhrs != null)
+                {
+                    var auxPhrs;
+                    $.ajax({
+                        url: "http://localhost:3000/Phrs",
+                        type: "get",     
+                        async:false,
+                        dataType: "json",
+                        success:function(phrs)
+                        {
+                            auxPhrs = phrs.result;    // Save all the PHRs retrieved in an auxiliar array
+                        }
+                    });
+                    var myPhrs = JSON.parse(msg.myPhrs);
+                    i=0;
+                    while(i < myPhrs.length)
+                    {
+                        for(var j=0;j<auxPhrs.length;j++)    // For the actual item in myPhrs, chek all items of auxPhrs
+                        {
+                            if(myPhrs[i] == auxPhrs[j].vid)    // If the curren auxPhrs item has the same ID as one of myPhrs
+                            {
+                                record.push(auxPhrs[j]);
+                                break;
+                            }
+                        }
+                        i++;
+                    }
+                    auxPhrs=null;    // free the variable so all the other PHRs are not stored in the app
+                }
+                
+                // Sort the arrays before adding the entries
+                sortByDate(vaccines);
+                saveToLocalStorage(vaccines,"vaccine-list");
+                sortByDate(prescriptions);
+                saveToLocalStorage(prescriptions,"prescription-list");
+                sortByDate(record);
+                saveToLocalStorage(record,"record-list");
+                
+                // Fill the tabs with the entries
+                for(var i=0;i<vaccines.length;i++)
+                {
+                    var newItem = document.createElement("div");
+                    newItem.id = vaccines[i].vid;
+                    if(i % 2==0)
+                    {
+                        newItem.className="vaccine-entry-a"; 
+                    }
+                    else
+                    {
+                        newItem.className="vaccine-entry-b"; 
+                    }                                  
+                    var info = document.createElement("div");
+                    info.innerHTML=vaccines[i].title;
+                    info.className='vaccine-title';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem                      
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
+                    info.className='vaccine-date';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    newItem.onclick=viewDetailedVaccine;
+                    
+                    document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
+                }
+                
+                for(var j=0; j<prescriptions.length; j++)
+                {
+                    newItem = document.createElement("div");
+                    newItem.id = prescriptions[j].vid;
+                    if(j % 2==0)
+                    {
+                        newItem.className="prescription-entry-a"; 
+                    }
+                    else
+                    {
+                        newItem.className="prescription-entry-b"; 
+                    } 
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=prescriptions[j].title;
+                    info.className='prescription-title';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    info = document.createElement("div");
+                    info.innerHTML=prescriptions[j].date;
+                    info.className='prescription-date';
+                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    
+                    if(prescriptions[j].text != "")
+                    {
+                        info = document.createElement("div");
+                        info.innerHTML=prescriptions[j].text;
+                        info.className='prescription-text';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    }
+                    
+                    newItem.onclick=viewDetailedPrescription;
+                    
+                    document.getElementById("prescription-list").appendChild(newItem);	// Add the div to the specified List
+                }
+                
+                for(var k=0;k<record.length;k++)
+                {
+                    newItem = document.createElement("div");
+                    info;
+                    newItem.id = record[k].vid;
+                    switch(record[k].type)
+                    {
+                        case "vaccine":
+                        if(k % 2==0){
+                            newItem.className="vaccine-entry-a"; 
+                        }
+                        else
+                        {
+                            newItem.className="vaccine-entry-b"; 
+                        } 
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].title;
+                        info.className='vaccine-title';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem                      
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].date+" "+record[k].time;
+                        info.className='vaccine-date';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        newItem.onclick=viewDetailedRecordVaccine;
+                        
+                        document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
+                        break;
+                        
+                        case "prescription":
+                        if(k % 2==0)
+                        {
+                            newItem.className="prescription-entry-a"; 
+                        }
+                        else
+                        {
+                            newItem.className="prescription-entry-b"; 
+                        }   
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].title;
+                        info.className='prescription-title';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].date;
+                        info.className='prescription-date';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].text;
+                        info.className='prescription-text';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        newItem.onclick=viewDetailedRecordPrescription;
+                        
+                        document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
+                        break;
+                        
+                        case "phr":
+                        if(k % 2==0)
+                        {
+                            newItem.className="phr-entry-a"; 
+                        }
+                        else
+                        {
+                            newItem.className="phr-entry-b"; 
+                        } 
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].title;
+                        info.className='phr-title';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem                      
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].date;
+                        info.className='phr-date';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].text;
+                        info.className='phr-text';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        
+                        newItem.onclick=viewDetailedPHR;
+                        
+                        document.getElementById("record-list").appendChild(newItem);	// Add the div to the specified List
+                        break;                   
+                    }
+                }
                 
                 document.location.href = "#tabstrip-vaccines";
             },
@@ -103,8 +363,19 @@ function logout()
         document.getElementById("login-password-input").value = "";
         
         // Delete the user credentials in localStorage
-        window.localStorage.removeItem("loginUser");
-        window.localStorage.removeItem("loginPassword");
+        localStorage.removeItem("loginUser");
+        localStorage.removeItem("loginPassword");
+        localStorage.removeItem("vaccines");
+        vaccines.length = 0;
+        localStorage.removeItem("prescriptions");
+        prescriptions.length = 0;
+        localStorage.removeItem("record");
+        record.length = 0;
+        
+        // Delete the entries in the tabs
+        emptyList(document.getElementById("vaccine-list"));
+        emptyList(document.getElementById("prescription-list"));
+        emptyList(document.getElementById("record-list"));
         
         // Go back to the login screen
         document.location.href = "#login";

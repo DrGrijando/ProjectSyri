@@ -49,10 +49,10 @@
                 
                 info = document.createElement("div");
                 info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
-                info.className='vaccine-date'
+                info.className='vaccine-date';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
-                newItem.onclick=viewDetailedVaccine
+                newItem.onclick=viewDetailedVaccine;
                 
                 document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List
             }
