@@ -37,99 +37,107 @@ function login() {
                 // Save user ID for synchronizing their entries
                 localStorage.setItem("userId",msg.userId);
                 
-                // Get current user's vaccines, prescriptions and PHRs
-                if(msg.myVaccines != null)
-                {
-                    var auxVaccines;
-                    
-                    $.ajax({
-                        url: "http://localhost:3000/Vaccines",
-                        type: "get",      
-                        async:false,
-                        dataType: "json",
-                        success:function(vac)
-                        {
-                            auxVaccines = vac.result;    // Save all the vaccines retrieved in an auxiliar array
-                        }
-                    });
-                    var myVaccines = JSON.parse(msg.myVaccines);
-                    i=0;
-                    while(i < myVaccines.length)
+                // Get the user information about their vaccines, prescriptions and PHRs
+                $.ajax({
+                    url: "http://localhost:3000/User/"+msg.userId,
+                    type: "get",      
+                    async:false,
+                    success:function(usr)
                     {
-                        for(var j=0;j<auxVaccines.length;j++)    // For the actual item in myVaccine, chek all items of auxVaccines
+                        if(usr.myVaccines.length > 0)
                         {
-                            if(myVaccines[i] == auxVaccines[j].vid)    // If the curren auxVaccines item has the same ID as one of myVaccines
+                            var auxVaccines;
+                            
+                            $.ajax({
+                                url: "http://localhost:3000/Vaccines",
+                                type: "get",      
+                                async:false,
+                                dataType: "json",
+                                success:function(vac)
+                                {
+                                    auxVaccines = vac.result;    // Save all the vaccines retrieved in an auxiliar array
+                                }
+                            });
+                            var myVaccines = usr.myVaccines;
+                            i=0;
+                            while(i < myVaccines.length)
                             {
-                                if(auxVaccines[j].inRecord=="false"){vaccines.push(auxVaccines[j]);}
-                                else{record.push(auxVaccines[j]);}
-                                break;
+                                for(var j=0;j<auxVaccines.length;j++)    // For the actual item in myVaccine, chek all items of auxVaccines
+                                {
+                                    if(myVaccines[i] == auxVaccines[j].vid)    // If the curren auxVaccines item has the same ID as one of myVaccines
+                                    {
+                                        if(auxVaccines[j].inRecord=="false"){vaccines.push(auxVaccines[j]);}
+                                        else{record.push(auxVaccines[j]);}
+                                        break;
+                                    }
+                                }
+                                i++;
                             }
+                            auxVaccines=null;    // free the variable so all the other vaccines are not stored in the app
                         }
-                        i++;
-                    }
-                    auxVaccines=null;    // free the variable so all the other vaccines are not stored in the app
-                }
-                
-                if(msg.myPrescriptions != null)
-                {
-                    var auxPrescriptions;
-                    $.ajax({
-                        url: "http://localhost:3000/Prescriptions",
-                        type: "get",   
-                        async:false,
-                        dataType: "json",
-                        success:function(pres)
+                        
+                        if(usr.myPrescriptions.length > 0)
                         {
-                            auxPrescriptions = pres.result;    // Save all the prescriptions retrieved in an auxiliar array
-                        }
-                    });
-                    var myPrescriptions = JSON.parse(msg.myPrescriptions);
-                    i=0;
-                    while(i < myPrescriptions.length)
-                    {
-                        for(var j=0;j<auxPrescriptions.length;j++)    // For the actual item in myPrescriptions, chek all items of auxPrescriptions
-                        {
-                            if(myPrescriptions[i] == auxPrescriptions[j].vid)    // If the curren auxPrescriptions item has the same ID as one of myPrescriptions
+                            var auxPrescriptions;
+                            $.ajax({
+                                url: "http://localhost:3000/Prescriptions",
+                                type: "get",   
+                                async:false,
+                                dataType: "json",
+                                success:function(pres)
+                                {
+                                    auxPrescriptions = pres.result;    // Save all the prescriptions retrieved in an auxiliar array
+                                }
+                            });
+                            var myPrescriptions = usr.myPrescriptions;
+                            i=0;
+                            while(i < myPrescriptions.length)
                             {
-                                if(auxPrescriptions[j].inRecord=="false"){prescriptions.push(auxPrescriptions[j]);}
-                                else{record.push(auxPrescriptions[j]);}
-                                break;
+                                for(var j=0;j<auxPrescriptions.length;j++)    // For the actual item in myPrescriptions, chek all items of auxPrescriptions
+                                {
+                                    if(myPrescriptions[i] == auxPrescriptions[j].vid)    // If the curren auxPrescriptions item has the same ID as one of myPrescriptions
+                                    {
+                                        if(auxPrescriptions[j].inRecord=="false"){prescriptions.push(auxPrescriptions[j]);}
+                                        else{record.push(auxPrescriptions[j]);}
+                                        break;
+                                    }
+                                }
+                                i++;
                             }
+                            auxPrescriptions=null;    // free the variable so all the other prescriptions are not stored in the app
                         }
-                        i++;
-                    }
-                    auxPrescriptions=null;    // free the variable so all the other prescriptions are not stored in the app
-                }
-                
-                if(msg.myPhrs != null)
-                {
-                    var auxPhrs;
-                    $.ajax({
-                        url: "http://localhost:3000/Phrs",
-                        type: "get",     
-                        async:false,
-                        dataType: "json",
-                        success:function(phrs)
+                        
+                        if(usr.myPhrs.length > 0)
                         {
-                            auxPhrs = phrs.result;    // Save all the PHRs retrieved in an auxiliar array
-                        }
-                    });
-                    var myPhrs = JSON.parse(msg.myPhrs);
-                    i=0;
-                    while(i < myPhrs.length)
-                    {
-                        for(var j=0;j<auxPhrs.length;j++)    // For the actual item in myPhrs, chek all items of auxPhrs
-                        {
-                            if(myPhrs[i] == auxPhrs[j].vid)    // If the curren auxPhrs item has the same ID as one of myPhrs
+                            var auxPhrs;
+                            $.ajax({
+                                url: "http://localhost:3000/Phrs",
+                                type: "get",     
+                                async:false,
+                                dataType: "json",
+                                success:function(phrs)
+                                {
+                                    auxPhrs = phrs.result;    // Save all the PHRs retrieved in an auxiliar array
+                                }
+                            });
+                            var myPhrs = usr.myPhrs;
+                            i=0;
+                            while(i < myPhrs.length)
                             {
-                                record.push(auxPhrs[j]);
-                                break;
+                                for(var j=0;j<auxPhrs.length;j++)    // For the actual item in myPhrs, chek all items of auxPhrs
+                                {
+                                    if(myPhrs[i] == auxPhrs[j].vid)    // If the curren auxPhrs item has the same ID as one of myPhrs
+                                    {
+                                        record.push(auxPhrs[j]);
+                                        break;
+                                    }
+                                }
+                                i++;
                             }
+                            auxPhrs=null;    // free the variable so all the other PHRs are not stored in the app
                         }
-                        i++;
                     }
-                    auxPhrs=null;    // free the variable so all the other PHRs are not stored in the app
-                }
+                });
                 
                 // Sort the arrays before adding the entries
                 sortByDate(vaccines);
@@ -158,7 +166,8 @@ function login() {
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
+                    d = new Date(vaccines[i].date);
+                    info.innerHTML=d.toISOString().split("T")[0]+" "+vaccines[i].time;
                     info.className='vaccine-date';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -186,7 +195,8 @@ function login() {
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
                     info = document.createElement("div");
-                    info.innerHTML=prescriptions[j].date;
+                    d = new Date(prescriptions[j].date);
+                    info.innerHTML=d.toISOString().split("T")[0];
                     info.className='prescription-date';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -224,7 +234,8 @@ function login() {
                         newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                         
                         info = document.createElement("div");
-                        info.innerHTML=record[k].date+" "+record[k].time;
+                        d = new Date(record[k].date);
+                        info.innerHTML=d.toISOString().split("T")[0]+" "+record[k].time;
                         info.className='vaccine-date';
                         newItem.appendChild(info);	// Add the TextNode to the ListItem
                         
@@ -249,14 +260,18 @@ function login() {
                         newItem.appendChild(info);	// Add the TextNode to the ListItem
                         
                         info = document.createElement("div");
-                        info.innerHTML=record[k].date;
+                        d = new Date(record[k].date);
+                        info.innerHTML=d.toISOString().split("T")[0];
                         info.className='prescription-date';
                         newItem.appendChild(info);	// Add the TextNode to the ListItem
                         
-                        info = document.createElement("div");
-                        info.innerHTML=record[k].text;
-                        info.className='prescription-text';
-                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        if(record[k].text != "")
+                        {
+                            info = document.createElement("div");
+                            info.innerHTML=record[k].text;
+                            info.className='prescription-text';
+                            newItem.appendChild(info);	// Add the TextNode to the ListItem
+                        }
                         
                         newItem.onclick=viewDetailedRecordPrescription;
                         
@@ -278,7 +293,8 @@ function login() {
                         newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                         
                         info = document.createElement("div");
-                        info.innerHTML=record[k].date;
+                        d = new Date(record[k].date);
+                        info.innerHTML=d.toISOString().split("T")[0];
                         info.className='phr-date';
                         newItem.appendChild(info);	// Add the TextNode to the ListItem
                         
@@ -371,6 +387,8 @@ function logout()
         prescriptions.length = 0;
         localStorage.removeItem("record");
         record.length = 0;
+        localStorage.removeItem("requests");
+        requests.length = 0;
         
         // Delete the entries in the tabs
         emptyList(document.getElementById("vaccine-list"));
@@ -384,23 +402,23 @@ function logout()
 
 function register()
 {
-    var mail = document.getElementById("register-user-input").value;
-    var password = document.getElementById("register-password-input").value;
+    var mail = document.getElementById("login-user-input").value;
+    var password = document.getElementById("login-password-input").value;
     var jsonObject;
     if(mail == "" && password == "")
     {
-        highlightInputError("register-user-input");
-        highlightInputError("register-password-input");
+        highlightInputError("login-user-input");
+        highlightInputError("login-password-input");
         alert("Enter the required fields before registering.");
     }
     else if(mail == "")
     {
-        highlightInputError("register-user-input");
+        highlightInputError("login-user-input");
         alert("An e-mail is required for registering.");
     }
     else if(password == "")
     {
-        highlightInputError("register-password-input");
+        highlightInputError("login-password-input");
         alert("Enter your password before registering.");
     }
     else
@@ -422,11 +440,10 @@ function register()
                     {
                         localStorage.setItem("loginUser", mail);
                         localStorage.setItem("loginPassword", password);    
+                        localStorage.setItem("userId",msg.userId);
                         document.getElementById("options-user-input").value = mail;
                         document.getElementById("options-password-input").value = password;
                         document.location.href = "#tabstrip-vaccines";
-                        document.getElementById("register-user-input").value = "";
-                        document.getElementById("register-password-input").value = "";
                     }
                 });
             }

@@ -273,14 +273,7 @@ function saveToLocalStorage(arrayToSave, targetList)
     if (typeof(targetList)==='undefined')
         targetList = currentElementList;
     
-    var str = "";
-    for (var i = 0;i < arrayToSave.length;i++) {
-        if (i == (arrayToSave.length - 1)) {
-            str = str + JSON.stringify(arrayToSave[i]);
-        } else {
-            str = str + JSON.stringify(arrayToSave[i]) + "+";            
-        }
-    }
+    str = JSON.stringify(arrayToSave);
     
     switch (targetList) {
         case "vaccine-list":
@@ -334,6 +327,7 @@ function test()
 
 function saveElementChanges()
 {
+    
     var i = 0;
     switch (currentElementList)
     {
@@ -343,7 +337,7 @@ function saveElementChanges()
                 if (currentElementID == vaccines[i].vid) 
                 {
                     var title = document.getElementById("detailed-vaccine-title").value;
-                    var date = document.getElementById("detailed-vaccine-date").value;
+                    var date = new Date(document.getElementById("detailed-vaccine-date").value);
                     var time = document.getElementById("detailed-vaccine-time").value;
                     
                     // Cancel the previous notification
@@ -351,7 +345,7 @@ function saveElementChanges()
                     if (title == "" || date == "" || text == "")
                     {
                         if(title == ""){ highlightInputError("detailed-vaccine-title"); }
-                        if(date == ""){ highlightInputError("detailed-vaccine-date"); }
+                        if(isNaN(date.getTime())){ highlightInputError("detailed-vaccine-date"); }
                         if(time == ""){ highlightInputError("detailed-vaccine-time"); }
                         if(document.getElementById("detailed-vaccine-notification-time").value == ""){ highlightInputError("detailed-vaccine-notification-time"); }        
                         alert("Enter all the information before saving the data.");
@@ -419,8 +413,8 @@ function saveElementChanges()
                 if (currentElementID == prescriptions[i].vid)
                 {
                     var title = document.getElementById("detailed-prescription-title").value;
-                    var date = document.getElementById("detailed-prescription-date").value;
-                    var finalDate = document.getElementById("detailed-prescription-final-date").value;
+                    var date = new Date(document.getElementById("detailed-prescription-date").value);
+                    var finalDate = new Date(document.getElementById("detailed-prescription-final-date").value);
                     var doseTakes = document.getElementById("detailed-prescription-dose-takes").value;
                     var doseTakesMeasure = document.getElementById("detailed-prescription-dose-takes-measure").value;
                     var doseFrequency = document.getElementById("detailed-prescription-dose-frequency").value;
@@ -430,8 +424,8 @@ function saveElementChanges()
                     if (title == "" || date == "" || finalDate == "" || doseTakes == "" || doseFrequency == "")
                     {        
                         if(title==""){ highlightInputError("detailed-prescription-title"); }
-                        if(date==""){ highlightInputError("detailed-prescription-date"); }        
-                        if(finalDate==""){ highlightInputError("detailed-prescription-final-date"); }
+                        if(isNaN(date.getTime())){ highlightInputError("detailed-prescription-date"); }        
+                        if(isNaN(finalDate.getTime())){ highlightInputError("detailed-prescription-final-date"); }
                         if(doseTakes==""){ highlightInputError("detailed-prescription-dose-takes"); }
                         if(doseFrequency==""){ highlightInputError("detailed-prescription-dose-frequency"); }
                         alert("Enter all the information before saving the data.");
@@ -483,7 +477,7 @@ function saveElementChanges()
                             //window.plugin.notification.local.cancel(record[i].vid);
                     
                             record[i].title = document.getElementById("detailed-record-vaccine-title").value;
-                            record[i].date = document.getElementById("detailed-record-vaccine-date").value;
+                            record[i].date = new Date(document.getElementById("detailed-record-vaccine-date").value);
                             record[i].time = document.getElementById("detailed-record-vaccine-time").value;
                         
                             // Save the info for later PUT request
@@ -499,8 +493,8 @@ function saveElementChanges()
                         
                         case "prescription":
                             record[i].title = document.getElementById("detailed-record-prescription-title").value;
-                            record[i].date = document.getElementById("detailed-record-prescription-date").value;
-                            record[i].finalDate = document.getElementById("detailed-record-prescription-final-date").value;
+                            record[i].date = new Date(document.getElementById("detailed-record-prescription-date").value);
+                            record[i].finalDate = new Date(document.getElementById("detailed-record-prescription-final-date").value);
                             record[i].text = document.getElementById("detailed-record-prescription-text").value;
                             record[i].doseTakes = document.getElementById("detailed-record-prescription-dose-takes").value;
                             record[i].doseTakesMeasure = document.getElementById("detailed-record-prescription-dose-takes-measure").value;
@@ -519,7 +513,7 @@ function saveElementChanges()
                         
                         case "phr":
                             var title = document.getElementById("detailed-phr-title").value;
-                            var date = document.getElementById("detailed-phr-date").value;
+                            var date = new Date(document.getElementById("detailed-phr-date").value);
                             var text = document.getElementById("detailed-phr-text").value;
                             if (title == "" || date == "" || text == "") 
                             {
@@ -633,15 +627,21 @@ function synchronize()
                     break;
             }            
         }
-        var userModel = {"userId":localStorage.getItem("userId"),"email":localStorage.getItem("loginUser"),
-            "password":localStorage.getItem("loginPassword"),"myVaccines":JSON.stringify(myVaccines),
-            "myPrescriptions":JSON.stringify(myPrescriptions),"myPhrs":JSON.stringify(myPhrs)}
+        var userModel = 
+        {
+            userId:localStorage.getItem("userId"),
+            email:localStorage.getItem("loginUser"),
+            password:localStorage.getItem("loginPassword"),
+            myVaccines:myVaccines,
+            myPrescriptions:myPrescriptions,
+            myPhrs:myPhrs}
         
         $.ajax({
             url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
             type: "put",
-            dataType: "json",
-            data: userModel
+            datatype : "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(userModel)           
         });
         //document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
     }

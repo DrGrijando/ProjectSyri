@@ -2,19 +2,18 @@ function addNewVaccine()
 {
     currentElementList = "vaccine-list";
     var title = document.getElementById("new-vaccine-title").value;
-    var date = document.getElementById("new-vaccine-date").value;
+    var date = new Date(document.getElementById("new-vaccine-date").value);
     var time = document.getElementById("new-vaccine-time").value;
     
     if (title == "" || date == "" || time == "") {
         if(title == ""){ highlightInputError("new-vaccine-title"); }
-        if(date == ""){ highlightInputError("new-vaccine-date"); }
-        if(time == ""){ highlightInputError("new-vaccine-time"); }        
+        if(isNaN(date.getTime())){ highlightInputError("new-vaccine-date"); }
         if(time == ""){ highlightInputError("new-vaccine-time"); }
         if(document.getElementById("new-vaccine-notification-time").value == ""){ highlightInputError("new-vaccine-notification-time"); }        
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).concat(time.replace(':','')).replace(/-| /g, '');
         newItem.id = vid;        
         if (vaccines.length % 2 == 0) {
             newItem.className = "vaccine-entry-a"; 
@@ -28,7 +27,7 @@ function addNewVaccine()
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
         info = document.createElement("div");
-        info.innerHTML = date + " " + time;
+        info.innerHTML = date.toISOString().split("T")[0]+ " " + time;
         info.className = 'vaccine-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
@@ -96,8 +95,10 @@ function viewDetailedVaccine()
     for (var i = 0;i < vaccines.length;i++) {
         //var v=JSON.parse(vaccines[i]);
         if (vaccines[i].vid == window.event.srcElement.parentElement.id) {
+            d = new Date(vaccines[i].date)
             document.getElementById("detailed-vaccine-title").value = vaccines[i].title;
-            document.getElementById("detailed-vaccine-date").value = vaccines[i].date;
+            document.getElementById("detailed-vaccine-date").value = d.toISOString().split("T")[0];
+            //document.getElementById("detailed-vaccine-date").value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); // NOT WORKING
             document.getElementById("detailed-vaccine-time").value = vaccines[i].time;
             currentElementID = vaccines[i].vid;
             break;
@@ -124,7 +125,8 @@ function updateVaccineList()
         newItem.appendChild(info);  // Add the TextNode to the ListItem                      
         
         info = document.createElement("div");
-        info.innerHTML = vaccines[i].date + " " + vaccines[i].time;
+        d = new Date(vaccines[i].date);
+        info.innerHTML = d.toISOString().split("T")[0]+" "+ vaccines[i].time;
         info.className = 'vaccine-date';
         newItem.appendChild(info);  // Add the TextNode to the ListItem
         

@@ -1,7 +1,8 @@
 @font-face{
     font-family: 'VacAppFont';
     src: url('quicksand.eot');
-    src: url('quicksand.ttf') format('woff'), url('quicksand.woff') format('truetype');
+    src: url('quicksand.woff') format('woff'), url('quicksand.ttf') format('truetype'),
+         url('quicksand.svg#webfont') format('svg');
 }
 
 /* ANDROID TAB WIDGET WILL APPEAR ON BOTTOM */

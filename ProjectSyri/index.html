@@ -48,7 +48,7 @@
         <div class="wrapper-center">
             <a data-role="button" href="#tabstrip-vaccines">no login</a>
             <a data-role="button" onclick="login();">Sign in</a>
-            <a data-role="button" href="#register">Register</a>
+            <a data-role="button" onclick="register()">Register</a>
             <a data-role="button" onclick="deleteLoginInfo();">Delete login</a>
             <a data-role="button" href="#spinner-view" onclick="showSpinner();">Show spinner</a>
         </div>
@@ -63,23 +63,6 @@
             <div class="rect4"></div>
             <div class="rect5"></div>
             
-        </div>
-    </div>
-    
-    <!-- REGISTER SCREEN -->
-    <div id="register" data-role="view" data-layout="Layout4">
-        <ul id="register-fields" data-role="listview">
-            <li data-icon="mail">
-                <input id="register-user-input" type="text" placeholder="Enter your e-mail..." onclick="resetInputBackground();"/>
-            </li>            
-            <li data-icon="key">
-                <input id="register-password-input" type="password" placeholder="Enter your password..." onclick="resetInputBackground();"/>
-            </li>
-        </ul>
-        <br>
-        <div class="wrapper-center">
-            <a data-role="button" onclick="register();">Register</a>
-            <a data-role="button" onclick="goBack();">Cancel</a>
         </div>
     </div>
     
@@ -118,12 +101,12 @@
         <ul id="option-list" data-role="listview" data-style="inset">
             <li>
                 <label>
-                    <input type="text" id="options-user-input" readonly/>aaaida user
+                    <input type="text" id="options-user-input" readonly/>User e-mail
                 </label>
             </li>
             <li>
                 <label>
-                    <input type="password" id="options-password-input" readonly/>aaaida password
+                    <input type="password" id="options-password-input" readonly/>Password
                 </label>
             </li>
             <li>
@@ -135,9 +118,9 @@
                 <label>
                     <div>Language</div>
                     <select>
-                        <option value="esp">Spanish</option>
-                        <option value="cat">Catalan</option>
-                        <option value="eng">English</option>
+                        <option value="esp">English</option>
+                        <option value="cat">Spanish</option>
+                        <option value="eng">Catalan</option>
                     </select>
                 </label>                
             </li><br>

@@ -2,16 +2,16 @@ function addNewPHR()
 {
     currentElementList = "record-list";
     var title = document.getElementById("new-phr-title").value;
-    var date = document.getElementById("new-phr-date").value;
+    var date = new Date(document.getElementById("new-phr-date").value);
     var text = document.getElementById("new-phr-text").value;
     if (title == "" || date == "" || text == "") {
         if(title == ""){ highlightInputError("new-phr-title"); }
-        if(date == ""){ highlightInputError("new-phr-date"); }
+        if(isNaN(date.getTime())){ highlightInputError("new-phr-date"); }
         if(text == ""){ highlightInputError("new-phr-text"); }
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).replace(/-| /g, '');
         newItem.id = vid;
         if (record.length % 2 == 0) {
             newItem.className = "phr-entry-a"; 
@@ -25,7 +25,7 @@ function addNewPHR()
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
         info = document.createElement("div");
-        info.innerHTML = date;
+        info.innerHTML = date.toISOString().split("T")[0];
         info.className = 'phr-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
@@ -71,8 +71,9 @@ function viewDetailedPHR()
     for (var k = 0;k < record.length;k++) {
         //var p=JSON.parse(record[k]);
         if (record[k].vid == window.event.srcElement.parentElement.id) {
+            d = new Date(record[k].date);
             document.getElementById("detailed-phr-title").value = record[k].title;
-            document.getElementById("detailed-phr-date").value = record[k].date;
+            document.getElementById("detailed-phr-date").value = d.toISOString().split("T")[0];
             document.getElementById("detailed-phr-text").value = record[k].text;
             currentElementID = record[k].vid;
             break;
@@ -87,8 +88,9 @@ function viewDetailedRecordVaccine()
     for (var i = 0;i < record.length;i++) {
         //var v=JSON.parse(vaccines[i]);
         if (record[i].vid == window.event.srcElement.parentElement.id) {
+            d = new Date(record[i].date);
             document.getElementById("detailed-record-vaccine-title").value = record[i].title;
-            document.getElementById("detailed-record-vaccine-date").value = record[i].date;
+            document.getElementById("detailed-record-vaccine-date").value = d.toISOString().split("T")[0];
             document.getElementById("detailed-record-vaccine-time").value = record[i].time;
             currentElementID = record[i].vid;
             break;
@@ -103,9 +105,11 @@ function viewDetailedRecordPrescription()
     for (var j = 0;j < record.length;j++) {
         //var p=JSON.parse(prescriptions[j]);
         if (record[j].vid == window.event.srcElement.parentElement.id) {
+            d = new Date(record[j].date);            
             document.getElementById("detailed-record-prescription-title").value = record[j].title;
-            document.getElementById("detailed-record-prescription-date").value = record[j].date;
-            document.getElementById("detailed-record-prescription-final-date").value = record[j].finalDate;            
+            document.getElementById("detailed-record-prescription-date").value = d.toISOString().split("T")[0];
+            d = new Date(record[j].finalDate);
+            document.getElementById("detailed-record-prescription-final-date").value = d.toISOString().split("T")[0];
             document.getElementById("detailed-record-prescription-text").value = record[j].text;
             document.getElementById("detailed-record-prescription-dose-takes").value = record[j].doseTakes;
             document.getElementById("detailed-record-prescription-dose-takes-measure").value = record[j].doseTakesMeasure;
@@ -139,7 +143,8 @@ function updateRecordList()
                 newItem.appendChild(info);  // Add the TextNode to the ListItem                      
                     
                 info = document.createElement("div");
-                info.innerHTML = record[k].date + " " + record[k].time;
+                d=new Date(record[k].date);
+                info.innerHTML = d.toISOString().split("T")[0]+" "+ record[k].time;
                 info.className = 'vaccine-date'
                 newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
@@ -159,7 +164,8 @@ function updateRecordList()
                 newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
                 info = document.createElement("div");
-                info.innerHTML = record[k].date;
+                d = new Date(record[k].date);
+                info.innerHTML = d.toISOString().split("T")[0];
                 info.className = 'prescription-date';
                 newItem.appendChild(info);  // Add the TextNode to the ListItem
                     
@@ -185,7 +191,8 @@ function updateRecordList()
                 newItem.appendChild(info);  // Add the TextNode to the ListItem                      
                     
                 info = document.createElement("div");
-                info.innerHTML = record[k].date;
+                d = new Date(record[k].date)
+                info.innerHTML = d.toISOString().split("T")[0];
                 info.className = 'phr-date'
                 newItem.appendChild(info);  // Add the TextNode to the ListItem
                     

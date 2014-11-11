@@ -2,8 +2,8 @@ function addNewPrescription()
 {
     currentElementList = "prescription-list";
     var title = document.getElementById("new-prescription-title").value;
-    var date = document.getElementById("new-prescription-date").value;
-    var finalDate = document.getElementById("new-prescription-final-date").value;
+    var date = new Date(document.getElementById("new-prescription-date").value);
+    var finalDate = new Date(document.getElementById("new-prescription-final-date").value);
     var doseTakes = document.getElementById("new-prescription-dose-takes").value;
     var doseTakesMeasure = document.getElementById("new-prescription-dose-takes-measure").value;
     var doseFrequency = document.getElementById("new-prescription-dose-frequency").value;
@@ -12,14 +12,14 @@ function addNewPrescription()
     
     if (title == "" || date == "" || finalDate == "" || doseTakes == "" || doseFrequency == "") {        
         if(title==""){ highlightInputError("new-prescription-title"); }
-        if(date==""){ highlightInputError("new-prescription-date"); }        
-        if(finalDate==""){ highlightInputError("new-prescription-final-date"); }
+        if(isNaN(date.getTime())){ highlightInputError("new-prescription-date"); }        
+        if(isNaN(finalDate.getTime())){ highlightInputError("new-prescription-final-date"); }
         if(doseTakes==""){ highlightInputError("new-prescription-dose-takes"); }
         if(doseFrequency==""){ highlightInputError("new-prescription-dose-frequency"); }
         alert("Enter all the information before saving the data.");
     } else {
         var newItem = document.createElement("div");
-        var vid = title.substring(0, 3).concat(date).replace(/-| /g, '');
+        var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).replace(/-| /g, '');
         newItem.id = vid;
         if (prescriptions.length % 2 == 0) {
             newItem.className = "prescription-entry-a"; 
@@ -33,7 +33,7 @@ function addNewPrescription()
         newItem.appendChild(info);	// Add the TextNode to the ListItem
         
         info = document.createElement("div");
-        info.innerHTML = date;
+        info.innerHTML = date.toISOString().split("T")[0];
         info.className = 'prescription-date';
         newItem.appendChild(info);	// Add the TextNode to the ListItem   
         
@@ -90,9 +90,11 @@ function viewDetailedPrescription()
     for (var j = 0;j < prescriptions.length;j++) {
         //var p=JSON.parse(prescriptions[j]);
         if (prescriptions[j].vid == window.event.srcElement.parentElement.id) {
+            d = new Date(prescriptions[j].date);
             document.getElementById("detailed-prescription-title").value = prescriptions[j].title;
-            document.getElementById("detailed-prescription-date").value = prescriptions[j].date;
-            document.getElementById("detailed-prescription-final-date").value = prescriptions[j].finalDate;            
+            document.getElementById("detailed-prescription-date").value = d.toISOString().split("T")[0];
+            d = new Date(prescriptions[j].finalDate);
+            document.getElementById("detailed-prescription-final-date").value = d.toISOString().split("T")[0];
             document.getElementById("detailed-prescription-text").value = prescriptions[j].text;
             document.getElementById("detailed-prescription-dose-takes").value = prescriptions[j].doseTakes;
             document.getElementById("detailed-prescription-dose-takes-measure").value = prescriptions[j].doseTakesMeasure;
@@ -123,7 +125,8 @@ function updatePrescriptionList()
         newItem.appendChild(info);  // Add the TextNode to the ListItem
         
         info = document.createElement("div");
-        info.innerHTML = prescriptions[j].date;
+        d = new Date(prescriptions[j].date);
+        info.innerHTML = d.toISOString().split("T")[0];
         info.className = 'prescription-date';
         newItem.appendChild(info);  // Add the TextNode to the ListItem
         

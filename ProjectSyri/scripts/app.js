@@ -28,12 +28,10 @@
         }
         else
         {
-            vaccines=localStorage.getItem("vaccines").split("+");
+            vaccines=JSON.parse(localStorage.getItem("vaccines"));
             
             for(var i=0;i<vaccines.length;i++)
-            {
-                vaccines[i]=JSON.parse(vaccines[i]);
-                
+            {                
                 var newItem = document.createElement("div");
                 newItem.id = vaccines[i].vid;
                 if(i % 2==0){
@@ -48,7 +46,8 @@
                 newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                 
                 info = document.createElement("div");
-                info.innerHTML=vaccines[i].date+" "+vaccines[i].time;
+                d = new Date(vaccines[i].date);
+                info.innerHTML=d.toISOString().split("T")[0]+" "+vaccines[i].time;
                 info.className='vaccine-date';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
@@ -64,11 +63,10 @@
         }
         else
         {
-            prescriptions=localStorage.getItem("prescriptions").split("+");
+            prescriptions=JSON.parse(localStorage.getItem("prescriptions"));
             
             for(var j=0; j<prescriptions.length; j++)
             {
-                prescriptions[j]=JSON.parse(prescriptions[j]);
                 
                 newItem = document.createElement("div");
                 newItem.id = prescriptions[j].vid;
@@ -79,13 +77,14 @@
                     newItem.className="prescription-entry-b"; 
                 } 
                 
-                info = document.createElement("div");
+                info = document.createElement("div");                
                 info.innerHTML=prescriptions[j].title;
                 info.className='prescription-title';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
                 info = document.createElement("div");
-                info.innerHTML=prescriptions[j].date;
+                d = new Date(prescriptions[j].date);
+                info.innerHTML=d.toISOString().split("T")[0];
                 info.className='prescription-date';
                 newItem.appendChild(info);	// Add the TextNode to the ListItem
                 
@@ -109,12 +108,10 @@
         }
         else
         {
-            record=localStorage.getItem("record").split("+");
+            record=JSON.parse(localStorage.getItem("record"));
             
             for(var k=0;k<record.length;k++)
             {
-                record[k]=JSON.parse(record[k]);
-                
                 var newItem = document.createElement("div");
                 var info;
                 newItem.id = record[k].vid;
@@ -133,7 +130,8 @@
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=record[k].date+" "+record[k].time;
+                    d = new Date(record[k].date);
+                    info.innerHTML=d.toISOString().split("T")[0]+" "+record[k].time;
                     info.className='vaccine-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -156,14 +154,18 @@
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
                     info = document.createElement("div");
-                    info.innerHTML=record[k].date;
+                    d = new Date(record[k].date);
+                    info.innerHTML=d.toISOString().split("T")[0];
                     info.className='prescription-date';
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
-                    info = document.createElement("div");
-                    info.innerHTML=record[k].text;
-                    info.className='prescription-text';
-                    newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    if(record[k].text != "")
+                    {
+                        info = document.createElement("div");
+                        info.innerHTML=record[k].text;
+                        info.className='prescription-text';
+                        newItem.appendChild(info);	// Add the TextNode to the ListItem
+                    }
                     
                     newItem.onclick=viewDetailedRecordPrescription;
                     
@@ -183,7 +185,8 @@
                     newItem.appendChild(info);	// Add the TextNode to the ListItem                      
                     
                     info = document.createElement("div");
-                    info.innerHTML=record[k].date;
+                    d = new Date(record[k].date);
+                    info.innerHTML=d.toISOString().split("T")[0];
                     info.className='phr-date'
                     newItem.appendChild(info);	// Add the TextNode to the ListItem
                     
@@ -213,12 +216,7 @@
         }
         else
         {
-            requests=localStorage.getItem("requests").split("+");
-            
-            for(var i=0;i<requests.length;i++)
-            {
-                requests[i]=JSON.parse(requests[i]);
-            }            
+            requests=JSON.parse(localStorage.getItem("requests"));
             //document.getElementById("cloud-button").innerHTML="("+requests.length+")";
         }
 
