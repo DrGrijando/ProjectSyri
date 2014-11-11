@@ -62,6 +62,11 @@ function addNewPrescription()
         updatePrescriptionList();
         
         // Save the info for later POST request
+        prescriptionToStore = {
+            "title":title,"date":date,"finalDate":finalDate,"dose":doseTakes+" "+doseTakesMeasure+"/"+
+            doseFrequency+" "+doseFrequencyMeasure,"text":text,"vid":vid,"type":"prescription","inRecord":"false"
+        }
+        
         var req = {
             url : "http://localhost:3000/Prescription",
             reqType : "post",

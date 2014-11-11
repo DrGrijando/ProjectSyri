@@ -97,6 +97,14 @@ function login() {
                                 {
                                     if(myPrescriptions[i] == auxPrescriptions[j].vid)    // If the curren auxPrescriptions item has the same ID as one of myPrescriptions
                                     {
+                                        // Take the dose string and convert it to the variables used in the app
+                                        var doseArray = auxPrescriptions[j].dose.split("/");
+                                        auxPrescriptions[j].doseTakes=doseArray[0].split(" ")[0];
+                                        auxPrescriptions[j].doseTakesMeasure=doseArray[0].split(" ")[1];
+                                        auxPrescriptions[j].doseFrequency=doseArray[1].split(" ")[0];
+                                        auxPrescriptions[j].doseFrequencyMeasure=doseArray[1].split(" ")[1];
+                                        // Delete the previous string
+                                        delete auxPrescriptions[j].dose;
                                         if(auxPrescriptions[j].inRecord=="false"){prescriptions.push(auxPrescriptions[j]);}
                                         else{record.push(auxPrescriptions[j]);}
                                         break;

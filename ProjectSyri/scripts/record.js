@@ -168,12 +168,13 @@ function updateRecordList()
                 info.innerHTML = d.toISOString().split("T")[0];
                 info.className = 'prescription-date';
                 newItem.appendChild(info);  // Add the TextNode to the ListItem
-                    
-                info = document.createElement("div");
-                info.innerHTML = record[k].text;
-                info.className = 'prescription-text';
-                newItem.appendChild(info);  // Add the TextNode to the ListItem
-                    
+                if(record[k].text != "")
+                {    
+                    info = document.createElement("div");
+                    info.innerHTML = record[k].text;
+                    info.className = 'prescription-text';
+                    newItem.appendChild(info);  // Add the TextNode to the ListItem
+                }
                 newItem.onclick = viewDetailedRecordPrescription;
                     
                 document.getElementById("record-list").appendChild(newItem);  // Add the div to the specified List
