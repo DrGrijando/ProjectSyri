@@ -74,7 +74,7 @@ function addNewPrescription()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
         goBack();
         
         // Reset the inputs

@@ -379,8 +379,37 @@ function login() {
 
 function logout()
 {
-    var res = confirm("Any changes that are not synchronized with the server will be lost. Do you really want to log out?");
-    if(res == true)
+    if(requests.length > 0)
+    {
+        var res = confirm("There are changes that have not been synchronized with the server. Do you really want to log out?");
+        if(res == true)
+        {
+            // Fill the login inputs with the last logged in user e-mail
+            document.getElementById("login-user-input").value = window.localStorage.getItem("loginUser");
+            document.getElementById("login-password-input").value = "";
+            
+            // Delete the user credentials in localStorage
+            localStorage.removeItem("loginUser");
+            localStorage.removeItem("loginPassword");
+            localStorage.removeItem("vaccines");
+            vaccines.length = 0;
+            localStorage.removeItem("prescriptions");
+            prescriptions.length = 0;
+            localStorage.removeItem("record");
+            record.length = 0;
+            localStorage.removeItem("requests");
+            requests.length = 0;
+            
+            // Delete the entries in the tabs
+            emptyList(document.getElementById("vaccine-list"));
+            emptyList(document.getElementById("prescription-list"));
+            emptyList(document.getElementById("record-list"));
+            
+            // Go back to the login screen
+            document.location.href = "#login";
+        }
+    }
+    else
     {
         // Fill the login inputs with the last logged in user e-mail
         document.getElementById("login-user-input").value = window.localStorage.getItem("loginUser");

@@ -55,14 +55,34 @@
     </div>
     
     <!-- SPINNER TO SHOW WHEN SYNCHRONIZING -->
-    <div id="spinner-view" data-role="view">
-        <div class="spinner">
-            <div class="rect1"></div>
-            <div class="rect2"></div>
-            <div class="rect3"></div>
-            <div class="rect4"></div>
-            <div class="rect5"></div>
-            
+    <div id="spinner-view" data-role="view" data-layout="Layout4">
+        <div id="spinner-container">
+            <div id="spinner-text">
+                <span >Please wait, the changes are being uploaded to the server...</span>                
+            </div>            
+            <div class="spinner">
+                <div class="spinner-container container1">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container2">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>
+                <div class="spinner-container container3">
+                    <div class="circle1"></div>
+                    <div class="circle2"></div>
+                    <div class="circle3"></div>
+                    <div class="circle4"></div>
+                </div>                
+            </div>
+            <div id="spinner-progress">
+                <span >Requests resolved: 0/0</span>                
+            </div>
         </div>
     </div>
     
@@ -72,6 +92,12 @@
         <ul id="vaccine-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-vaccine-listitem">
                 <a id="add-vaccine-button" href="#add-vaccine-view" data-transition="slide">Add vaccine...</a>
+            </li>
+            <li data-icon="plus">
+                <a onclick="disable();">disable button</a>
+            </li>
+            <li data-icon="plus">
+                <a onclick="enable();">enable button</a>
             </li>
         </ul>       
     </div>
@@ -355,7 +381,7 @@
             <div class="header">
                 <a id="settings-button" data-role="button" data-icon="settings" href="#options" ></a><!-- onclick="onLoad();" -->
                 <div class="header-content">VacApp</div>           
-                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
+                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();" disabled></a>
                 <a id="cloud-button-number" class="cloud-button" data-role="button" onclick="synchronize();" data-bind="requests.length">0</a>
             </div>
         </div>

@@ -159,7 +159,7 @@ function deleteElement()
                     updateRecordList();
                     break;
             }
-            document.getElementById("cloud-button-number").innerHTML = requests.length;
+            document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
             goBack();
         }
     } else {
@@ -242,7 +242,7 @@ function deleteElement()
                 updateRecordList();
                 break;
         }
-        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
         goBack();
     }    
 }
@@ -398,7 +398,7 @@ function saveElementChanges()
                         sortByDate(vaccines);
                         saveToLocalStorage(vaccines);
                         updateVaccineList();
-                        document.getElementById("cloud-button-number").innerHTML = requests.length;
+                        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
                         goBack();
                         break;
                     }
@@ -456,7 +456,7 @@ function saveElementChanges()
                         sortByDate(prescriptions);
                         saveToLocalStorage(prescriptions);
                         updatePrescriptionList();
-                        document.getElementById("cloud-button-number").innerHTML = requests.length;
+                        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
                         goBack(); 
                         break;
                     }
@@ -540,7 +540,7 @@ function saveElementChanges()
                                 sortByDate(record);
                                 saveToLocalStorage(record);
                                 updateRecordList();
-                                document.getElementById("cloud-button-number").innerHTML = requests.length;
+                                document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
                                 goBack();
                                 break;
                             }
@@ -587,21 +587,34 @@ function synchronize()
     }
     else
     {
+        var count = 0;
+        document.location.href = "#spinner-view";        
+        document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
         for(var i=0;i<requests.length;i++)
         {
             $.ajax({
                 url: requests[i].url,
                 type: requests[i].reqType,
+                async:false,
                 dataType: "json",
-                data:requests[i].entry
+                data:requests[i].entry,
+                success:function(msg)
+                {
+                    //requests.splice(i,1);
+                    count++;
+                    document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
+                }
             });
+            
+            
         }
         // Empty the array after all requests are done
         requests.length=0;
         saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
         
-        // Update the user in the database with the vaccines, prescriptions and PHRs they own        
+        // Update the user in the database with the vaccines, prescriptions and PHRs they own    
+        document.getElementById("spinner-progress").innerHTML="Finishing the synchronization...";
         for (i=0;i < vaccines.length; i++)
         {
             myVaccines.push(vaccines[i].vid);
@@ -640,9 +653,14 @@ function synchronize()
             url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
             type: "put",
             datatype : "json",
+            async:false,
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(userModel)           
+            data: JSON.stringify(userModel)
         });
+        goBack();
+        if(requests.length == 0){alert("Changes uploaded correctly.");}
+        else{alert("Some changes could not be synchronized correctly. Please, try again later.");}
+        
         //document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
     }
 }
@@ -660,4 +678,13 @@ function onOffline()
 function goBack()
 {
     window.history.go(-1);
+}
+
+function disable()
+{
+        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
+}
+function enable()
+{
+        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");
 }
