@@ -20,6 +20,8 @@ a{
 
 #logout-button{
     background-color:red!important;
+    color:rgb(255,255,255);
+    border-radius:40px!important;
 }
 
 /* TRANSITION FOR INPUTS TO TURN WHITE AGAIN AFTER ERRORS ARE DETECTED */
@@ -72,7 +74,14 @@ h1{
     padding-top:1.9%;
 }
 
-[data-role="button"]{
+.dose-icon{
+    background-color:rgba(0,0,0,0)!important;
+    color:rgb(0,0,0)!important;
+    font-size:16px!important;    
+    border:none;
+}
+
+.green-button{
     background-color:rgb(88,220,145)!important;
     color:rgb(255,255,255);
     border-radius:40px!important;
@@ -91,18 +100,6 @@ h1{
 }
 
 #cloud-button{
-    background-color:transparent!important;
-    color:rgb(255,255,255);
-    height:100%;
-    border:none;
-    position:absolute;
-    vertical-align:middle;
-    top:0%;
-    right:6%;
-    z-index:1;    
-}
-
-#cloud-button-number{
     background-color:transparent!important;
     color:rgb(255,255,255);
     height:100%;
@@ -199,14 +196,16 @@ h1{
     text-overflow:ellipsis;
 }
 
+.prescription-dose-block{
+    text-align:center;
+    padding-right:5%;
+}
+
 #new-prescription-text{
     height:100px;
     text-align:top;
 }
 
-.prescription-dose-block{
-    display:inline-block !important;
-}
 
 .prescription-dose-input{
     width:30px !important;

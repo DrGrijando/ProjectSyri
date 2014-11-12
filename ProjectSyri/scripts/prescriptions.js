@@ -74,7 +74,9 @@ function addNewPrescription()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+        
+        // This line will enable the cloud button if it is disabled
+        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         goBack();
         
         // Reset the inputs
@@ -166,6 +168,8 @@ function moveToPrescriptions()
             requests.push(req);
             saveToLocalStorage(requests,"requests");
             
+            // This line will enable the cloud button if it is disabled
+            if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
             prescriptions.push(record[i]);                
             record.splice(i, 1);
             break;

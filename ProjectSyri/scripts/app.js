@@ -211,13 +211,12 @@
         
         if(localStorage.getItem("requests")==null)
         {
-            //localStorage.setItem("requests","");
-            //document.getElementById("cloud-button").innerHTML="(0)";
+            //document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
         }
         else
         {
             requests=JSON.parse(localStorage.getItem("requests"));
-            //document.getElementById("cloud-button").innerHTML="("+requests.length+")";
+            //if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         }
 
         // Set online & offline listeners        

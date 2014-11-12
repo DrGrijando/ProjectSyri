@@ -54,7 +54,8 @@ function addNewPHR()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = requests.length;
+        // This line will enable the cloud button if it is disabled
+        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         goBack();
         
         // Reset the inputs
@@ -229,7 +230,8 @@ function moveToRecord()
                     };
                     requests.push(req);
                     saveToLocalStorage(requests,"requests");
-                    
+                    // This line will enable the cloud button if it is disabled
+                    if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
                     record.push(vaccines[i]);                
                     vaccines.splice(i, 1);
                     break;
@@ -258,7 +260,8 @@ function moveToRecord()
                     };
                     requests.push(req);
                     saveToLocalStorage(requests,"requests");
-                    
+                    // This line will enable the cloud button if it is disabled
+                    if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
                     record.push(prescriptions[i]);
                     prescriptions.splice(i, 1);
                     break;

@@ -317,7 +317,7 @@ function login() {
                         break;                   
                     }
                 }
-                
+                //document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
                 document.location.href = "#tabstrip-vaccines";
             },
             error:function(msg)
@@ -483,6 +483,10 @@ function register()
                         document.location.href = "#tabstrip-vaccines";
                     }
                 });
+            },
+            error:function(msg)
+            {
+                alert("This user already exists.");
             }
         });
     }

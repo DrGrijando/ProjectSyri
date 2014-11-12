@@ -77,8 +77,8 @@ function addNewVaccine()
         };        
         requests.push(req);
         saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
-        //document.getElementById("cloud-button").setAttribute("data-icon","cloud");
+        // This line will enable the cloud button if it is disabled
+        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         goBack();
         
         // Reset the inputs
@@ -150,7 +150,8 @@ function moveToVaccines()
             };            
             requests.push(req);
             saveToLocalStorage(requests,"requests");
-            
+            // This line will enable the cloud button if it is disabled
+            if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
             vaccines.push(record[i]);                
             record.splice(i, 1);
             break;

@@ -1,6 +1,7 @@
 var currentElementID;
 var currentElementList;
 var d = new Date();
+var isOnline=true;
 
 function showSpinner()
 {
@@ -8,17 +9,15 @@ function showSpinner()
 }
 
 function onLoadLayout1()
-{
-    // Check if there are requests to do, and change button color
-  /*  if(requests.length != 0)
+{/*
+    if(requests.length > 0)
     {
-        document.getElementById("cloud-button").style.color="rgb(255,255,255)";          
+        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");
     }
     else
     {
-        document.getElementById("cloud-button").style.color="rgb(0,0,0)";
-    }*/
-    
+        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
+    }*/    
 }
 
 function onLoad() 
@@ -159,7 +158,8 @@ function deleteElement()
                     updateRecordList();
                     break;
             }
-            document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+            // This line will enable the cloud button if it is disabled
+            if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
             goBack();
         }
     } else {
@@ -242,7 +242,8 @@ function deleteElement()
                 updateRecordList();
                 break;
         }
-        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+        // This line will enable the cloud button if it is disabled
+        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         goBack();
     }    
 }
@@ -301,12 +302,10 @@ function saveToLocalStorage(arrayToSave, targetList)
         case "requests":
             if (str != "")
             {
-                //document.getElementById("cloud-button").style.color="rgb(255,255,255)";
                 localStorage.setItem("requests", str);
             }
             else
             {
-                //document.getElementById("cloud-button").style.color="rgb(0,0,0)";
                 localStorage.removeItem("requests");
             }            
             break;
@@ -398,7 +397,8 @@ function saveElementChanges()
                         sortByDate(vaccines);
                         saveToLocalStorage(vaccines);
                         updateVaccineList();
-                        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+                        // This line will enable the cloud button if it is disabled
+                        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
                         goBack();
                         break;
                     }
@@ -456,7 +456,8 @@ function saveElementChanges()
                         sortByDate(prescriptions);
                         saveToLocalStorage(prescriptions);
                         updatePrescriptionList();
-                        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+                        // This line will enable the cloud button if it is disabled
+                        if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
                         goBack(); 
                         break;
                     }
@@ -540,7 +541,8 @@ function saveElementChanges()
                                 sortByDate(record);
                                 saveToLocalStorage(record);
                                 updateRecordList();
-                                document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
+                                // This line will enable the cloud button if it is disabled
+                                if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
                                 goBack();
                                 break;
                             }
@@ -581,110 +583,111 @@ function synchronize()
     var myPrescriptions=[];
     var myPhrs=[];
     
-    if(requests.length == 0)
+    if(isOnline)
     {
-        alert("There are no pending requests.");
+        if(requests.length == 0)
+        {
+            alert("There are no pending requests.");
+        }
+        else
+        {
+            var count = 0;
+            document.location.href = "#spinner-view";        
+            document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
+            setTimeout(2000);            
+            for(var i=0;i<requests.length;i++)
+            {
+                $.ajax({
+                    url: requests[i].url,
+                    type: requests[i].reqType,
+                    async:false,
+                    dataType: "json",
+                    data:requests[i].entry,
+                    success:function(msg)
+                    {
+                        //requests.splice(i,1);
+                        count++;
+                        document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
+                    }
+                });
+            }
+            // Empty the array after all requests are done
+            requests.length=0;
+            saveToLocalStorage(requests,"requests");
+            
+            // Update the user in the database with the vaccines, prescriptions and PHRs they own    
+            document.getElementById("spinner-progress").innerHTML="Finishing the synchronization...";
+            for (i=0;i < vaccines.length; i++)
+            {
+                myVaccines.push(vaccines[i].vid);
+            }
+            
+            for (i=0;i < prescriptions.length; i++)
+            {
+                myPrescriptions.push(prescriptions[i].vid);
+            }
+            
+            for (i=0;i < record.length; i++)
+            {
+                switch(record[i].type)
+                {
+                    case "vaccine":
+                    myVaccines.push(record[i].vid);
+                    break;
+                    case "prescription":
+                    myPrescriptions.push(record[i].vid);
+                    break;
+                    case "phr":
+                    myPhrs.push(record[i].vid);
+                    break;
+                }            
+            }
+            var userModel = 
+            {
+                userId:localStorage.getItem("userId"),
+                email:localStorage.getItem("loginUser"),
+                password:localStorage.getItem("loginPassword"),
+                myVaccines:myVaccines,
+                myPrescriptions:myPrescriptions,
+                myPhrs:myPhrs
+            }
+            
+            $.ajax({
+                url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
+                type: "put",
+                datatype : "json",
+                async:false,
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify(userModel)
+            });
+            goBack();
+            
+            alert("Changes uploaded correctly.");
+            // This line will disable the cloud button if it is enabled
+            document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");            
+        }
     }
     else
     {
-        var count = 0;
-        document.location.href = "#spinner-view";        
-        document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
-        for(var i=0;i<requests.length;i++)
-        {
-            $.ajax({
-                url: requests[i].url,
-                type: requests[i].reqType,
-                async:false,
-                dataType: "json",
-                data:requests[i].entry,
-                success:function(msg)
-                {
-                    //requests.splice(i,1);
-                    count++;
-                    document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
-                }
-            });
-            
-            
-        }
-        // Empty the array after all requests are done
-        requests.length=0;
-        saveToLocalStorage(requests,"requests");
-        document.getElementById("cloud-button-number").innerHTML = "<span class=\"km-text\">"+requests.length+"</span>";
-        
-        // Update the user in the database with the vaccines, prescriptions and PHRs they own    
-        document.getElementById("spinner-progress").innerHTML="Finishing the synchronization...";
-        for (i=0;i < vaccines.length; i++)
-        {
-            myVaccines.push(vaccines[i].vid);
-        }
-        
-        for (i=0;i < prescriptions.length; i++)
-        {
-            myPrescriptions.push(prescriptions[i].vid);
-        }
-        
-        for (i=0;i < record.length; i++)
-        {
-            switch(record[i].type)
-            {
-                case "vaccine":
-                    myVaccines.push(record[i].vid);
-                    break;
-                case "prescription":
-                    myPrescriptions.push(record[i].vid);
-                    break;
-                case "phr":
-                    myPhrs.push(record[i].vid);
-                    break;
-            }            
-        }
-        var userModel = 
-        {
-            userId:localStorage.getItem("userId"),
-            email:localStorage.getItem("loginUser"),
-            password:localStorage.getItem("loginPassword"),
-            myVaccines:myVaccines,
-            myPrescriptions:myPrescriptions,
-            myPhrs:myPhrs}
-        
-        $.ajax({
-            url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
-            type: "put",
-            datatype : "json",
-            async:false,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(userModel)
-        });
-        goBack();
-        if(requests.length == 0){alert("Changes uploaded correctly.");}
-        else{alert("Some changes could not be synchronized correctly. Please, try again later.");}
-        
-        //document.getElementById("cloud-button").style.color="rgb(0,0,0)";    
+        alert("There is no available connection at the moment. Please, try again later.");
     }
 }
 
 function onOnline()
 {
     alert("it's online");
+    isOnline=true;
+    if(requests.length > 0){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
 }
 
 function onOffline()
 {
     alert("it's offline");
+    isOnline=false;
+    document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
 }
 
 function goBack()
 {
     window.history.go(-1);
-}
-
-function disable()
-{
-        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
-}
-function enable()
-{
-        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");
 }
