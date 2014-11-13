@@ -48,7 +48,6 @@
         <div class="wrapper-center">
             <a data-role="button" onclick="login();" class="green-button">Sign in</a>
             <a data-role="button" onclick="register()" class="green-button">Register</a>
-            <a data-role="button" href="#spinner-view" onclick="showSpinner();" class="green-button">Show spinner</a>
         </div>
     </div>
     
@@ -89,7 +88,7 @@
         <h1>Vaccines</h1>
         <ul id="vaccine-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-vaccine-listitem">
-                <a id="add-vaccine-button" href="#add-vaccine-view" data-transition="slide">Add vaccine...</a>
+                <a id="add-vaccine-button" href="#add-vaccine-view">Add vaccine...</a>
             </li>
         </ul>       
     </div>
@@ -99,7 +98,7 @@
         <h1>Prescriptions</h1>
         <ul id="prescription-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-prescription-listitem">
-                <a id="add-prescription-button" href="#add-prescription-view" data-transition="slide">Add prescription...</a>
+                <a id="add-prescription-button" href="#add-prescription-view">Add prescription...</a>
             </li>
         </ul>
     </div>
@@ -109,7 +108,7 @@
         <h1>Record</h1>
         <ul id="record-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-phr-listitem">
-                <a id="add-phr-button" href="#add-phr-view" data-transition="slide">Add PHR...</a>
+                <a id="add-phr-button" href="#add-phr-view">Add PHR...</a>
             </li>
         </ul>
     </div>
@@ -165,7 +164,7 @@
                 <input id="new-vaccine-time" type="time" placeholder="Enter the time..." onclick="resetInputBackground();"/>
             </li>
         </ul>
-        <div>
+        <div class="wrapper-center">
             <span>Notify me...</span>
             <input id="new-vaccine-notification-time" type="text" class="prescription-dose-input" onclick="resetInputBackground();" value="0"/>
             <select id="new-vaccine-notification-time-measure">
@@ -242,7 +241,7 @@
     </div>    
     
     <!-- VIEW TO SEE DETAILED VACCINES -->
-    <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
+    <div id="detailed-vaccine-view" data-role="view" data-layout="Layout5">
         <h1>Vaccine</h1>
         <p>See all the information of your vaccines just touching them</p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
@@ -268,7 +267,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED PRESCRIPTIONS -->
-    <div id="detailed-prescription-view" data-role="view" data-layout="Layout5" data-transition="slide:up">
+    <div id="detailed-prescription-view" data-role="view" data-layout="Layout5">
         <h1>Prescription</h1>
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
@@ -301,7 +300,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED PHRs -->
-    <div id="detailed-phr-view" data-role="view" data-layout="Layout7" data-transition="slide:up">
+    <div id="detailed-phr-view" data-role="view" data-layout="Layout7">
         <h1>Personal history record</h1>
         <p>See all the information of your PHRs just touching them.</p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
@@ -318,7 +317,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED RECORD VACCINES -->
-    <div id="detailed-record-vaccine-view" data-role="view" data-layout="Layout8" data-transition="slide:up">
+    <div id="detailed-record-vaccine-view" data-role="view" data-layout="Layout8">
         <h1>Vaccine</h1>
         <p>See all the information of your vaccines just touching them</p>
         <ul id="record-vaccine-entries" data-role="listview" data-style="inset">
@@ -335,7 +334,7 @@
     </div>
     
     <!-- VIEW TO SEE DETAILED RECORD PRESCRIPTIONS -->
-    <div id="detailed-record-prescription-view" data-role="view" data-layout="Layout9" data-transition="slide:up">
+    <div id="detailed-record-prescription-view" data-role="view" data-layout="Layout9">
         <h1>Prescription</h1>
         <p>See all the information of your prescriptions just touching them.</p>
         <ul id="record-prescription-entries" data-role="listview" data-style="inset">
@@ -382,9 +381,9 @@
         
         <div data-role="footer">
             <div data-role="tabstrip">
-                <a data-icon="cross" href="#tabstrip-vaccines" data-transition="slide:right">Vaccines</a>
-                <a data-icon="medic" href="#tabstrip-prescriptions" data-transition="slide">Prescriptions</a>
-                <a data-icon="folder" href="#tabstrip-record" data-transition="slide:left">Record</a>
+                <a data-icon="cross" href="#tabstrip-vaccines">Vaccines</a>
+                <a data-icon="medic" href="#tabstrip-prescriptions">Prescriptions</a>
+                <a data-icon="folder" href="#tabstrip-record">Record</a>
             </div>            
         </div>
     </div>
