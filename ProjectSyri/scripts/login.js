@@ -32,7 +32,6 @@ function login() {
                 localStorage.setItem("loginUser", document.getElementById("login-user-input").value);
                 localStorage.setItem("loginPassword", document.getElementById("login-password-input").value);    
                 document.getElementById("options-user-input").value = window.localStorage.getItem("loginUser");
-                document.getElementById("options-password-input").value = window.localStorage.getItem("loginPassword");
                 
                 // Save user ID for synchronizing their entries
                 localStorage.setItem("userId",msg.userId);
@@ -479,7 +478,6 @@ function register()
                         localStorage.setItem("loginPassword", password);    
                         localStorage.setItem("userId",msg.userId);
                         document.getElementById("options-user-input").value = mail;
-                        document.getElementById("options-password-input").value = password;
                         document.location.href = "#tabstrip-vaccines";
                     }
                 });

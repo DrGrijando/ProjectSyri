@@ -219,6 +219,12 @@
             //if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         }
 
+        // Set language
+        languageSelected();
+        //language = document.getElementById("language-select").value;
+        //strings = _L();
+        //strings = language;
+        
         // Set online & offline listeners        
         document.addEventListener("online", onOnline, false);
         document.addEventListener("offline", onOffline, false);

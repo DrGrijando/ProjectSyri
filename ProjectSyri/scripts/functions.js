@@ -8,6 +8,12 @@ function showSpinner()
     
 }
 
+function loadSpinner()
+{
+    document.location.href = "#spinner-view";        
+    setTimeout(function(){synchronize()},500);
+}
+
 function onLoadLayout1()
 {/*
     if(requests.length > 0)
@@ -29,7 +35,6 @@ function onLoad()
         document.getElementById("login-user-input").value = user;
         document.getElementById("options-user-input").value = user;
         document.getElementById("login-password-input").value = password;
-        document.getElementById("options-password-input").value = password;
         
         document.location.href = "#tabstrip-vaccines";
         /*
@@ -571,8 +576,6 @@ function sortByDate(entries)
 
 function saveSettings()
 {
-    localStorage.setItem("loginUser", document.getElementById("options-user-input").value);
-    localStorage.setItem("loginPassword", document.getElementById("options-password-input").value);
     localStorage.setItem("settings", document.getElementById("confirm-deletions-checkbox").checked);
     goBack();
 }
@@ -588,13 +591,12 @@ function synchronize()
         if(requests.length == 0)
         {
             alert("There are no pending requests.");
+            goBack();
         }
         else
         {
             var count = 0;
-            document.location.href = "#spinner-view";        
-            document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;
-            setTimeout(2000);            
+            document.getElementById("spinner-progress").innerHTML="Requests resolved: "+count+"/"+requests.length;       
             for(var i=0;i<requests.length;i++)
             {
                 $.ajax({

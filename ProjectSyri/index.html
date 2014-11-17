@@ -24,6 +24,8 @@
         var prescriptions=[];
         var record=[];
         var requests=[];
+        var language;
+        var strings;
     </script>
     
     <script src="scripts/app.js"></script>
@@ -32,6 +34,7 @@
     <script type="text/javascript" src="scripts/prescriptions.js"></script>
     <script type="text/javascript" src="scripts/record.js"></script>
     <script type="text/javascript" src="scripts/vaccines.js"></script>
+    <script type="text/javascript" src="scripts/translation.js"></script>
 </head>
 <body><!--  onload="onLoad();" -->    
     <!-- LOGIN SCREEN -->
@@ -46,8 +49,9 @@
         </ul>
         <br>
         <div class="wrapper-center">
-            <a data-role="button" onclick="login();" class="green-button">Sign in</a>
-            <a data-role="button" onclick="register()" class="green-button">Register</a>
+            <a data-role="button" href="#tabstrip-vaccines" class="green-button">no login</a>
+            <a data-role="button" onclick="login();" class="green-button"><span data-bind="text: Acceder"></span></a>
+            <a data-role="button" onclick="register()" class="green-button"><span data-bind="text: Registrar"></span></a>
         </div>
     </div>
     
@@ -55,7 +59,7 @@
     <div id="spinner-view" data-role="view" data-layout="Layout4">
         <div id="spinner-container">
             <div id="spinner-text">
-                <span >Please wait, the changes are being uploaded to the server...</span>                
+                <span data-bind="text: Subiendo_cambios"></span>                
             </div>            
             <div class="spinner">
                 <div class="spinner-container container1">
@@ -77,38 +81,38 @@
                     <div class="circle4"></div>
                 </div>                
             </div>
-            <div id="spinner-progress">
-                <span >Requests resolved: 1/3</span>                
+            <div>
+                <span id="spinner-progress" data-bind="text: Resolviendo_peticiones"></span>     
             </div>
         </div>
     </div>
     
     <!-- VACCINES TAB -->    
     <div id="tabstrip-vaccines" data-role="view" data-init="onLoadLayout1()" data-layout="Layout1">
-        <h1>Vaccines</h1>
+        <h1><span data-bind="text: Vacunas"></span></h1>
         <ul id="vaccine-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-vaccine-listitem">
-                <a id="add-vaccine-button" href="#add-vaccine-view">Add vaccine...</a>
+                <a id="add-vaccine-button" href="#add-vaccine-view"><span data-bind="text: Añadir_vacuna"></span></a>
             </li>
         </ul>       
     </div>
     
     <!-- PRESCRIPTIONS TAB -->
     <div id="tabstrip-prescriptions" data-role="view" data-layout="Layout1">
-        <h1>Prescriptions</h1>
+        <h1><span data-bind="text: Prescripciones"></span></h1>
         <ul id="prescription-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-prescription-listitem">
-                <a id="add-prescription-button" href="#add-prescription-view">Add prescription...</a>
+                <a id="add-prescription-button" href="#add-prescription-view"><span data-bind="text: Añadir_prescripcion"></span></a>
             </li>
         </ul>
     </div>
     
     <!-- RECORD TAB -->
     <div id="tabstrip-record" data-role="view" data-layout="Layout1">
-        <h1>Record</h1>
+        <h1><span data-bind="text: Historial"></span></h1>
         <ul id="record-list" data-role="listview" data-style="inset">
             <li data-icon="plus" id="add-phr-listitem">
-                <a id="add-phr-button" href="#add-phr-view">Add PHR...</a>
+                <a id="add-phr-button" href="#add-phr-view"><span data-bind="text: Añadir_PHR"></span></a>
             </li>
         </ul>
     </div>
@@ -118,32 +122,28 @@
         <ul id="option-list" data-role="listview" data-style="inset">
             <li>
                 <label>
-                    <input type="text" id="options-user-input" readonly/>User e-mail
+                    <input type="text" id="options-user-input" readonly/><span data-bind="text: Usuario"></span>
                 </label>
             </li>
             <li>
                 <label>
-                    <input type="password" id="options-password-input" readonly/>Password
+                    <input type="checkbox" data-role="switch" id="confirm-deletions-checkbox" value="true" checked/><span data-bind="text: Confirmar_borrado"></span>
                 </label>
             </li>
             <li>
                 <label>
-                    <input type="checkbox" data-role="switch" id="confirm-deletions-checkbox" value="true" checked/>Confirm deletions
-                </label>
-            </li>
-            <li>
-                <label>
-                    <div>Language</div>
-                    <select>
-                        <option value="esp">English</option>
-                        <option value="cat">Spanish</option>
-                        <option value="eng">Catalan</option>
+                    <div><span data-bind="text: Idioma"></span></div>
+                    <select id="language-select" onchange="languageSelected();">
+                        <option value="english">English</option>
+                        <option value="spanish">Español</option>
+                        <option value="catalan">Català</option>
                     </select>
                 </label>                
-            </li><br>
+            </li>
+            <br>
             <div class="wrapper-center">
-                <a data-role="button" id="logout-button" onClick="logout()">Log out</a>
-                <a data-role="button" onClick="saveSettings();" class="green-button">Return</a>
+                <a data-role="button" id="logout-button" onClick="logout()"><span data-bind="text: Cerrar_sesion"></span></a>
+                <a data-role="button" onClick="saveSettings();" class="green-button"><span data-bind="text: Volver"></span></a>
                 <div></div>
             </div>
         </ul>
@@ -375,7 +375,7 @@
             <div class="header">
                 <a id="settings-button" data-role="button" data-icon="settings" href="#options" ></a><!-- onclick="onLoad();" -->
                 <div class="header-content">VacApp</div>           
-                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="synchronize();"></a>
+                <a id="cloud-button" data-role="button" data-icon="cloud" onclick="loadSpinner()"></a>
             </div>
         </div>
         
