@@ -1,7 +1,7 @@
 {
   "ProjectGuid": "1e5caa5f-3bdd-4037-90eb-b95ffabb14b8",
   "AppIdentifier": "com.telerik.ProjectSyri",
-  "ProjectName": "ProjectSyri",
+  "ProjectName": "VacApp",
   "IsRunnable": "true",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
   "FrameworkVersion": "3.5.0",
