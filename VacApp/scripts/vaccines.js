@@ -38,19 +38,26 @@ function addNewVaccine()
         // Set the notification for this vaccine
         /*
         var msg = "Vaccine for "+title+" at "+time;
-        var year=date.split("-")[0],
-        month=(date.split("-")[1])-1,
-        day=date.split("-")[2];
-        var hours, minutes;
+        var year=date.getFullYear(),
+        month=(date.getMonth())+1,
+        day=date.getDate();
+        var hours, minutes,val;
         if(document.getElementById("new-vaccine-notification-time-measure").value=="minute")
         {
-        hours=time.split(":")[0];
-        minutes=(time.split(":")[1])-(document.getElementById("new-vaccine-notification-time").value);
+            hours=parseInt(time.split(":")[0]);
+            minutes=parseInt(time.split(":")[1]);
+            val = (hours*60) + minutes - parseInt(document.getElementById("new-vaccine-notification-time").value);
+            hours = parseInt(val/60).toString();
+            minutes = (val % 60).toString();
         }
         else
         {
-        hours=time.split(":")[0]-(document.getElementById("new-vaccine-notification-time").value);
-        minutes=time.split(":")[1];            
+            
+            hours=parseInt(time.split(":")[0]);
+            minutes=parseInt(time.split(":")[1]);
+            val = (hours*60) + minutes - (parseInt(document.getElementById("new-vaccine-notification-time").value)*60);
+            hours = parseInt(val/60).toString();
+            minutes = (val % 60).toString();
         }        
         
         d = new Date(year,month,day,hours,minutes);

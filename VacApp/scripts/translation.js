@@ -32,7 +32,16 @@ var english = kendo.observable({
     "Guardar" : "Save",
     "Cancelar" : "Cancel",
     "Mover_al_historial" : "Move to record",
-    "Restaurar" : "Restore"
+    "Restaurar" : "Restore",
+    "Seleccion_alarma": [
+    { value: "minute", name: "minute(s)" },
+    { value: "hour", name: "hour(s)" }],
+    "Seleccion_medida": [
+    { value: "pill(s)", name: "pill(s)" },
+    { value: "ml", name: "ml" }],
+    "Seleccion_frecuencia": [
+    { value: "hour(s)", name: "hour(s)" },
+    { value: "day(s)", name: "day(s)" }]
 
 });
 
@@ -69,8 +78,17 @@ var spanish = kendo.observable({
     "Ver_Phr" : "Vea toda la información de sus registros personales seleccionándolos en la lista.",
     "Guardar" : "Guardar",
     "Cancelar" : "Cancelar",
-    "Mover_al_historial" : "Mover al historial",
-    "Restaurar" : "Restaurar"
+    "Mover_al_historial" : "Archivar",
+    "Restaurar" : "Restaurar",
+    "Seleccion_alarma": [
+    { value: "minute", name: "minuto(s)" },
+    { value: "hour", name: "hora(s)" }],
+    "Seleccion_medida": [
+    { value: "pill(s)", name: "pastilla(s)" },
+    { value: "ml", name: "ml" }],
+    "Seleccion_frecuencia": [
+    { value: "hour(s)", name: "hora(s)" },
+    { value: "day(s)", name: "día(s)" }]
 });
 
 var catalan = kendo.observable({
@@ -106,8 +124,17 @@ var catalan = kendo.observable({
     "Ver_Phr" : "Vegi tota la informació dels seus seves registres personals seleccionant-los a la llista.",
     "Guardar" : "Guardar",
     "Cancelar" : "Cancel·lar",
-    "Mover_al_historial" : "Moure a l'historial",
-    "Restaurar" : "Restaurar"
+    "Mover_al_historial" : "Arxivar",
+    "Restaurar" : "Restaurar",
+    "Seleccion_alarma": [
+    { value: "minute", name: "minut(s)" },
+    { value: "hour", name: "hora(es)" }],
+    "Seleccion_medida": [
+    { value: "pill(s)", name: "pastilla(es)" },
+    { value: "ml", name: "ml" }],
+    "Seleccion_frecuencia": [
+    { value: "hour(s)", name: "hora(es)" },
+    { value: "day(s)", name: "dia(es)" }]
 });
 
 var dict = {
@@ -118,7 +145,8 @@ var dict = {
 
 function languageSelected(){
     var viewModel = dict[(document.getElementById("language-select").value)];
-    kendo.bind($("span"), viewModel);
+    kendo.bind($("span"), viewModel);    
+    kendo.bind($("select"), viewModel);
 }
 
 function _L(){

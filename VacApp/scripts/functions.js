@@ -362,21 +362,27 @@ function saveElementChanges()
                         vaccines[i].time = time;
                         
                     // Set the new notification
-                        /*
+                      /*
                       var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
-                        var year = vaccines[i].date.split("-")[0],
-                        month = (vaccines[i].date.split("-")[1]) - 1,
-                        day = vaccines[i].date.split("-")[2];
+                        var year = vaccines[i].date.getFullYear(),
+                        month = (vaccines[i].date.getMonth()) + 1,
+                        day = vaccines[i].date.getDate();
                         var hours, minutes;
                         if(document.getElementById("detailed-vaccine-notification-time-measure").value=="minute")
                         {
-                            hours=time.split(":")[0];
-                            minutes=(time.split(":")[1])-(document.getElementById("detailed-vaccine-notification-time").value);
+                            hours=parseInt(time.split(":")[0]);
+                            minutes=parseInt(time.split(":")[1]);
+                            val = (hours*60) + minutes - parseInt(document.getElementById("detailed-vaccine-notification-time").value);
+                            hours = parseInt(val/60).toString();
+                            minutes = (val % 60).toString();
                         }
                         else
                         {
-                            hours=time.split(":")[0]-(document.getElementById("detailed-vaccine-notification-time").value);
-                            minutes=time.split(":")[1];            
+                            hours=parseInt(time.split(":")[0]);
+                            minutes=parseInt(time.split(":")[1]);
+                            val = (hours*60) + minutes - (parseInt(document.getElementById("detailed-vaccine-notification-time").value)*60);
+                            hours = parseInt(val/60).toString();
+                            minutes = (val % 60).toString();
                         }  
                
                         d = new Date(year, month, day, hours, minutes)
@@ -388,7 +394,7 @@ function saveElementChanges()
                                                              sound : "TYPE_NOTIFICATION"
                         });
                       */
-                    // Save the info for later PUT request
+                    /* Save the info for later PUT request */
                         var req = {
                             url : "http://localhost:3000/Vaccine/"+currentElementID,
                             reqType : "put",

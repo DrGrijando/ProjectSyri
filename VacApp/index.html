@@ -167,9 +167,7 @@
         <div class="wrapper-center">
             <span data-bind="text: Notificame"></span>
             <input id="new-vaccine-notification-time" type="text" class="prescription-dose-input" onclick="resetInputBackground();" value="0"/>
-            <select id="new-vaccine-notification-time-measure">
-                <option value="minute">minutes</option>
-                <option value="hour">hour(s)</option>
+            <select id="new-vaccine-notification-time-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_alarma">
             </select>
             <br><span data-bind="text: Antes_de_la_hora"></span>
         </div>
@@ -210,14 +208,10 @@
         <div id="new-prescription-dose-block" class="prescription-dose-block">
             <a data-icon="dose" class="dose-icon" data-role="button"></a>
             <input id="new-prescription-dose-takes" class="prescription-dose-input" type="text" onclick="resetInputBackground();"/>
-            <select id="new-prescription-dose-takes-measure">
-                <option value="pill(s)">pill(s)</option>
-                <option value="ml">ml</option>
+            <select id="new-prescription-dose-takes-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_medida">
             </select>
             <input id="new-prescription-dose-frequency" class="prescription-dose-input" type="text" onclick="resetInputBackground();"/>
-            <select id="new-prescription-dose-frequency-measure">
-                <option value="hour(s)">hour(s)</option>
-                <option value="day(s)">day(s)</option>
+            <select id="new-prescription-dose-frequency-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_frecuencia">
             </select>
         </div>
         
@@ -258,9 +252,7 @@
         <div class="wrapper-center">
             <span data-bind="text: Notificame"></span>
             <input id="detailed-vaccine-notification-time" type="text" class="prescription-dose-input" onclick="resetInputBackground();" value="0"/>
-            <select id="detailed-vaccine-notification-time-measure">
-                <option value="minute">minutes</option>
-                <option value="hour">hour(s)</option>
+            <select id="detailed-vaccine-notification-time-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_alarma">
             </select>
             <span data-bind="text: Antes_de_la_hora"></span>
         </div>
@@ -287,14 +279,10 @@
         <div id="detailed-prescription-dose-block" class="prescription-dose-block">
             <a data-icon="dose" class="dose-icon" data-role="button"></a>
             <input id="detailed-prescription-dose-takes" class="prescription-dose-input" type="text" onclick="resetInputBackground();"/>
-            <select id="detailed-prescription-dose-takes-measure">
-                <option value="pill(s)">pill(s)</option>
-                <option value="ml">ml</option>
+            <select id="detailed-prescription-dose-takes-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_medida">
             </select>
             <input id="detailed-prescription-dose-frequency" class="prescription-dose-input" type="text" onclick="resetInputBackground();"/>
-            <select id="detailed-prescription-dose-frequency-measure">
-                <option value="hour(s)">hour(s)</option>
-                <option value="day(s)">day(s)</option>
+            <select id="detailed-prescription-dose-frequency-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_frecuencia" >
             </select>
         </div>
     </div>
@@ -354,14 +342,10 @@
         <div id="detailed-record-prescription-dose-block" class="prescription-dose-block">
             <a data-icon="dose" class="dose-icon" data-role="button"></a>
             <input id="detailed-record-prescription-dose-takes" class="prescription-dose-input" type="text" readonly/>
-            <select id="detailed-record-prescription-dose-takes-measure" disabled>
-                <option value="pill(s)">pill(s)</option>
-                <option value="ml">ml</option>
+            <select id="detailed-record-prescription-dose-takes-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_medida" disabled>
             </select>
             <input id="detailed-record-prescription-dose-frequency" class="prescription-dose-input" type="text" readonly/>
-            <select id="detailed-record-prescription-dose-frequency-measure" disabled>
-                <option value="hour(s)">hour(s)</option>
-                <option value="day(s)">day(s)</option>
+            <select id="detailed-record-prescription-dose-frequency-measure" data-value-field="value" data-text-field="name" data-bind="source: Seleccion_frecuencia" disabled>
             </select>
         </div>
     </div>
