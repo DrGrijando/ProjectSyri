@@ -352,7 +352,7 @@ function saveElementChanges()
                         if(isNaN(date.getTime())){ highlightInputError("detailed-vaccine-date"); }
                         if(time == ""){ highlightInputError("detailed-vaccine-time"); }
                         if(document.getElementById("detailed-vaccine-notification-time").value == ""){ highlightInputError("detailed-vaccine-notification-time"); }        
-                        alert("Enter all the information before saving the data.");
+                        alert(getTranslatedText("Alerta_introducir_info"));
                         break;
                     }
                     else
@@ -439,7 +439,7 @@ function saveElementChanges()
                         if(isNaN(finalDate.getTime())){ highlightInputError("detailed-prescription-final-date"); }
                         if(doseTakes==""){ highlightInputError("detailed-prescription-dose-takes"); }
                         if(doseFrequency==""){ highlightInputError("detailed-prescription-dose-frequency"); }
-                        alert("Enter all the information before saving the data.");
+                        alert(getTranslatedText("Alerta_introducir_info"));
                         break;
                     }
                     else 
@@ -532,7 +532,7 @@ function saveElementChanges()
                                 if(title == ""){ highlightInputError("detailed-phr-title"); }
                                 if(date == ""){ highlightInputError("detailed-phr-date"); }
                                 if(text == ""){ highlightInputError("detailed-phr-text"); }
-                                alert("Enter all the information before saving the data.");
+                                alert(getTranslatedText("Alerta_introducir_info"));
                                 break;
                             }
                             else 
@@ -583,6 +583,9 @@ function sortByDate(entries)
 function saveSettings()
 {
     localStorage.setItem("settings", document.getElementById("confirm-deletions-checkbox").checked);
+    localStorage.setItem("language", document.getElementById("language-select").value);
+    language=document.getElementById("language-select").value;
+    languageSelected();
     goBack();
 }
 
@@ -596,7 +599,7 @@ function synchronize()
     {
         if(requests.length == 0)
         {
-            alert("There are no pending requests.");
+            alert(getTranslatedText("Alerta_sin_cambios"));
             goBack();
         }
         else
@@ -670,27 +673,27 @@ function synchronize()
             });
             goBack();
             
-            alert("Changes uploaded correctly.");
+            alert(getTranslatedText("Alerta_cambios_ok"));
             // This line will disable the cloud button if it is enabled
             document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");            
         }
     }
     else
     {
-        alert("There is no available connection at the moment. Please, try again later.");
+        alert(getTranslatedText("Alerta_no_conexion"));
     }
 }
 
 function onOnline()
 {
-    alert("it's online");
+    //alert("it's online");
     isOnline=true;
     if(requests.length > 0){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
 }
 
 function onOffline()
 {
-    alert("it's offline");
+    //alert("it's offline");
     isOnline=false;
     document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
 }

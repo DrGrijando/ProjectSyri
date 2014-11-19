@@ -9,17 +9,17 @@ function login() {
     {
         highlightInputError("login-user-input");
         highlightInputError("login-password-input");
-        alert("Information missing.");
+        alert(getTranslatedText("Alerta_rellenar_campos"));
     }
     else if (user == "")
     {
         highlightInputError("login-user-input");
-        alert("Please, enter your user email before proceeding.");            
+        alert(getTranslatedText("Alerta_rellenar_mail"));            
     }
     else if (password == "")
     {
         highlightInputError("login-password-input");
-        alert("Please, enter your password before proceeding.");            
+        alert(getTranslatedText("Alerta_rellenar_password"));            
     }
     else
     {
@@ -323,15 +323,15 @@ function login() {
             {
                 if(msg.status=="0")
                 {
-                    alert("The app couldn't communicate with the server, please try again later.");
+                    alert(getTranslatedText("Alerta_status_0"));
                 }
                 if(msg.status=="404")
                 {
-                    alert("The user doesn't exist.");
+                    alert(getTranslatedText("Alerta_status_404"));
                 }
                 else if(msg.status=="405")
                 {
-                    alert("Incorrect user e-mail or password.");
+                    alert(getTranslatedText("Alerta_status_405"));
                 }                
             }
         });            
@@ -445,17 +445,17 @@ function register()
     {
         highlightInputError("login-user-input");
         highlightInputError("login-password-input");
-        alert("Enter the required fields before registering.");
+        alert(getTranslatedText("Alerta_rellenar_campos"));
     }
     else if(mail == "")
     {
         highlightInputError("login-user-input");
-        alert("An e-mail is required for registering.");
+        alert(getTranslatedText("Alerta_rellenar_mail"));
     }
     else if(password == "")
     {
         highlightInputError("login-password-input");
-        alert("Enter your password before registering.");
+        alert(getTranslatedText("Alerta_rellenar_password"));
     }
     else
     {
@@ -484,7 +484,7 @@ function register()
             },
             error:function(msg)
             {
-                alert("This user already exists.");
+                alert(getTranslatedText("Alerta_usuario_existe"));
             }
         });
     }
@@ -500,5 +500,5 @@ function deleteLoginInfo()
 {
     localStorage.removeItem("loginUser");
     localStorage.removeItem("loginPassword");
-    alert("User and password deleted.");
+    alert("User and password deleted."); // NO HACE FALTA TRADUCIR
 }

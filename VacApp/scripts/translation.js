@@ -41,7 +41,18 @@ var english = kendo.observable({
     { value: "ml", name: "ml" }],
     "Seleccion_frecuencia": [
     { value: "hour(s)", name: "hour(s)" },
-    { value: "day(s)", name: "day(s)" }]
+    { value: "day(s)", name: "day(s)" }],
+    "Alerta_sin_cambios" : "There are no changes to be synchronized.",
+    "Alerta_cambios_ok" : "Changes uploaded correctly.",
+    "Alerta_no_conexion" : "There is no available connection at the moment. Please, try again later.",
+    "Alerta_introducir_info" : "Enter all the information before saving the data.",
+    "Alerta_rellenar_campos" : "All the fields are required.",
+    "Alerta_rellenar_mail" : "Please, enter your user email before proceeding.",
+    "Alerta_rellenar_password" : "Please, enter your password before proceeding.",
+    "Alerta_status_0" : "The app couldn't communicate with the server. Please, try again later.",
+    "Alerta_status_404" : "The user doesn't exist.",
+    "Alerta_status_405" : "Incorrect user e-mail or password.",
+    "Alerta_usuario_existe" : "The user already exists."
 
 });
 
@@ -88,7 +99,18 @@ var spanish = kendo.observable({
     { value: "ml", name: "ml" }],
     "Seleccion_frecuencia": [
     { value: "hour(s)", name: "hora(s)" },
-    { value: "day(s)", name: "día(s)" }]
+    { value: "day(s)", name: "día(s)" }],
+    "Alerta_sin_cambios" : "No hay cambios que sincronizar.",
+    "Alerta_cambios_ok" : "Cambios subidos correctamente.",
+    "Alerta_no_conexion" : "No hay ningun tipo conexión disponible en este momento. Por favor, inténtelo más tarde.",
+    "Alerta_introducir_info" : "Introduzca toda la información antes de guardar los cambios.",
+    "Alerta_rellenar_campos" : "Todos los campos son necesarios.",
+    "Alerta_rellenar_mail" : "Por favor, introduzca su correo electrónico antes de continuar.",
+    "Alerta_rellenar_password" : "Por favor, introduzca su contraseña antes de continuar.",
+    "Alerta_status_0" : "La aplicación no ha podido establecer la conexión con el servidor. Por favor, inténtelo más tarde.",
+    "Alerta_status_404" : "El usuario no existe.",
+    "Alerta_status_405" : "Correo electrónico o contraseña incorrectos.",
+    "Alerta_usuario_existe" : "El usuario ya existe."
 });
 
 var catalan = kendo.observable({
@@ -134,7 +156,18 @@ var catalan = kendo.observable({
     { value: "ml", name: "ml" }],
     "Seleccion_frecuencia": [
     { value: "hour(s)", name: "hora(es)" },
-    { value: "day(s)", name: "dia(es)" }]
+    { value: "day(s)", name: "dia(es)" }],
+    "Alerta_sin_cambios" : "No hi ha canvis a sincronitzar.",
+    "Alerta_cambios_ok" : "Canvis pujats correctament.",
+    "Alerta_no_conexion" : "No hi ha cap connexió disponible en aquest moment. Si us plau, torni a intentar-ho més tard.",
+    "Alerta_introducir_info" : "Introdueixi tota la informació abans de guardar els canvis.",
+    "Alerta_rellenar_campos" : "Tots els camps són necessaris.",
+    "Alerta_rellenar_mail" : "Si us plau, introdueixi el seu correu d'usuari abans de continuar.",
+    "Alerta_rellenar_password" : "Si us plau, introdueixi la seva contrasenya abans de continuar.",
+    "Alerta_status_0" : "La aplicació no ha pogut establir la connexió amb el servidor. Si us plau, torni a intentar-ho més tard.",
+    "Alerta_status_404" : "L'usuari no existeix.",
+    "Alerta_status_405" : "Correu electrònic o contrasenya incorrectes.",
+    "Alerta_usuario_existe" : "L'usuari ja existeix."
 });
 
 var dict = {
@@ -143,15 +176,20 @@ var dict = {
     "catalan" : catalan
 }
 
-function languageSelected(){
-    var viewModel = dict[(document.getElementById("language-select").value)];
+function languageSelected(){      
+    if(language==undefined)
+    {
+        language="english";
+    }
+    var viewModel = dict[(language)];
+    //document.getElementById("language-selector").value=language;
+    
     kendo.bind($("span"), viewModel);    
     kendo.bind($("select"), viewModel);
 }
 
-function _L(){
+function getTranslatedText(txt){
     //return dict[language];
     
-    var viewModel = dict[language];
-    kendo.bind($("span"), viewModel);
+    return dict[language][txt];
 }

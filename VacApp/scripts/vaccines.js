@@ -10,7 +10,7 @@ function addNewVaccine()
         if(isNaN(date.getTime())){ highlightInputError("new-vaccine-date"); }
         if(time == ""){ highlightInputError("new-vaccine-time"); }
         if(document.getElementById("new-vaccine-notification-time").value == ""){ highlightInputError("new-vaccine-notification-time"); }        
-        alert("Enter all the information before saving the data.");
+        alert(getTranslatedText("Alerta_introducir_info"));
     } else {
         var newItem = document.createElement("div");
         var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).concat(time.replace(':','')).replace(/-| /g, '');

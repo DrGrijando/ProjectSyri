@@ -8,7 +8,7 @@ function addNewPHR()
         if(title == ""){ highlightInputError("new-phr-title"); }
         if(isNaN(date.getTime())){ highlightInputError("new-phr-date"); }
         if(text == ""){ highlightInputError("new-phr-text"); }
-        alert("Enter all the information before saving the data.");
+        alert(getTranslatedText("Alerta_introducir_info"));
     } else {
         var newItem = document.createElement("div");
         var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).replace(/-| /g, '');

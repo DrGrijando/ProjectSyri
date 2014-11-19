@@ -16,7 +16,7 @@ function addNewPrescription()
         if(isNaN(finalDate.getTime())){ highlightInputError("new-prescription-final-date"); }
         if(doseTakes==""){ highlightInputError("new-prescription-dose-takes"); }
         if(doseFrequency==""){ highlightInputError("new-prescription-dose-frequency"); }
-        alert("Enter all the information before saving the data.");
+        alert(getTranslatedText("Alerta_introducir_info"));
     } else {
         var newItem = document.createElement("div");
         var vid = title.substring(0, 3).concat(date.toISOString().split("T")[0]).replace(/-| /g, '');
