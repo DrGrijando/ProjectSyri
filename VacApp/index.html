@@ -41,10 +41,10 @@
     <div id="login" data-role="view" data-init="onLoad()" data-layout="Layout4">
         <ul id="login-fields" data-role="listview">
             <li data-icon="mail">
-                <input id="login-user-input" type="text" placeholder="User" onclick="resetInputBackground();"/>
+                <input id="login-user-input" type="text" onclick="resetInputBackground();" data-bind="placeholder: Usuario"/>
             </li>            
             <li data-icon="key">
-                <input id="login-password-input" type="password" placeholder="Password" onclick="resetInputBackground();"/>
+                <input id="login-password-input" type="password" onclick="resetInputBackground();" data-bind="placeholder: Password"/>
             </li>
         </ul>
         <br>
@@ -155,13 +155,13 @@
         <p><span data-bind="text: Nueva_vacuna_sub"></span></p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-vaccine-title" type="text" placeholder="Vaccine for..." onclick="resetInputBackground();"/>
+                <input id="new-vaccine-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Vacuna_nombre"/>
             </li>
             <li data-icon="calendar">
-                <input id="new-vaccine-date" type="date" placeholder="Enter the date..." onclick="resetInputBackground();"/>
+                <input id="new-vaccine-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="recents">
-                <input id="new-vaccine-time" type="time" placeholder="Enter the time..." onclick="resetInputBackground();"/>
+                <input id="new-vaccine-time" type="time" onclick="resetInputBackground();"/>
             </li>
         </ul>
         <div class="wrapper-center">
@@ -179,7 +179,7 @@
         <p><span data-bind="text: Nueva_prescripcion_sub"></span></p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-prescription-title" type="text" placeholder="Enter the medicine..." onclick="resetInputBackground();"/>
+                <input id="new-prescription-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Medicamento_nombre"/>
             </li>            
             <li data-icon="calendar">
                 <input id="new-prescription-date" type="date" onclick="resetInputBackground();"/>
@@ -202,7 +202,7 @@
             </li>
             -->
             <li data-icon="compose">
-                <textarea id="new-prescription-text" placeholder="Enter the text... (optional)"></textarea>
+                <textarea id="new-prescription-text" data-bind="placeholder: Introducir_texto_opcional"></textarea>
             </li>
         </ul>        
         <div id="new-prescription-dose-block" class="prescription-dose-block">
@@ -223,13 +223,13 @@
         <p><span data-bind="text: Nuevo_Phr_sub"></span></p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="new-phr-title" type="text" placeholder="Enter the title..." onclick="resetInputBackground();"/>
+                <input id="new-phr-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Phr_titulo"/>
             </li>            
             <li data-icon="calendar">
                 <input id="new-phr-date" type="date" onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="compose">
-                <textarea id="new-phr-text" placeholder="Enter the text..." onclick="resetInputBackground();"></textarea>
+                <textarea id="new-phr-text" onclick="resetInputBackground();" data-bind="placeholder: Introducir_texto"></textarea>
             </li>
         </ul>        
     </div>    
@@ -240,7 +240,7 @@
         <p><span data-bind="text: Ver_vacuna"></span></p>
         <ul id="vaccine-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-vaccine-title" type="text" placeholder="Vaccine for..." onclick="resetInputBackground();"/>
+                <input id="detailed-vaccine-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Vacuna_nombre"/>
             </li>
             <li data-icon="calendar">
                 <input id="detailed-vaccine-date" type="date" onclick="resetInputBackground();"/>
@@ -264,7 +264,7 @@
         <p><span data-bind="text: Ver_prescripcion"></span></p>
         <ul id="prescription-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-prescription-title" type="text" palceholder="Enter the medicine..." onclick="resetInputBackground();"/>
+                <input id="detailed-prescription-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Medicamento_nombre"/>
             </li>            
             <li data-icon="calendar">
                 <input id="detailed-prescription-date" type="date" onclick="resetInputBackground();"/>
@@ -273,7 +273,7 @@
                 <input id="detailed-prescription-final-date" type="date" onclick="resetInputBackground();"/>
             </li>            
             <li data-icon="compose">
-                <textarea id="detailed-prescription-text" placeholder="Enter the text..."></textarea>
+                <textarea id="detailed-prescription-text" data-bind="placeholder: Introducir_texto_opcional"></textarea>
             </li>            
         </ul>
         <div id="detailed-prescription-dose-block" class="prescription-dose-block">
@@ -293,13 +293,13 @@
         <p><span data-bind="text: Ver_Phr"></span></p>
         <ul id="phr-entries" data-role="listview" data-style="inset">
             <li data-icon="label">
-                <input id="detailed-phr-title" type="text" placeholder="Enter the title..." onclick="resetInputBackground();"/>
+                <input id="detailed-phr-title" type="text" onclick="resetInputBackground();" data-bind="placeholder: Phr_titulo"/>
             </li>            
             <li data-icon="calendar">
                 <input id="detailed-phr-date" type="date" onclick="resetInputBackground();"/>
             </li>
             <li data-icon="compose">
-                <textarea id="detailed-phr-text" placeholder="Enter the text..." onclick="resetInputBackground();"></textarea>
+                <textarea id="detailed-phr-text" onclick="resetInputBackground();" data-bind="placeholder: Introducir_texto"></textarea>
             </li>
         </ul>        
     </div>

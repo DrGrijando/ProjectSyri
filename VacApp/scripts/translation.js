@@ -1,4 +1,5 @@
 var english = kendo.observable({
+    "Correo_electronico" : "e-mail",
     "Acceder" : "Sign in",
     "Registrar" : "Register",
     "Usuario" : "User",
@@ -32,7 +33,12 @@ var english = kendo.observable({
     "Guardar" : "Save",
     "Cancelar" : "Cancel",
     "Mover_al_historial" : "Move to record",
-    "Restaurar" : "Restore",
+    "Restaurar" : "Restore",    
+    "Vacuna_nombre" : "Vaccine name",
+    "Medicamento_nombre" : "Medicine",
+    "Introducir_texto" : "Enter the text",
+    "Introducir_texto_opcional" : "Enter the text (optional)",
+    "Phr_titulo" : "Title",
     "Seleccion_alarma": [
     { value: "minute", name: "minute(s)" },
     { value: "hour", name: "hour(s)" }],
@@ -57,6 +63,7 @@ var english = kendo.observable({
 });
 
 var spanish = kendo.observable({
+    "Correo_electronico" : "Correo electrónico",
     "Acceder" : "Acceder",
     "Registrar" : "Registrar",
     "Usuario" : "Usuario",
@@ -91,6 +98,11 @@ var spanish = kendo.observable({
     "Cancelar" : "Cancelar",
     "Mover_al_historial" : "Archivar",
     "Restaurar" : "Restaurar",
+    "Vacuna_nombre" : "Nombre de la vacuna",
+    "Medicamento_nombre" : "Medicamento",
+    "Introducir_texto" : "Introduzca el texto",
+    "Introducir_texto_opcional" : "Introduzca el texto (opcional)",
+    "Phr_titulo" : "Título",
     "Seleccion_alarma": [
     { value: "minute", name: "minuto(s)" },
     { value: "hour", name: "hora(s)" }],
@@ -114,6 +126,7 @@ var spanish = kendo.observable({
 });
 
 var catalan = kendo.observable({
+    "Correo_electronico" : "Correu electrònic",
     "Acceder" : "Accedir",
     "Registrar" : "Registrar",
     "Usuario" : "Usuari",
@@ -148,6 +161,11 @@ var catalan = kendo.observable({
     "Cancelar" : "Cancel·lar",
     "Mover_al_historial" : "Arxivar",
     "Restaurar" : "Restaurar",
+    "Vacuna_nombre" : "Nom de la vacuna",
+    "Medicamento_nombre" : "Medicament",
+    "Introducir_texto" : "Introdueixi el text",
+    "Introducir_texto_opcional" : "Introdueixi el text (opcional)",
+    "Phr_titulo" : "Títol",
     "Seleccion_alarma": [
     { value: "minute", name: "minut(s)" },
     { value: "hour", name: "hora(es)" }],
@@ -186,6 +204,8 @@ function languageSelected(){
     
     kendo.bind($("span"), viewModel);    
     kendo.bind($("select"), viewModel);
+    kendo.bind($("input"), viewModel);
+    kendo.bind($("textarea"), viewModel);
 }
 
 function getTranslatedText(txt){

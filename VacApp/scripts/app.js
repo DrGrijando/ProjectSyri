@@ -14,6 +14,15 @@
         // are created. If they exist, they remain with their values (and won't be erased when exiting the app). This are used for giving sequential keys in order
         // to store them in the localStorage.
         
+        // Create custom binding for placeholders
+        kendo.data.binders.placeholder = kendo.data.Binder.extend({
+            refresh: function(){
+                
+                var value = this.bindings["placeholder"].get();
+                document.getElementById(this.element.id).placeholder = value;
+            }
+        });
+        
         // Set actual date in date inputs
         var d = new Date();
         document.getElementById("new-vaccine-date").value=d.toISOString().split("T")[0];
@@ -220,6 +229,7 @@
         }
 
         // Set language
+        language=localStorage.getItem("language");
         languageSelected();
         //language = document.getElementById("language-select").value;
         //strings = _L();
