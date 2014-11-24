@@ -78,7 +78,7 @@ function addNewVaccine()
         
         // Save the info for later POST request
         var req = {
-            url : "http://localhost:3000/Vaccine",
+            url : "http://192.168.1.129:3000/Vaccine",    // IP TO CHANGE
             reqType : "post",
             entry : vaccineToStore
         };        
@@ -151,7 +151,7 @@ function moveToVaccines()
             record[i].inRecord="false";
             
             var req = {
-                url : "http://localhost:3000/Vaccine/"+currentElementID,
+                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                 reqType : "put",
                 entry : record[i]
             };            

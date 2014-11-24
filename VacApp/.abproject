@@ -1,6 +1,6 @@
 {
   "ProjectGuid": "1e5caa5f-3bdd-4037-90eb-b95ffabb14b8",
-  "AppIdentifier": "com.telerik.ProjectSyri",
+  "AppIdentifier": "com.telerik.VacApp",
   "ProjectName": "VacApp",
   "IsRunnable": "true",
   "ProjectTypeGuids": "{070BCB52-5A75-4F8C-A973-144AF0EAFCC9}",
@@ -58,9 +58,9 @@
   ],
   "BundleVersion": "1.0",
   "Framework": "Cordova",
-  "DisplayName": "Project Syri",
+  "DisplayName": "VacApp",
   "Author": "",
-  "Description": "ProjectSyri",
+  "Description": "Mobile tool for the child vaccination control",
   "iOSDeviceFamily": [
     "1",
     "2"

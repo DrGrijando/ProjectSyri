@@ -11,19 +11,7 @@ function showSpinner()
 function loadSpinner()
 {
     document.location.href = "#spinner-view";        
-    setTimeout(function(){synchronize()},500);
-}
-
-function onLoadLayout1()
-{/*
-    if(requests.length > 0)
-    {
-        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");
-    }
-    else
-    {
-        document.getElementById("cloud-button").setAttribute("class", "km-widget km-button km-state-disabled");
-    }*/    
+    setTimeout(function(){synchronize()},200);
 }
 
 function onLoad() 
@@ -37,28 +25,7 @@ function onLoad()
         document.getElementById("login-password-input").value = password;
         
         document.location.href = "#tabstrip-vaccines";
-        /*
-        if(navigator.onLine)
-        {
-            alert("automatic logging in");
-            $.ajax({
-                url: "http://localhost:3000/login/"+user+"/"+password,
-                type: "get",
-                dataType: "json",
-                success:function(msg)
-                {
-                    document.location.href = "#tabstrip-vaccines";
-                }
-            });
-        }
-        else
-        {            
-            alert("offline, entering the app")
-            document.location.href = "#tabstrip-vaccines";            
-        }
-        */
-    }
-    
+    }    
     var isChecked = (localStorage.getItem("settings")==="true");
     if (isChecked) {
         document.getElementById("confirm-deletions-checkbox").checked = true;
@@ -86,7 +53,7 @@ function deleteElement()
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://localhost:3000/Vaccine/"+currentElementID,
+                                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                 reqType : "delete"
                             };        
                             requests.push(req);                            
@@ -106,7 +73,7 @@ function deleteElement()
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://localhost:3000/Prescription/"+currentElementID,
+                                url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                                 reqType : "delete"
                             };        
                             requests.push(req); 
@@ -126,7 +93,7 @@ function deleteElement()
                             switch(record[i].type){
                                 case "vaccine":
                                     var req = {
-                                        url : "http://localhost:3000/Vaccine/"+currentElementID,
+                                        url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                         reqType : "delete"
                                     };  
                                     requests.push(req); 
@@ -136,7 +103,7 @@ function deleteElement()
                                 
                                 case "prescription":
                                     var req = {
-                                        url : "http://localhost:3000/Prescription/"+currentElementID,
+                                        url : "http://192.168.1.129:3000/Prescription/"+currentElementID,
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -146,7 +113,7 @@ function deleteElement()
                                 
                                 case "phr":
                                     var req = {
-                                        url : "http://localhost:3000/Phr/"+currentElementID,
+                                        url : "http://192.168.1.129:3000/Phr/"+currentElementID,    // IP TO CHANGE
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -173,7 +140,7 @@ function deleteElement()
                 while (i < vaccines.length) {
                     if (currentElementID == vaccines[i].vid) {
                         var req = {
-                            url : "http://localhost:3000/Vaccine/"+currentElementID,
+                            url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                             reqType : "delete"
                         };  
                         requests.push(req); 
@@ -191,7 +158,7 @@ function deleteElement()
                 while (i < prescriptions.length) {
                     if (currentElementID == prescriptions[i].vid) {
                         var req = {
-                            url : "http://localhost:3000/Prescription/"+currentElementID,
+                            url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                             reqType : "delete"
                         }; 
                         
@@ -210,7 +177,7 @@ function deleteElement()
                         {
                             case "vaccine":
                                 var req = {
-                                    url : "http://localhost:3000/Vaccine/" + currentElementID,
+                                    url : "http://192.168.1.129:3000/Vaccine/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req); 
@@ -220,7 +187,7 @@ function deleteElement()
                             
                             case "prescription":
                                 var req = {
-                                    url : "http://localhost:3000/Prescription/" + currentElementID,
+                                    url : "http://192.168.1.129:3000/Prescription/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -230,7 +197,7 @@ function deleteElement()
                             
                             case "phr":
                                 var req = {
-                                    url : "http://localhost:3000/Phr/" + currentElementID,
+                                    url : "http://192.168.1.129:3000/Phr/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -396,7 +363,7 @@ function saveElementChanges()
                       */
                     /* Save the info for later PUT request */
                         var req = {
-                            url : "http://localhost:3000/Vaccine/"+currentElementID,
+                            url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                             reqType : "put",
                             entry : vaccines[i]
                         };        
@@ -455,7 +422,7 @@ function saveElementChanges()
                         
                         // Save the info for later PUT request
                         var req = {
-                            url : "http://localhost:3000/Prescription/"+currentElementID,
+                            url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                             reqType : "put",
                             entry : prescriptions[i]
                         };        
@@ -494,7 +461,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://localhost:3000/Vaccine/"+currentElementID,
+                                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -515,7 +482,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://localhost:3000/Prescription/"+currentElementID,
+                                url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -543,7 +510,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                                 var req = {
-                                    url : "http://localhost:3000/Phr/"+currentElementID,
+                                    url : "http://192.168.1.129:3000/Phr/"+currentElementID,    // IP TO CHANGE
                                     reqType : "put",
                                     entry : record[i]
                                 };        
@@ -664,7 +631,7 @@ function synchronize()
             }
             
             $.ajax({
-                url: "http://localhost:3000/User/"+localStorage.getItem("userId"),
+                url: "http://192.168.1.129:3000/User/"+localStorage.getItem("userId"),    // IP TO CHANGE
                 type: "put",
                 datatype : "json",
                 async:false,
