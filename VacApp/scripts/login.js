@@ -24,7 +24,7 @@ function login() {
     else
     {
         $.ajax({
-            url: "http://192.168.1.129:3000/login/"+user+"/"+password,    // IP TO CHANGE
+            url: "http://192.168.1.131:3000/login/"+user+"/"+password,    // IP TO CHANGE
             type: "get",            
             dataType: "json",
             success:function(msg)
@@ -38,7 +38,7 @@ function login() {
                 
                 // Get the user information about their vaccines, prescriptions and PHRs
                 $.ajax({
-                    url: "http://192.168.1.129:3000/User/"+msg.userId,    // IP TO CHANGE
+                    url: "http://192.168.1.131:3000/User/"+msg.userId,    // IP TO CHANGE
                     type: "get",      
                     async:false,
                     success:function(usr)
@@ -48,7 +48,7 @@ function login() {
                             var auxVaccines;
                             
                             $.ajax({
-                                url: "http://192.168.1.129:3000/Vaccines",    // IP TO CHANGE
+                                url: "http://192.168.1.131:3000/Vaccines",    // IP TO CHANGE
                                 type: "get",      
                                 async:false,
                                 dataType: "json",
@@ -79,7 +79,7 @@ function login() {
                         {
                             var auxPrescriptions;
                             $.ajax({
-                                url: "http://192.168.1.129:3000/Prescriptions",    // IP TO CHANGE
+                                url: "http://192.168.1.131:3000/Prescriptions",    // IP TO CHANGE
                                 type: "get",   
                                 async:false,
                                 dataType: "json",
@@ -118,7 +118,7 @@ function login() {
                         {
                             var auxPhrs;
                             $.ajax({
-                                url: "http://192.168.1.129:3000/Phrs",    // IP TO CHANGE
+                                url: "http://192.168.1.131:3000/Phrs",    // IP TO CHANGE
                                 type: "get",     
                                 async:false,
                                 dataType: "json",
@@ -342,7 +342,7 @@ function login() {
         if ((user == document.getElementById("login-user-input").value) && (password == document.getElementById("login-password-input").value))
         {            
             $.ajax({
-                url: "http://192.168.1.129:3000/login/"+user+"/"+password,
+                url: "http://192.168.1.131:3000/login/"+user+"/"+password,
                 type: "get",
                 dataType: "json",
                 success:function(msg)
@@ -462,14 +462,14 @@ function register()
         jsonObject = {"email":mail,"password":password};
         
         $.ajax({
-            url: "http://192.168.1.129:3000/User",    // IP TO CHANGE
+            url: "http://192.168.1.131:3000/User",    // IP TO CHANGE
             type: "post",
             dataType: "json",
             data: jsonObject,
             success:function(msg)
             {
                 $.ajax({
-                    url: "http://192.168.1.129:3000/login/"+mail+"/"+password,    // IP TO CHANGE
+                    url: "http://192.168.1.131:3000/login/"+mail+"/"+password,    // IP TO CHANGE
                     type: "get",
                     dataType: "json",
                     success:function(msg)

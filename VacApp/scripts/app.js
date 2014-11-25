@@ -227,7 +227,7 @@
             requests=JSON.parse(localStorage.getItem("requests"));
             //if(isOnline){document.getElementById("cloud-button").setAttribute("class", "km-widget km-button");}
         }
-
+        
         // Set language        
         language=localStorage.getItem("language");
         languageSelected();

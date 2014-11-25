@@ -48,7 +48,7 @@ function addNewPHR()
         
         // Save the info for later POST request
         var req = {
-            url : "http://192.168.1.129:3000/Phr",    // IP TO CHANGE
+            url : "http://192.168.1.131:3000/Phr",    // IP TO CHANGE
             reqType : "post",
             entry : phrToStore
         };        
@@ -224,7 +224,7 @@ function moveToRecord()
                     vaccines[i].inRecord = "true";
                     
                     var req = {
-                        url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                        url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                         reqType : "put",
                         entry : vaccines[i]
                     };
@@ -254,7 +254,7 @@ function moveToRecord()
                     prescriptions[i].inRecord = "true";
                     
                     var req = {
-                        url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                        url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                         reqType : "put",
                         entry : prescriptions[i]
                     };

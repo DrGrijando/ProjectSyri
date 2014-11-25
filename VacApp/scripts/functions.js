@@ -14,6 +14,25 @@ function loadSpinner()
     setTimeout(function(){synchronize()},200);
 }
 
+function onLoadSettings(){
+    if(language!= undefined)
+    {
+        document.getElementById("language-select").value = language;
+    }
+    else
+    {
+        document.getElementById("language-select").value = "english";
+    }
+    if(localStorage.getItem("settings") == "true")
+    {
+        document.getElementById("confirm-deletions-checkbox").checked = true;
+    }
+    else
+    {
+        document.getElementById("confirm-deletions-checkbox").checked = false;
+    }
+}
+
 function onLoad() 
 {   
     user = localStorage.getItem("loginUser");
@@ -53,7 +72,7 @@ function deleteElement()
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                                url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                 reqType : "delete"
                             };        
                             requests.push(req);                            
@@ -73,7 +92,7 @@ function deleteElement()
                             
                             // Save the info for later DELETE request
                             var req = {
-                                url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                                url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                                 reqType : "delete"
                             };        
                             requests.push(req); 
@@ -93,7 +112,7 @@ function deleteElement()
                             switch(record[i].type){
                                 case "vaccine":
                                     var req = {
-                                        url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                                        url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                         reqType : "delete"
                                     };  
                                     requests.push(req); 
@@ -103,7 +122,7 @@ function deleteElement()
                                 
                                 case "prescription":
                                     var req = {
-                                        url : "http://192.168.1.129:3000/Prescription/"+currentElementID,
+                                        url : "http://192.168.1.131:3000/Prescription/"+currentElementID,
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -113,7 +132,7 @@ function deleteElement()
                                 
                                 case "phr":
                                     var req = {
-                                        url : "http://192.168.1.129:3000/Phr/"+currentElementID,    // IP TO CHANGE
+                                        url : "http://192.168.1.131:3000/Phr/"+currentElementID,    // IP TO CHANGE
                                         reqType : "delete"
                                     };  
                                     requests.push(req);
@@ -140,7 +159,7 @@ function deleteElement()
                 while (i < vaccines.length) {
                     if (currentElementID == vaccines[i].vid) {
                         var req = {
-                            url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                            url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                             reqType : "delete"
                         };  
                         requests.push(req); 
@@ -158,7 +177,7 @@ function deleteElement()
                 while (i < prescriptions.length) {
                     if (currentElementID == prescriptions[i].vid) {
                         var req = {
-                            url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                            url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                             reqType : "delete"
                         }; 
                         
@@ -177,7 +196,7 @@ function deleteElement()
                         {
                             case "vaccine":
                                 var req = {
-                                    url : "http://192.168.1.129:3000/Vaccine/" + currentElementID,    // IP TO CHANGE
+                                    url : "http://192.168.1.131:3000/Vaccine/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req); 
@@ -187,7 +206,7 @@ function deleteElement()
                             
                             case "prescription":
                                 var req = {
-                                    url : "http://192.168.1.129:3000/Prescription/" + currentElementID,    // IP TO CHANGE
+                                    url : "http://192.168.1.131:3000/Prescription/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -197,7 +216,7 @@ function deleteElement()
                             
                             case "phr":
                                 var req = {
-                                    url : "http://192.168.1.129:3000/Phr/" + currentElementID,    // IP TO CHANGE
+                                    url : "http://192.168.1.131:3000/Phr/" + currentElementID,    // IP TO CHANGE
                                     reqType : "delete"
                                 };  
                                 requests.push(req);
@@ -312,7 +331,7 @@ function saveElementChanges()
                     var time = document.getElementById("detailed-vaccine-time").value;
                     
                     // Cancel the previous notification
-                    // window.plugin.notification.local.cancel(vaccines[i].vid);
+                     window.plugin.notification.local.cancel(vaccines[i].vid);
                     if (title == "" || date == "" || text == "")
                     {
                         if(title == ""){ highlightInputError("detailed-vaccine-title"); }
@@ -329,10 +348,10 @@ function saveElementChanges()
                         vaccines[i].time = time;
                         
                     // Set the new notification
-                      /*
+                      
                       var msg = "Vaccine for " + vaccines[i].title + " at " + vaccines[i].time;
                         var year = vaccines[i].date.getFullYear(),
-                        month = (vaccines[i].date.getMonth()) + 1,
+                        month = vaccines[i].date.getMonth(),
                         day = vaccines[i].date.getDate();
                         var hours, minutes;
                         if(document.getElementById("detailed-vaccine-notification-time-measure").value=="minute")
@@ -360,10 +379,10 @@ function saveElementChanges()
                                                              date : d,
                                                              sound : "TYPE_NOTIFICATION"
                         });
-                      */
+                      
                     /* Save the info for later PUT request */
                         var req = {
-                            url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                            url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                             reqType : "put",
                             entry : vaccines[i]
                         };        
@@ -422,7 +441,7 @@ function saveElementChanges()
                         
                         // Save the info for later PUT request
                         var req = {
-                            url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                            url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                             reqType : "put",
                             entry : prescriptions[i]
                         };        
@@ -461,7 +480,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                                url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -482,7 +501,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                             var req = {
-                                url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                                url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                                 reqType : "put",
                                 entry : record[i]
                             };        
@@ -510,7 +529,7 @@ function saveElementChanges()
                         
                             // Save the info for later PUT request
                                 var req = {
-                                    url : "http://192.168.1.129:3000/Phr/"+currentElementID,    // IP TO CHANGE
+                                    url : "http://192.168.1.131:3000/Phr/"+currentElementID,    // IP TO CHANGE
                                     reqType : "put",
                                     entry : record[i]
                                 };        
@@ -631,7 +650,7 @@ function synchronize()
             }
             
             $.ajax({
-                url: "http://192.168.1.129:3000/User/"+localStorage.getItem("userId"),    // IP TO CHANGE
+                url: "http://192.168.1.131:3000/User/"+localStorage.getItem("userId"),    // IP TO CHANGE
                 type: "put",
                 datatype : "json",
                 async:false,

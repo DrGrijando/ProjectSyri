@@ -68,7 +68,7 @@ function addNewPrescription()
         }
         
         var req = {
-            url : "http://192.168.1.129:3000/Prescription",    // IP TO CHANGE
+            url : "http://192.168.1.131:3000/Prescription",    // IP TO CHANGE
             reqType : "post",
             entry : prescriptionToStore
         };        
@@ -161,7 +161,7 @@ function moveToPrescriptions()
             record[i].inRecord = "false";            
             
             var req = {
-                url : "http://192.168.1.129:3000/Prescription/"+currentElementID,    // IP TO CHANGE
+                url : "http://192.168.1.131:3000/Prescription/"+currentElementID,    // IP TO CHANGE
                 reqType : "put",
                 entry : record[i]
             };

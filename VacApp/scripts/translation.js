@@ -202,7 +202,7 @@ function languageSelected(){
     var viewModel = dict[(language)];
     //document.getElementById("language-selector").value=language;
     
-    kendo.bind($("span"), viewModel);    
+    kendo.bind($("span"), viewModel);
     kendo.bind($("select"), viewModel);
     kendo.bind($("input"), viewModel);
     kendo.bind($("textarea"), viewModel);

@@ -36,10 +36,10 @@ function addNewVaccine()
         document.getElementById("vaccine-list").appendChild(newItem);	// Add the div to the specified List        
         
         // Set the notification for this vaccine
-        /*
+        
         var msg = "Vaccine for "+title+" at "+time;
         var year=date.getFullYear(),
-        month=(date.getMonth())+1,
+        month=date.getMonth(),
         day=date.getDate();
         var hours, minutes,val;
         if(document.getElementById("new-vaccine-notification-time-measure").value=="minute")
@@ -68,7 +68,7 @@ function addNewVaccine()
         date : d,
         sound : "TYPE_NOTIFICATION"
         });
-        */
+        
         // Store the new vaccine in the localStorage        
         var vaccineToStore = {"title":title,"date":date,"time":time,"vid":vid,"type":"vaccine","inRecord":"false"}
         vaccines.push(vaccineToStore);
@@ -78,7 +78,7 @@ function addNewVaccine()
         
         // Save the info for later POST request
         var req = {
-            url : "http://192.168.1.129:3000/Vaccine",    // IP TO CHANGE
+            url : "http://192.168.1.131:3000/Vaccine",    // IP TO CHANGE
             reqType : "post",
             entry : vaccineToStore
         };        
@@ -105,7 +105,7 @@ function viewDetailedVaccine()
             d = new Date(vaccines[i].date)
             document.getElementById("detailed-vaccine-title").value = vaccines[i].title;
             document.getElementById("detailed-vaccine-date").value = d.toISOString().split("T")[0];
-            //document.getElementById("detailed-vaccine-date").value = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); // NOT WORKING
+            //document.getElementById("detailed-vaccine-date").value = d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate(); // NOT WORKING
             document.getElementById("detailed-vaccine-time").value = vaccines[i].time;
             currentElementID = vaccines[i].vid;
             break;
@@ -151,7 +151,7 @@ function moveToVaccines()
             record[i].inRecord="false";
             
             var req = {
-                url : "http://192.168.1.129:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
+                url : "http://192.168.1.131:3000/Vaccine/"+currentElementID,    // IP TO CHANGE
                 reqType : "put",
                 entry : record[i]
             };            
